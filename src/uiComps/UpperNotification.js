@@ -1,4 +1,4 @@
-    import React, { useRef, useState, useMemo, useEffect, MouseEvent } from 'react'
+    import React, { useRef, useState, useMemo, useEffect, MouseEvent, forwardRef, useImperativeHandle } from 'react'
     import { useTransition, a } from '@react-spring/web'
     
     let id = 0
@@ -60,23 +60,27 @@
       )
     }
     
-    export default function UpperNotification({message}){ {
-      const ref = useRef(null)
+const UpperNotification=forwardRef((_ , forwardedRef)=>{ 
+  const ref = useRef(null)
+
+const showNotification = (message) => {
+    ref.current?.(message)
+  }
+
+  useImperativeHandle(forwardedRef, ()=>({showNotification}))
+
+  return (
+    <div className='main'>
+      <MessageHub
+        children={(add) => {
+          ref.current = add
+        }}
+      />
+    </div>
+  )
+})
     
-      const handleClick = () => {
-        ref.current?.('abcddd')
-      }
-    
-      return (
-        <div className='main' onClick={handleClick}>
-          Click here to create notifications
-          <MessageHub
-            children={(add) => {
-              ref.current = add
-            }}
-          />
-        </div>
-      )
-    }
-    
-}
+
+
+
+export default UpperNotification
