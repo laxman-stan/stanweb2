@@ -16,9 +16,9 @@ const Navbar = forwardRef(({ showPopUp, scrollTo }, ref) => {
     const logoFun = useContext(ShowLogo);
     const showLogo=logoFun.value
 
-    useEffect(()=>{
-        navRef.current.style.justifyContent=showLogo? 'center' : 'flex-start'
-    }, [showLogo])
+    // useEffect(()=>{
+    //     navRef.current.style.justifyContent=showLogo? 'center' : 'flex-start'
+    // }, [showLogo])
 
     const [d, setD] = useState(0);
     useEffect(() => {
@@ -78,7 +78,7 @@ const Navbar = forwardRef(({ showPopUp, scrollTo }, ref) => {
     }))
 
     return (
-        <div ref={navRef} className="f jc fixPos navBar2">
+        <div ref={navRef} className="f jc fixPos jc navBar2">
 
             <div  className="navCont relPos menuOnBigScreen">
 

@@ -81,25 +81,17 @@ const FirstPage = ({ open, navMove }) => {
         config: config.slow
     })))
     let time = useRef();
-    const logoRef = useRef();
 
-   const isBLA = useOnScreen(logoRef)
 
-   useEffect(()=>{
-        if(window.innerWidth>620)
-            showLogo(!isBLA)
-   }, [isBLA])
+//    const isBLA = useOnScreen(logoRef)
+
+//    useEffect(()=>{
+//         if(window.innerWidth>620)
+//             showLogo(!isBLA)
+//    }, [isBLA])
 
     useEffect(() => {
 
-        if(window.innerWidth>620){
-            logoRef.current.style.display = 'flex'
-            setTimeout(() => {
-                
-                logoRef.current.style.opacity = 1
-    
-            }, 1000);
-}
         time.current =setTimeout(() => {
             setCL(i=>(i+1)%3)
         }, lottieTims[currentLottie]);
@@ -110,13 +102,7 @@ const FirstPage = ({ open, navMove }) => {
     return <div ref={pgRf} className="f fullPg ac jc fc">
         <div className='f ac fpc'>
             <div className='f fc firstPgLeft'>
-    <div ref={logoRef} style={{gap: '1em', marginBottom: '1em', opacity: 0, transition: 'all 1s', display: 'none'}} className='ac'>
-    <img
-    style={{height: '10vh'}}
-    src={logo}
-    />
-    <h2 style={{color: 'white'}}>Credito</h2>
-    </div>
+
 
                 <h1 ref={headerRef} className='firstPgHeading' dangerouslySetInnerHTML={introPage.heading} />
                 <h3 className='firstPgSubheading' ref={subHeadingRef} dangerouslySetInnerHTML={introPage.subHeading} />
