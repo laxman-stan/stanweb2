@@ -1,11 +1,47 @@
-import { useContext } from "react"
-import { NotificationContext } from "../App"
-export default function UpperNav(){
+import { useContext, useState, useEffect } from "react"
+// import { NotificationContext } from "../App"
+// import Logo from '../assets/logo.svg'
+import { BackArrow, Logo } from "../assets"
+import BouncyComp from "./BouncyComp"
+import HelpWidget from "./HelpWidget"
+import WalletWidget from "./WalletWidget"
+import useShowNotification from "../hooks/useShowNotification"
+import { useLocation, useNavigate } from "react-router-dom"
 
-    const showNoification = useContext(NotificationContext)
+export default function UpperNav({showBackBtn}){
+    let notification = useShowNotification();
+    let history = useNavigate();
+    const [showBackButton, setShowBackButton] = useState(false);
 
+    const location = useLocation();
+    const pathNamesToShow = ['/main/', '/main/trade', '/main/rank' ,'/main']
 
-    return <div onClick={()=>showNoification('bhagle')} className="f se ac fw absPos nav bgg1 upperNav">
+    useEffect(()=>{
+        setShowBackButton(!pathNamesToShow.includes(location.pathname))
+    }, [location])
 
+    return <div
+        style={showBackButton ? {paddingLeft: 'var(--baseVal4)'} : {}}
+     className="f ac fw nav bgg1 upperNav">
+
+        {showBackButton? 
+ <BouncyComp
+ onClick={()=>history(-1)}
+ styles={{height: '40%'}}
+ customChild={   <img
+    style={{height: '100%', marginRight: 8}}
+    src={BackArrow}
+    />   }
+ />: null  
+    }
+
+        <img
+        style={{height: '30%'}}
+        src={Logo}
+        />
+
+        <div style={{marginLeft: 'auto'}}/>
+        <WalletWidget/>
+        <HelpWidget/>
     </div>
 }

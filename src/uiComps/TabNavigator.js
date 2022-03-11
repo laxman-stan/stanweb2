@@ -1,9 +1,12 @@
-import {a, useSpring, useSprings} from '@react-spring/web'
+import {a, config, useSpring, useSprings} from '@react-spring/web'
 import { useEffect, useRef, useState } from 'react'
 import { useDrag } from "@use-gesture/react";
 import { colors } from '../constants/colors';
+import { useOnce } from '@react-spring/shared';
 import Bar from './Bar';
 import _ from 'lodash';
+
+const {mainHighlight, mainHighlight30} = colors
 
 export default function TabNavigator({
     numberOfTabs=2,
@@ -27,31 +30,40 @@ export default function TabNavigator({
     const tabTitle={
         width: `${100/numberOfTabs}vw`,
         flex: 'none',
+        color: mainHighlight,
+        fontSize: '.83em',
     }
 
-
+    const [innerWid, setInnerWid] = useState(0);
 
     const [{tx, barX}, set] = useSpring(()=>({
         tx: 0, barX: 0
     }))
 
+    useOnce(()=>{
+        setInnerWid( window.innerWidth)
+    })
 
+
+const timer = useRef();
    const setActiveTab=(i)=>{
+       clearTimeout(timer.current);
                 set({
             from: {
                 tx: outerRef.current.scrollLeft,
             },
             to: {
-                tx: i*window.innerWidth,
+                tx: i*innerWid,
             },
             
             config: {
+                ...config.stiff,
                 clamp: true
             },
             delay: 100,
             onStart: ()=>outerRef.current.classList.remove('outerTabSnap'),
         })
-setTimeout(() => {
+timer.current = setTimeout(() => {
     outerRef.current.classList.add('outerTabSnap');
 }, 1000);
     }
@@ -68,12 +80,21 @@ setTimeout(() => {
         {
             tabNames.map((name, i) => <a.div className="f jc tabTitle"
             style={{ ...tabTitle, 
-                color: barX.to([-1, window.innerWidth/numberOfTabs*i, window.innerWidth/numberOfTabs*(i+1), window.innerWidth+1], ['blue','red', 'blue', 'red']),
+                opacity: barX.to({
+                    range: [innerWid/numberOfTabs*(i-1) ,innerWid/numberOfTabs*i, innerWid/numberOfTabs*(i+1)],
+                    output: [.3, 1, 0.3],
+                    extrapolate: 'clamp',
+                })
             }}
             onClick={()=>setActiveTab(i)}
             key={i}
-            ><h3>{name}</h3></a.div>)
+            ><h3 style={{fontWeight: 'bold'}}>{name}</h3></a.div>)
         }
+    <Bar
+    height={1}
+    color={'var(--grey1)'}
+    otherStyles={{position: 'absolute', bottom: 0}}
+    />
     <Bar
     width={tabTitle.width}
     x={barX}
@@ -85,7 +106,7 @@ setTimeout(() => {
         {tabs.current.map(tab=><a.div
          key={tab}
         //  {...scrollingFun()}
-         style={{...tabInnerCont, opacity: .5, backgroundColor: tab===0?'red':tab===1? 'blue' : 'green'}}
+         style={{...tabInnerCont}}
          className="tabInnercont fw">
             {renderTab(tab)}
         </a.div>)}

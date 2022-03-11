@@ -1,16 +1,72 @@
-import { useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Home from '../svgComps/Home'
 import LeaderBoard from '../svgComps/LeaderBoard'
-export default function BottomNav(){
+import {a, useSprings, config} from '@react-spring/web'
+import { colors } from '../constants/colors'
+import BouncyComp from './BouncyComp'
+import { useNavigate, useLocation } from 'react-router-dom'
+import useShowNotification from '../hooks/useShowNotification'
 
-    const [isHome, setIsHome] = useState(false);
-    const clickFun=()=>setIsHome(!isHome)
 
-    return <div className="f se ac fw absPos nav bgg1 bottomNav">
+import { RankIcon, TradeIcon, PlayIcon } from '../assets';
+export default function BottomNav() {
 
-            <Home clickFun={clickFun} text={"Home"} isActive={isHome}/>
+    const navData=[
+        {
+            source: PlayIcon, name: 'Play', path: '/main/'
+        },
+        {
+            source: TradeIcon, name: 'Trade', path: '/main/trade'
+        },
+        {
+            source: RankIcon, name: 'Rank', path: '/main/rank'
+        },
+    ]
+    const ref=useRef();
+
+
+
+    const [activeIndex, setActiveIndex] = useState(0);
+    
+    const styles = useSprings(navData.length, navData.map((_, i) => ({
+        background: i===activeIndex? colors.mainHighlight : colors.mainHighlig30,
+        color: i===activeIndex? colors.mainHighlight : colors.mainHighlig30,
+        config: config.slow
+    })))
+
+    const navigate = useNavigate();
+    const showNotifi= useShowNotification();
+    const setActiveIndexFun = index =>{
+
+        setActiveIndex(index)
         
-            <LeaderBoard clickFun={clickFun} text="Leaderboard" isActive={!isHome}/>
+        navigate(navData[index].path)}
+
+    const location = useLocation();
+    const pathNamesToShow = ['/main/', '/main/trade', '/main/rank' ,'/main']
+
+    useEffect(()=>{
+        ref.current.style.display=pathNamesToShow.includes(location.pathname)? 'flex' : 'none'
+    }, [location])
+
+    return <div ref={ref} className="f se ac fw nav bgg1 bottomNav">
+
+        {navData.map((item, index)=>(
+            <BouncyComp
+            key={index}
+            onClick={()=>setActiveIndexFun(index)}
+            customChild={<div className='f fc ac navIcon' key={index}>
+            <a.div style={styles[index]} className="navIconCont f ac jc" >
+            <img style={{
+                height: '65%',
+            }} className='navIconImg' src={item.source}/>
+            </a.div>
+            <a.h6 style={{...styles[index], background: 'none', fontWeight: 'bold', marginTop: '2px'}}>{item.name}</a.h6>
+            </div>}
+            />
+        ))}
+
+
 
     </div>
 }

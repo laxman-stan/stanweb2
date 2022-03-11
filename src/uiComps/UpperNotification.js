@@ -1,12 +1,14 @@
-    import React, { useRef, useState, useMemo, useEffect, MouseEvent, forwardRef, useImperativeHandle } from 'react'
+    import React, { useRef, useState, useMemo, forwardRef, useImperativeHandle } from 'react'
     import { useTransition, a } from '@react-spring/web'
+import { useOnce } from '@react-spring/shared'
+  
     
     let id = 0
     
     
     function MessageHub({
       config = { tension: 125, friction: 20, precision: 0.1 },
-      timeout = 3000,
+      timeout = 2500,
       children,
     }) {
 
@@ -33,26 +35,28 @@
         config: (item, index, phase) => key => (phase === 'enter' && key === 'life' ? { duration: timeout } : config),
       })
     
-      useEffect(() => {
+
+
+      useOnce(()=>{
         children((msg) => {
           setItems(state => [...state, { key: id++, msg }])
         })
-      }, [])
+      })
     
       return (
         <div className='container'>
           {transitions(({ life, ...style }, item) => (
             <a.div className={"message"} style={style}>
               <div className='content' ref={(ref) => ref && refMap.set(item, ref)}>
-                {/* <Life style={{ right: life }} /> */}
-                <p>{item.msg}</p>
-                <button className='button'
+
+                <p className='nText'>{item.msg}</p>
+                {/* <button className='button'
                   onClick={(e) => {
                     e.stopPropagation()
                     if (cancelMap.has(item) && life.get() !== '0%') cancelMap.get(item)()
                   }}>
                   <div>x + x</div>
-                </button>
+                </button> */}
               </div>
             </a.div>
           ))}

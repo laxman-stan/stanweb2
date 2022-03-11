@@ -3,7 +3,7 @@ import {a} from '@react-spring/web'
 export default function Bar({
     width="100%",
     height=2,
-    x,
+    x=0,
     color=colors.mainHighlight,
     otherStyles
 }){

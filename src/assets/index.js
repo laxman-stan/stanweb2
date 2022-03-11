@@ -1,0 +1,9 @@
+export {default as PlayIcon} from './icons/play.svg';
+export {default as TradeIcon} from './icons/trade.svg';
+export {default as RankIcon} from './icons/rank.svg';
+export {default as ClockIcon} from './icons/clock.svg';
+export {default as BackArrow} from './icons/backArrow.svg';
+export {default as Logo} from './logo.svg';
+export {default as Player} from './icons/players.svg';
+export {default as SortIcon} from './icons/sort.svg';
+export {default as Coin} from './icons/coin.svg';

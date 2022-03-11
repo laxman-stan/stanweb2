@@ -3,12 +3,13 @@ import {a, useSpring} from '@react-spring/web'
 export default function BouncyComp({
     styles,
     customChild,
-    bounceLevel=.9,
+    bounceLevel=.8,
     text,
     onClick,
     useDefaultBtnStyles=false,
     outlined=false,
-    useHighlightedBtnStyles=false
+    useHighlightedBtnStyles=false,
+    customClasses=null
 }){
 
     const [bounce, setBounce] = useSpring(()=>({scale: 1}))
@@ -24,9 +25,9 @@ export default function BouncyComp({
     onTouchEnd={up}
     onTouchCancel={up}
     className={`
-    ${useDefaultBtnStyles&& "primeBtn "}
     ${outlined&& "outlinedBtn "}
     ${useHighlightedBtnStyles&& "highlightedBtn "}
+    ${customClasses}
     noSelect`}
     style={{...styles, ...bounce}} onClick={onClick}>
         {text&& text}
