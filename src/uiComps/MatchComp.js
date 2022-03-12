@@ -36,9 +36,9 @@ export default function MatchComp() {
             <img style={{height: 16}} src={ClockIcon}/>
             <p style={{marginLeft: 'var(--baseVal2)', marginRight: 'auto', fontSize: '.83em'}}>Starts in 05:12 hrs</p>
             <BouncyComp
-            text='Joined'
-            styles={{width: '4.3em'}}
-            customClasses={"highlightedSmallBtn btnDisabledColor"}
+            text='View lineup'
+            styles={{width: '6.5em'}}
+            customClasses={"highlightedSmallBtn btnPrimeColor"}
             />
         </div>
 
@@ -46,7 +46,7 @@ export default function MatchComp() {
     </div>
 }
 
-const VS=()=>  <svg
+export const VS=()=>  <svg
 width={58}
 height={24}
 fill="none"

@@ -4,7 +4,7 @@
   --mainHighlight50: #41246E80;
   --mainHighlight75: #41246Ec0;
   --mainHighlight30: #41246E4d;
-  --mainHighlight40: #41246E64;
+  --mainHighlight40: #A79CB8;
   --mainHighlight20: #41246E32;
   --mainRed: #CC5C38;
   --mainGreen: #3D8266;
@@ -139,7 +139,13 @@ h6, h1{
   padding: var(--baseVal3);
   box-shadow: 0px 0px 10px var(--grey2);
   margin: 0 var(--baseVal3);
-  margin-bottom: 0;
+  /* transition: all .4s; */
+}
+.rosterCard{
+  transition: all .4s;
+}
+.rosterCard * {
+  transition: all .4s;
 }
 .cta{
   background-color: var(--mainHighlight);
@@ -366,7 +372,6 @@ input::placeholder{
     font-size: .8em;
     color: var(--mainHighlight40);
     font-weight: normal;
-
   }
   .whiteCard span{
     font-size: 1em;
@@ -381,6 +386,7 @@ input::placeholder{
     padding-top: var(--baseValH3);
     padding-bottom: var(--baseValH3);
     line-height: 80%;
+    background-color: var(--superWhite);
   }
   .upruns h5{
     font-size: .8em !important;
@@ -449,10 +455,11 @@ tbody:last-child td{
   /* background-color: var(--cardWhite); */
   border-radius: var(--baseVal2);
   padding: var(--baseVal4);
-  padding-top: var(--baseValH3);
-  padding-bottom: var(--baseValH3);
+  padding-top: var(--baseVal2);
+  padding-bottom: var(--baseVal2);
   font-weight: normal;
   border: 1px solid;
+  white-space: nowrap
 }
 .checkBox{
   width: var(--baseVal6);
@@ -471,4 +478,14 @@ tbody:last-child td{
   border-bottom-left-radius: 30px;
   margin-right: calc( -1 * var(--baseVal3));
   color: var(--superWhite);
+}
+
+.checkedCard{
+  background-color: var(--mainHighlight);
+}
+.checkedCard * {
+  color: white
+}
+.checkedCard span{
+  color: var(--superWhite)
 }

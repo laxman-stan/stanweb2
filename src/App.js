@@ -15,11 +15,15 @@ import {
   // Link
 } from "react-router-dom";
 
-import LoginScreen from './screens/LoginScreen';
 
+import LoginScreen from './screens/LoginScreen';
+import { QueryClient, QueryClientProvider} from 'react-query'
+ 
+const queryClient = new QueryClient()
 
 export const NotificationContext = createContext();
 export const BottomSheetContext = createContext();
+export const UserDataContext = createContext();
 
 function App() {
 
@@ -34,7 +38,11 @@ function App() {
     bottomSheetRef.current.showSheet(show, message, values)
   }
 
-
+const [userData, setUserData] = useState({})
+const userDataContext={
+  userData,
+  setData: val=>setUserData(val)
+}
   
   useEffect(() => {
     appRef.current.style.height = window.innerHeight + 'px';
@@ -44,7 +52,10 @@ function App() {
     // }, 3000);
   }, [])
 
-  return (<NotificationContext.Provider value={showNotification}>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <UserDataContext.Provider value={userDataContext}>
+  <NotificationContext.Provider value={showNotification}>
     <BottomSheetContext.Provider value={showBottomSheet}>
     <div ref={appRef} className="app f fc">
 
@@ -66,6 +77,8 @@ function App() {
     </div>
     </BottomSheetContext.Provider>
   </NotificationContext.Provider>
+  </UserDataContext.Provider>
+  </QueryClientProvider>
   );
 }
 

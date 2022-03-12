@@ -48,7 +48,7 @@ export default function TabNavigator({
 const timer = useRef();
    const setActiveTab=(i)=>{
        clearTimeout(timer.current);
-                set({
+                set.start({
             from: {
                 tx: outerRef.current.scrollLeft,
             },

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useOnce } from "@react-spring/shared";
+import { useEffect, useRef, useState } from "react";
 import { Coin } from "../assets";
 import {Bar, BouncyComp} from '../uiComps'
+import {a} from '@react-spring/web'
 
-export default function RoasterComp({Val}){
+export default function RoasterComp({name, Val, styleFromProp, setIh, price}){
 
     const data=[
         {
@@ -18,32 +20,56 @@ export default function RoasterComp({Val}){
             key: 'total wkts', value: 10,
         }
     ]
-    const upruns = 50;
+    const upruns = price;
     const change = 10;
     const operation = 'buy'
-    const showSelectionBtn = false;
+    const showSelectionBtn = !true;
     const [isChecked, setIsChecked] = useState(false)
+    const cardRef = useRef();
 
-    return <div  className="f fc rp whiteCard">
+    useEffect(()=>{
+        if(isChecked){
+            cardRef.current.classList.add('checkedCard')
+        }
+        else{
+            cardRef.current.classList.remove('checkedCard')
+        }
+    }, [isChecked])
+
+    useOnce(()=>{
+        if(setIh)
+        setIh(cardRef.current.clientHeight)
+        if(showSelectionBtn)
+        cardRef.current.classList.add("rosterCard")
+    })
+
+    return <a.div
+    onClick={()=>{
+        showSelectionBtn &&
+        setIsChecked(!isChecked)
+    }}
+    style={{...styleFromProp}}
+    
+     ref={cardRef} className="f fc rp whiteCard ">
         <div style={{gap: '.5em'}} className="f sb ac">
             <img style={{width: 40, height: 40}} src={"https://source.unsplash.com/random/60×60"}/>
 
-            <div>
-                <h3 style={{fontSize: '1em'}}>Player Name</h3>
+            <div style={{marginRight: 'auto', marginLeft: 'var(--baseVal)'}}>
+                <h3 style={{fontSize: '1em'}}>{name}</h3>
                 <p style={{fontSize: '.8em'}}>Bowl</p>
             </div>
 
-            <BouncyComp
+{   showSelectionBtn?         <BouncyComp
             onClick={()=>setIsChecked(!isChecked)}
             customChild={<Checkbox isChecked={isChecked}/>}
             />
-
-            {/* <BouncyComp
+:
+            <BouncyComp
             bounceLevel={.8}
             styles={{marginLeft: 'auto', width: '3.5em', backgroundColor: operation==='buy'? 'var(--mainGreen)': 'var(--mainRed)'}}
             text='Sell'
             customClasses="highlightedSmallBtn"
-            /> */}
+            />}
         </div>
         {/* <div className="line" style={{marginTop: '.8em', marginBottom: '.5em', width: 'calc(100)'}}/> */}
 
@@ -61,7 +87,7 @@ export default function RoasterComp({Val}){
             </h5>)}
 
         <div className="upruns rp">
-            <h5><span>{upruns}</span><br/>
+            <h5><span style={{color: 'var(--mainHighlight)'}}>{upruns}</span><br/>
             <RenderChange change={change}/>
             </h5>
             <img className="ap" style={{top: 2, right: 2}}
@@ -73,7 +99,7 @@ export default function RoasterComp({Val}){
 {   Val&1 ?  <div className="f ap ac jc" style={{top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'var(--mainHighlight75)', borderRadius: 'var(--baseVal2)'}}>
         <Lock/>
         </div> : null}
-    </div>
+    </a.div>
 }
 
 const RenderChange=({change})=>{
@@ -116,20 +142,24 @@ const Checkbox=({isChecked})=>{
 
 
     return <div style={{
-        borderColor: isChecked? 'transparent' : 'var(--mainHighlight)',
-        backgroundColor: isChecked? 'var(--mainHighlight)': 'transparent',
+        borderColor: isChecked? 'var(--superWhite)' : 'var(--mainHighlight)',
+        backgroundColor: isChecked? 'var(--mainHighlight)': 'var(--superWhite)',
     }} className="checkBox f ac jc">
         {isChecked? <CheckMark/>: null}
     </div>
 }
-const CheckMark=()=>  <svg
+const CheckMark=()=>    <svg
 width={12}
-viewBox="0 0 10 8"
+
 fill="none"
 xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 12 9"
 >
 <path
-  d="M3.578 7.168a.75.75 0 0 1-.53-.22l-2.83-2.83a.754.754 0 0 1 0-1.06c.29-.29.77-.29 1.06 0l2.3 2.3 5.14-5.14c.29-.29.77-.29 1.06 0 .29.29.29.77 0 1.06l-5.67 5.67a.75.75 0 0 1-.53.22Z"
-  fill="#fff"
+  d="m2 4.657 2.828 2.828 5.657-5.657"
+  stroke="#fff"
+  strokeWidth={2.5}
+  strokeLinecap="round"
+  strokeLinejoin="round"
 />
 </svg>

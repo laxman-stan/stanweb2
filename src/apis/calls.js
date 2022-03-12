@@ -102,7 +102,7 @@ function apiRequest(
     ;
 }
 
-export function getHeaderUpload() {
+function getHeader() {
     const token = sessionStorage.authToken;
     if (token) {
       return {
@@ -120,9 +120,20 @@ export function auth(params, callbackSuccess, callbackFailure) {
         endPoints.header,
         callbackSuccess,
         {
-            userId: 0
+            userId: "1"
           },
         callbackFailure,
         false
+    )
+}
+
+export function allPlayersRequest(params, callbackSuccess, callbackFailure) {
+    apiRequest(
+        'GET',
+        endPoints.baseUrl + endPoints.allPlayersEndpoint,
+        getHeader(),
+        callbackSuccess,
+        {},
+        callbackFailure
     )
 }

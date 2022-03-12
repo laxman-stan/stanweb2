@@ -10,15 +10,16 @@ const BottomSheet = forwardRef((_, ref) => {
     let [props, setProps] = useState({})
     const sheetRef = useRef();
     const nullFun=()=>{}
-    const setSheet = (val, message = "Alert ⚠", values) => {
-        console.log('here', message)
+    const setSheet = (val, values) => {
+        // console.log('here', message)
         if (val) {
             setProps({
-                message: message,
+                message: values?.message ?? 'warning ⚠',
                 declineText: values?.declineText ?? 'cancel',
                 acceptAction: values?.acceptAction ?? nullFun,
                 acceptText: values?.acceptText ?? 'accept',
-                declineAction: values?.declineAction ?? nullFun
+                declineAction: values?.declineAction ?? nullFun,
+                customChild: values?.customChild,
             })
             setShowSheet(true)
         }
@@ -52,7 +53,8 @@ const MainFunction = forwardRef(({
     acceptText,
     declineAction,
     acceptAction,
-    hide
+    hide,
+    customChild
 }, ref) => {
 
     const sheetRef = useRef();
@@ -91,7 +93,7 @@ const MainFunction = forwardRef(({
 
     return <div ref={sheetRef} style={{ display: 'none', zIndex: 21 }} className='fp fh fw'>
         <a.div onClick={declineFun} style={{ background: 'black', ...blackLayer }} className="fh fw" />
-        <a.div style={{ ...sheet, ...cardCont}} className="ap whiteCard">
+ {   !customChild?     <a.div style={{ ...sheet, ...cardCont}} className="ap whiteCard">
         <div style={{ ...cardStyle}} ref={contentContRef} className="f whiteCard fw fc">
             <h4 style={{textAlign: 'center', fontWeight: 'normal'}}>{message}</h4>
 
@@ -114,6 +116,10 @@ const MainFunction = forwardRef(({
             </div>
         </div>
         </a.div>
+:
+        <a.div onClick={declineFun} style={{...sheet, top: window.innerHeight}} ref={contentContRef} className="ap f fw fh fc">
+            {customChild}
+            </a.div>}
     </div>
 })
 
@@ -132,12 +138,13 @@ const cardCont={
     padding: 0,
     borrderRadius: 'var(--baseVal4)',
     paddingBottom: 100,
+    transition: "none"
 }
 
 const btnStyle={
     display: 'flex',
     width: 'calc( 50% - var(--baseVal2) )',
-    justifyContent: 'center',
+    justifyContent: 'center', 
     paddingTop: 'var(--baseVal3)',
     paddingBottom: 'var(--baseVal3)',
     borderRadius: 'var(--baseVal)'

@@ -46,9 +46,9 @@ const MainFunction = () =>{
     }
 
 
-    useEffect(()=>{
-        auth({}, (res)=>console.log('res'), (rs)=>console.log('err',rs))
-    }, [])
+    // useEffect(()=>{
+    //     auth({}, (res)=>console.log('res', res), (rs)=>console.log('err',rs))
+    // }, [])
     return <div className="f fc loginPg fw">
         {/* <InputField
          preComp={<p style={{color: 'var(--white3)'}} className="normalText">+91</p>}

@@ -3,4 +3,7 @@ export {default as Bar} from './Bar';
 export {default as EmptyTeam} from './EmptyTeam'
 export {default as RoseterComp} from './RoasterComp';
 export {default as TabNavigator} from './TabNavigator';
-export {default as BottomSheet} from './BottomSheet'
+export {default as BottomSheet} from './BottomSheet';
+export {default as Lineup} from './LineupComp';
+export {default as CloseBtn} from './CloseIcon';
+export {default as ActiveMatchComp} from './ActiveMatchComp'
