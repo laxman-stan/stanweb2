@@ -314,9 +314,9 @@ a{
   font-weight: bold !important;
 }
 .parallaxStaticSection{
-    width: 50vw;
+    width: 45vw;
     height: 100vh;
-    margin-left: 50vw;
+    margin-left: 55vw;
     overflow: hidden;
     align-items: flex-end;
     /* background-color: tan; */
@@ -329,6 +329,7 @@ a{
   /* background-color: teal; */
   height: 100vh;
   padding: 5%;
+  padding-left: 10%;
   padding-right: 0%;
   padding-top: auto;
   padding-bottom: auto;
