@@ -7,3 +7,4 @@ export {default as BottomSheet} from './BottomSheet';
 export {default as Lineup} from './LineupComp';
 export {default as CloseBtn} from './CloseIcon';
 export {default as ActiveMatchComp} from './ActiveMatchComp'
+export {default as Dropdown} from './DropDown';

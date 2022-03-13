@@ -8,6 +8,7 @@ import WalletScreen from './screens/WalletScreen';
 import { PlayScreen } from './screens/MainScreen';
 import TradeScreen from './screens/TradeScreen';
 import { BottomSheet } from './uiComps';
+import { HistoryScreen, Wallet } from './screens';
 import {
   // BrowserRouter as Router,
   Routes,
@@ -38,7 +39,11 @@ function App() {
     bottomSheetRef.current.showSheet(show, message, values)
   }
 
-const [userData, setUserData] = useState({})
+const [userData, setUserData] = useState({
+  allPlayers: null,
+  myPlayers: null,
+  upruns: null,
+})
 const userDataContext={
   userData,
   setData: val=>setUserData(val)
@@ -65,9 +70,13 @@ const userDataContext={
 
         <Route path="/" element={<LoginScreen/>}/>
         <Route path="/main" element={<MainScreen/>}>
+
           <Route path="/main" element={<PlayScreen/>} />
           <Route path="/main/rank" element={<RankScreen/>}/>
-          <Route path="/main/wallet" element={<WalletScreen/>}/>
+          <Route path="/main/wallet" element={<WalletScreen/>}>
+            <Route path="/main/wallet" element={<Wallet/>}/>
+            <Route path="/main/wallet/history" element={<HistoryScreen/>}/>
+          </Route>
           <Route path="/main/trade" element={<TradeScreen/>}/>
 
         </Route>

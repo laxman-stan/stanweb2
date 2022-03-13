@@ -35,10 +35,10 @@ export default function UpperNav({showBackBtn}){
  />: null  
     }
 
-        <img
+{  !showBackButton   ?   <img
         style={{height: '30%'}}
         src={Logo}
-        />
+        /> : <h3 style={{color: 'white'}}>Wallet</h3>}
 
         <div style={{marginLeft: 'auto'}}/>
         <WalletWidget/>

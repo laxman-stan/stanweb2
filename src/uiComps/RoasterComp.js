@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { Coin } from "../assets";
 import {Bar, BouncyComp} from '../uiComps'
 import {a} from '@react-spring/web'
+import useShowNotification from "../hooks/useShowNotification";
 
-export default function RoasterComp({name, Val, styleFromProp, setIh, price}){
+export default function RoasterComp({showSelectionBtn, name, isLocked, styleFromProp, setIh, price, btnText, change, buyAction, isBought, operation = 'buy'}){
 
     const data=[
         {
@@ -21,9 +22,7 @@ export default function RoasterComp({name, Val, styleFromProp, setIh, price}){
         }
     ]
     const upruns = price;
-    const change = 10;
-    const operation = 'buy'
-    const showSelectionBtn = !true;
+    
     const [isChecked, setIsChecked] = useState(false)
     const cardRef = useRef();
 
@@ -42,6 +41,7 @@ export default function RoasterComp({name, Val, styleFromProp, setIh, price}){
         if(showSelectionBtn)
         cardRef.current.classList.add("rosterCard")
     })
+
 
     return <a.div
     onClick={()=>{
@@ -65,9 +65,10 @@ export default function RoasterComp({name, Val, styleFromProp, setIh, price}){
             />
 :
             <BouncyComp
+            onClick={buyAction}
             bounceLevel={.8}
-            styles={{marginLeft: 'auto', width: '3.5em', backgroundColor: operation==='buy'? 'var(--mainGreen)': 'var(--mainRed)'}}
-            text='Sell'
+            styles={{marginLeft: 'auto', width: '4.6em', backgroundColor: operation==='buy' ? 'var(--mainGreen)': 'var(--mainRed)', opacity: isBought? .6 : 1}}
+            text={btnText}
             customClasses="highlightedSmallBtn"
             />}
         </div>
@@ -96,14 +97,14 @@ export default function RoasterComp({name, Val, styleFromProp, setIh, price}){
         </div>
         </div>
 
-{   Val&1 ?  <div className="f ap ac jc" style={{top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'var(--mainHighlight75)', borderRadius: 'var(--baseVal2)'}}>
+{   isLocked ?  <div className="f ap fc ac jc" style={{top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'var(--mainHighlight75)', borderRadius: 'var(--baseVal2)', color: 'white', gap: 8, fontSize: '.83em'}}>
         <Lock/>
+        Player locked (Already in use)
         </div> : null}
     </a.div>
 }
 
 const RenderChange=({change})=>{
-
     return <p style={{
         color: change<0? 'var(--mainRed)': 'var(--mainGreen)',
     }}>

@@ -9,7 +9,8 @@ export default function BouncyComp({
     useDefaultBtnStyles=false,
     outlined=false,
     useHighlightedBtnStyles=false,
-    customClasses=null
+    customClasses=null,
+    showLoading
 }){
 
     const [bounce, setBounce] = useSpring(()=>({scale: 1}))
@@ -24,7 +25,7 @@ export default function BouncyComp({
     onTouchStart={down}
     onTouchEnd={up}
     onTouchCancel={up}
-    className={`
+    className={`rp
     ${outlined&& "outlinedBtn "}
     ${useHighlightedBtnStyles&& "highlightedBtn "}
     ${customClasses}
@@ -32,5 +33,7 @@ export default function BouncyComp({
     style={{...styles, ...bounce}} onClick={onClick}>
         {text&& text}
         {customChild && customChild}
+
+    {showLoading ? <div className="loader-line"></div> : null}
     </a.div>
 }

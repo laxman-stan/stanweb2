@@ -11,6 +11,7 @@ const {mainHighlight, mainHighlight30} = colors
 export default function TabNavigator({
     numberOfTabs=2,
     tabNames=['tab1','tab2'],
+    initialIndex=0,
     renderTab=(i)=><p>{i}</p>
 }){
 
@@ -41,7 +42,13 @@ export default function TabNavigator({
     }))
 
     useOnce(()=>{
-        setInnerWid( window.innerWidth)
+        setInnerWid(window.innerWidth)
+        console.log('called', initialIndex )
+        set.start({
+            tx: initialIndex*window.innerWidth,
+            barX: initialIndex*window.innerWidth/numberOfTabs,
+            immediate: true
+        })
     })
 
 

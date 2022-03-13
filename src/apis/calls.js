@@ -81,7 +81,7 @@ function apiRequest(
     //   console.log('url', url);
     axios({
         method: method,
-        url: url + query,
+        url: url,
         data: body,
         timeout: timeout,
         headers: headers,
@@ -107,7 +107,7 @@ function getHeader() {
     if (token) {
       return {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
+        // 'Content-Type': 'multipart/form-data',
       };
     }
   }
@@ -120,7 +120,7 @@ export function auth(params, callbackSuccess, callbackFailure) {
         endPoints.header,
         callbackSuccess,
         {
-            userId: "1"
+            userId: "4"
           },
         callbackFailure,
         false
@@ -134,6 +134,93 @@ export function allPlayersRequest(params, callbackSuccess, callbackFailure) {
         getHeader(),
         callbackSuccess,
         {},
-        callbackFailure
+        callbackFailure,
+        false
+    )
+}
+
+export function myPlayersRequest(params, callbackSuccess, callbackFailure) {
+    apiRequest(
+        'GET',
+        endPoints.baseUrl + endPoints.myPlayers,
+        getHeader(),
+        callbackSuccess,
+        {},
+        callbackFailure,
+        false
+    )
+}
+
+export function buyPlayerRequest(params, callbackSuccess, callbackFailure){
+
+    apiRequest(
+        'POST',
+        endPoints.baseUrl + endPoints.buyPlayer,
+        getHeader(),
+        callbackSuccess,
+        params,
+        callbackFailure,
+        false
+    )
+}
+
+export function sellPlayerRequest(params, callbackSuccess, callbackFailure){
+
+    apiRequest(
+        'POST',
+        endPoints.baseUrl + endPoints.sellPlayer,
+        getHeader(),
+        callbackSuccess,
+        params,
+        callbackFailure,
+        false
+    )
+}
+
+export function historyReq( callbackSuccess, callbackFailure){
+
+    apiRequest(
+        'GET',
+        endPoints.baseUrl + endPoints.history,
+        getHeader(),
+        callbackSuccess,
+        {},
+        callbackFailure,
+        false
+    )
+}
+
+export function rewardReq( callbackSuccess, callbackFailure ){
+        apiRequest(
+            'GET',
+            endPoints.baseUrl + endPoints.rewards,
+            getHeader(),
+            callbackSuccess,
+            {},
+            callbackFailure,
+            false
+        )
+}
+
+export function redeemRewardReq(param, callbackSuccess, callbackFailure){
+    apiRequest(
+        'POST',
+        endPoints.baseUrl + endPoints.redeem,
+        getHeader(),
+        callbackSuccess,
+        param,
+        callbackFailure,
+        false
+    )
+}
+export function createTeamReq(param, callbackSuccess, callbackFailure){
+    apiRequest(
+        'POST',
+        endPoints.baseUrl + endPoints.createTeamEndpoint,
+        getHeader(),
+        callbackSuccess,
+        param,
+        callbackFailure,
+        false
     )
 }

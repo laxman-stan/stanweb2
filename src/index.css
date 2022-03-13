@@ -47,7 +47,7 @@ html {
   height: 0;
 }
 body{
-  overscroll-behavior: contain;
+  /* overscroll-behavior: contain; */
 }
 * {
   color: var(--mainContrast);
@@ -139,7 +139,6 @@ h6, h1{
   padding: var(--baseVal3);
   box-shadow: 0px 0px 10px var(--grey2);
   margin: 0 var(--baseVal3);
-  /* transition: all .4s; */
 }
 .rosterCard{
   transition: all .4s;
@@ -215,6 +214,15 @@ p{
 
 a{
   text-decoration: none;
+  cursor: pointer;
+}
+.heading{
+  color: var(--mainHighlight);
+  font-weight: bold;
+  
+  margin-top: var(--baseVal3);
+  margin-bottom: var(--baseVal2);
+  margin-left: var(--baseVal5);
 }
 
 .app{
@@ -442,9 +450,8 @@ tbody:last-child td{
   }
 
 .walletCard{
-  background-color: var(--cardWhite);
-  border-radius: var(--baseVal2);
-  padding: var(--baseVal3);
+  margin-top: var(--baseVal3);
+
 }
 .sortCont{
   padding-left: var(--baseVal3);
@@ -488,4 +495,48 @@ tbody:last-child td{
 }
 .checkedCard span{
   color: var(--superWhite)
+}
+
+.loader-line {
+  width: 100%;
+  height: 3px;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--mainHighlight40);
+  /* margin: 100px auto; */
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  position: absolute;
+  bottom: 0
+}
+
+
+.loader-line:before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  height: 3px;
+  width: 40%;
+  background-color: var(--mainHighlight);
+  -webkit-animation: lineAnim 1s linear infinite;
+  -moz-animation: lineAnim 1s linear infinite;
+  animation: lineAnim 1s linear infinite;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+@keyframes lineAnim {
+  0% {
+      left: -40%;
+  }
+  50% {
+      left: 20%;
+      width: 80%;
+  }
+  100% {
+      left: 100%;
+      width: 100%;
+  }
 }

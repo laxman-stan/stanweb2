@@ -20,6 +20,7 @@ const BottomSheet = forwardRef((_, ref) => {
                 acceptText: values?.acceptText ?? 'accept',
                 declineAction: values?.declineAction ?? nullFun,
                 customChild: values?.customChild,
+                disableActions: values?.disableActions ?? false,
             })
             setShowSheet(true)
         }
@@ -54,9 +55,11 @@ const MainFunction = forwardRef(({
     declineAction,
     acceptAction,
     hide,
-    customChild
+    customChild,
+    disableActions
 }, ref) => {
 
+    const [isActive, setIsActive] = useState(true);
     const sheetRef = useRef();
     const contentContRef = useRef();
     const [blackLayer, setBlackLayer] = useSpring(() => ({
@@ -85,13 +88,14 @@ const MainFunction = forwardRef(({
         hideSheet
     }))
 
-    const declineFun=()=>{
-        console.log('called')
+    const declineFun=()=>{ 
+        console.log(isActive, 'iafj')
+        if(isActive){
         declineAction();
         hideSheet();
-    }
+    }}
 
-    return <div ref={sheetRef} style={{ display: 'none', zIndex: 21 }} className='fp fh fw'>
+    return <div ref={sheetRef} style={{ display: 'none', zIndex: 1000 }} className='fp fh fw'>
         <a.div onClick={declineFun} style={{ background: 'black', ...blackLayer }} className="fh fw" />
  {   !customChild?     <a.div style={{ ...sheet, ...cardCont}} className="ap whiteCard">
         <div style={{ ...cardStyle}} ref={contentContRef} className="f whiteCard fw fc">
@@ -100,16 +104,26 @@ const MainFunction = forwardRef(({
             <div style={{gap: 'var(--baseVal4)', marginTop: '1em'}} className="f">
                 <BouncyComp
                 onClick={declineFun}
-                bounceLevel={.9}
+                bounceLevel={isActive? .9 : 1}
                     styles={btnStyle}
                     outlined
                     text={declineText}
                 />
 
                 <BouncyComp
-                onClick={acceptAction}
-                bounceLevel={.9}
-                    styles={{...btnStyle, ...secondBtn}}
+                onClick={()=>{
+                    if(isActive){
+                    acceptAction();
+                    if(disableActions)
+                        setIsActive(false);
+                    }
+                    
+                }}
+                showLoading={!isActive}
+                bounceLevel={isActive? .9 : 1}
+                    styles={{...btnStyle, ...secondBtn,
+                        background: isActive? 'var(--mainHighlight)' : 'var(--mainHighlight75)'
+                    }}
                     outlined
                     text={acceptText}
                 />
@@ -151,9 +165,10 @@ const btnStyle={
 }
 
 const secondBtn={
-    background: 'var(--mainHighlight)',
     color: 'white',
-    border: 'none'
+    border: 'none',
+    transition: 'all .3s',
+    overflow: 'hidden',
 }
 
 export default BottomSheet;
