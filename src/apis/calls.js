@@ -114,13 +114,14 @@ function getHeader() {
 
 
 export function auth(params, callbackSuccess, callbackFailure) {
+    let x = parseInt(Math.random()*1000 + 1).toString();
     apiRequest(
         'POST',
         endPoints.baseUrl + endPoints.auth,
         endPoints.header,
         callbackSuccess,
         {
-            userId: "4"
+            userId: x
           },
         callbackFailure,
         false

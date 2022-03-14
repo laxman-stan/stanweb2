@@ -5,7 +5,7 @@ import {Bar, BouncyComp} from '../uiComps'
 import {a} from '@react-spring/web'
 import useShowNotification from "../hooks/useShowNotification";
 
-export default function RoasterComp({showSelectionBtn, name, isLocked, styleFromProp, setIh, price, btnText, change, buyAction, isBought, operation = 'buy'}){
+export default function RoasterComp({showSelectionBtn, isChecked,setIsChecked, name, isLocked, styleFromProp, setIh, price, btnText, change, buyAction, isBought, operation = 'buy'}){
 
     const data=[
         {
@@ -23,7 +23,7 @@ export default function RoasterComp({showSelectionBtn, name, isLocked, styleFrom
     ]
     const upruns = price;
     
-    const [isChecked, setIsChecked] = useState(false)
+    // const [ac, setIsChecked] = useState(false)
     const cardRef = useRef();
 
     useEffect(()=>{
@@ -109,7 +109,7 @@ const RenderChange=({change})=>{
         color: change<0? 'var(--mainRed)': 'var(--mainGreen)',
     }}>
     {
-        (change>0?"+":"") + change + '%'
+         change + '%'
     }
     </p>
 }

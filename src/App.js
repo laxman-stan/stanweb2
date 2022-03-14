@@ -8,7 +8,7 @@ import WalletScreen from './screens/WalletScreen';
 import { PlayScreen } from './screens/MainScreen';
 import TradeScreen from './screens/TradeScreen';
 import { BottomSheet } from './uiComps';
-import { HistoryScreen, Wallet } from './screens';
+import { HistoryScreen, Wallet, CreateTeam } from './screens';
 import {
   // BrowserRouter as Router,
   Routes,
@@ -43,6 +43,7 @@ const [userData, setUserData] = useState({
   allPlayers: null,
   myPlayers: null,
   upruns: null,
+  teamCreated: false,
 })
 const userDataContext={
   userData,
@@ -72,6 +73,7 @@ const userDataContext={
         <Route path="/main" element={<MainScreen/>}>
 
           <Route path="/main" element={<PlayScreen/>} />
+          <Route path="/main/create-team" element={<CreateTeam/>} />
           <Route path="/main/rank" element={<RankScreen/>}/>
           <Route path="/main/wallet" element={<WalletScreen/>}>
             <Route path="/main/wallet" element={<Wallet/>}/>

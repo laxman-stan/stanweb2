@@ -34,9 +34,10 @@ const MainFunction = () => {
 
     let userData = useUserData();
 
-    const myPlayerRequestSuccess = (res, allPlayersData, upruns) => {
-        res = res ?? []
-        let myPlayers = res.map(i => {
+    const myPlayerRequestSuccess = (myData, allPlayersData, upruns) => {
+        let teamCreated = myData?.team_created ?? false
+        let inventory = myData.inventory ?? []
+        let myPlayers = inventory.map(i => {
             let player = { ...allPlayersData.find(j => j.id === i.id) }
             player.isPlayingToday = i.locked
             return player
@@ -60,6 +61,7 @@ const MainFunction = () => {
 
         let x = userData.userData;
         x.allPlayers = data;
+        x.teamCreated = teamCreated;
         x.upruns = upruns;
         x.myPlayers = myPlayers
         userData.setData({
@@ -69,7 +71,7 @@ const MainFunction = () => {
     }
     const playerDataSus = res => {
 
-        myPlayersRequest(null, result => myPlayerRequestSuccess(result.inventory, res, result.upruns), err => console.log('err', err))
+        myPlayersRequest(null, result => myPlayerRequestSuccess(result, res, result.upruns), err => console.log('err', err))
     }
 
 
@@ -105,35 +107,40 @@ export const PlayScreen = () => {
 
 const RenderTabs = ({ index, data }) => {
     if (index === 0)
-        return <TodaysMatch />
+        return <TodaysMatch data={data} />
     if (index === 1)
         return <MyRoaster data={data} />
 }
 
-const TodaysMatch = () => {
-    let x = [1, 2]
+const TodaysMatch = ({ data }) => {
+    const { myPlayers, teamCreated } = data
 
+    const myTeam = myPlayers?.filter(i => i.isPlayingToday)
 
-    return <div className="f fc fh cardCont">
-
-        <RoasterComp
-        showSelectionBtn
-        styleFromProp={{
-            transition: 'all .4s'
-        }}
-        />
+    return <div style={{ paddingTop: 0
+    }} className="f fc fh cardCont">
+        <div className="f fc" style={{ gap: 'var(--baseVal3)'}}>
+        {
+            teamCreated ? null : <>
+                <MatchComp />
+                <MatchComp />
+            </>
+        }
+</div>
+     {teamCreated? <ActiveMatchComp team={myTeam}/> : <EmptyTeam len={myPlayers.length} createTeam/>}
 
     </div>
 }
 
 const MyRoaster = ({ data }) => {
     let len = data.myPlayers.length
-    return <div className="f fc rp fh cardCont">
-        {len ?
+    return <div style={{padding: 0}} className="f fc fh rp cardCont">
+        {len ?<div style={{overflowY: 'scroll'}} >
             <Sell
-            data={data}
-            /> : null   }
+                styles={{marginTop: 'var(--baseVal)'}}
+                data={data}
+            /></div> : null}
 
-        {len<5 ? <EmptyTeam len={len} /> : null}
+        {len < 5 ? <EmptyTeam len={len} /> : null}
     </div>
 }

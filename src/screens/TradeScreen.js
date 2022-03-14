@@ -52,7 +52,7 @@ const RenderTabs = ({ index, data, set }) => {
         return <Buy set={set} data={data} players={data.allPlayers}/>
 }
 
-export const Sell = ({data, set}) => {
+export const Sell = ({data, set, styles}) => {
 
     const bottomSheet = useShowBottomSheet();
     const notification = useShowNotification();
@@ -97,7 +97,7 @@ export const Sell = ({data, set}) => {
             bottomSheet(true, props);
     }  
 
-    return <div className="f fc fh cardCont">
+    return <div style={{...styles}} className="f fc fh cardCont">
         {dataToShow.map((i, index) => {
   
             const {price, name, id, growth_perc, isPlayingToday} = i

@@ -2,27 +2,19 @@ import { VS } from "./MatchComp"
 import { ClockIcon, Coin } from "../assets"
 import { Bar } from "."
 
-export default function ActiveMatchComp() {
-
+export default function ActiveMatchComp({team}) {
 
     return <div className="whiteCard f fc">
 
         <CompToMap />
         <CompToMap />
 
-        <RenderTeamList />
+        <RenderTeamList team={team}/>
 
     </div>
 }
 
-const RenderTeamList = () => {
-const players=[
-    {name: 'rohit', score: 34},
-    {name: 'mohit', score: 345},
-    {name: 'purohit', score: 4},
-    {name: 'uuohit', score: 11},
-    {name: 'rfaahit', score: 344},
-]
+const RenderTeamList = ({team}) => {
 
     return <div style={{gap: 'var(--baseValH3)'}} className="f fc ">
         <div style={{
@@ -36,13 +28,13 @@ const players=[
         </div>
 
         {
-            players.map((item, index)=><div key={index} className="f">
+            team.map((item, index)=><div key={index} className="f">
                 <p style={{
                     width: '50%'
                 }}>{item.name}</p>
                 <div style={{marginLeft: 'var(--baseVal3)', gap: 'var(--baseVal)'}} className="f">
                     <img src={Coin}/>
-                    <p>{item.score}</p>
+                    <p>{"not determined"}</p>
                     </div>
 
                 </div>)
