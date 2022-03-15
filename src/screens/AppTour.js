@@ -29,7 +29,7 @@ const MainFun=()=>{
 const nextFun=()=>{
     iteration.current++
     if(iteration.current< 3)
-    setStyle({
+    setStyle.start({
         x: -window.innerWidth*iteration.current
     })
     else

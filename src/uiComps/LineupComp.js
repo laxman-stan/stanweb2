@@ -1,9 +1,7 @@
-import { CloseBtn, BouncyComp, Bar } from "."
+import { CloseBtn, Bar } from "."
 
 export default function Lineup(props) {
-    const players = [
-        'laxmikant', 'swami', 'ghanshyam', 'manisha', 'alpha', 'the withcer', 'wagle', 'bhagle'
-    ]
+    const {teamA, teamB} = props
 
     return <div onClick={e=>e.stopPropagation()} style={{ padding: 'var(--baseVal3) 0 0 0', marginTop: 'auto', marginBottom:'auto' }} className="whiteCard rp f fc">
         <h3 style={styles.h3}>Team Linuup</h3>
@@ -19,7 +17,7 @@ export default function Lineup(props) {
 
         <div className="f sb">
             <div style={{...styles.column, paddingTop: 0, paddingBottom: 0}} className="f fc">
-                <h4 style={styles.topHead}>BLR</h4>
+                <h4 style={styles.topHead}>{teamA.name}</h4>
             </div>
 
             <Bar
@@ -31,7 +29,7 @@ export default function Lineup(props) {
             />
 
             <div style={{...styles.column, paddingTop: 0, paddingBottom: 0}} className="f fc">
-                <h4 style={styles.topHead}>RRR</h4>
+                <h4 style={styles.topHead}>{teamB.name}</h4>
             </div>
         </div>
 
@@ -43,12 +41,11 @@ export default function Lineup(props) {
             }}
         />
 
-        {/* players */}
         <div className="f sb">
 
 
             <div style={styles.column} className="f fc">
-                {players.map((item, index) => <p key={index}>{item}</p>)}
+                {teamA.players.map((item, index) => <p key={index}>{item}</p>)}
             </div>
 
             <Bar
@@ -60,7 +57,7 @@ export default function Lineup(props) {
             />
 
             <div style={{ ...styles.column }} className="f fc">
-                {players.map((item, index) => <p key={index}>{item}</p>)}
+                {teamA.players.map((item, index) => <p key={index}>{item}</p>)}
             </div>
 
         </div>

@@ -1,13 +1,16 @@
 import { VS } from "./MatchComp"
 import { ClockIcon, Coin } from "../assets"
 import { Bar } from "."
+import useUserData from "../hooks/useUserData"
 
 export default function ActiveMatchComp({team}) {
+    const matchData = useUserData()?.userData?.todaysMatch
 
-    return <div className="whiteCard f fc">
+    return <div style={{marginTop: 'calc( -1 * var(--baseVal2) )'}} className="whiteCard f fc">
 
-        <CompToMap />
-        <CompToMap />
+        {   
+            matchData?.map((i, j)=><CompToMap key={j} data={i}/>)
+        }
 
         <RenderTeamList team={team}/>
 
@@ -45,15 +48,15 @@ const RenderTeamList = ({team}) => {
 }
 
 
-const CompToMap = () => {
-
+const CompToMap = ({data}) => {
+const {teamA, teamB, time} = data
 
     return <>      <div style={{ marginBottom: 'var(--baseVal2)' }} className="f ac jc">
-        <img style={{ height: 16 }} src={ClockIcon} />
-        <p style={{ marginLeft: 'var(--baseVal2)', fontSize: '.83em' }}>Starts in 05:12 hrs</p>
+        <img alt={{}} style={{ height: 16 }} src={ClockIcon} />
+        <p style={{ marginLeft: 'var(--baseVal2)', fontSize: '.83em' }}>{'Starts at ' + time}</p>
     </div>
         <MatchLine
-            teams={['laxmikant', 'swami']}
+            teams={[teamA, teamB]}
         />
 
         <Bar
@@ -67,13 +70,14 @@ const CompToMap = () => {
 const MatchLine = ({
     teams
 }) => {
-
+    let name1 = teams[0].name;
+    let name2 = teams[1].name
     return <div className="f sb ac">
-        <img style={{ width: 40, height: 40 }} src={"https://source.unsplash.com/random/60×60"} />
-        <h4 style={{ width: '4.5em', marginRight: 'auto', marginLeft: 'var(--baseVal3)' }}>{teams[0]}</h4>
+        <img alt={name1} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name1 + ".png" )} />
+        <h4 style={{ width: '4.5em', marginRight: 'auto', marginLeft: 'var(--baseVal3)' }}>{name1}</h4>
         <VS />
-        <h4 style={{ width: '4.5em', marginLeft: 'auto', marginRight: 'var(--baseVal3)', textAlign: 'end' }}>{teams[1]}</h4>
-        <img style={{ width: 40, height: 40 }} src={"https://source.unsplash.com/random/60×60"} />
+        <h4 style={{ width: '4.5em', marginLeft: 'auto', marginRight: 'var(--baseVal3)', textAlign: 'end' }}>{name2}</h4>
+        <img alt={name2} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name1 + ".png" )} />
 
     </div>
 }

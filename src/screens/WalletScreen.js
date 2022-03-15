@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react"
 import { colors } from "../constants/colors"
-import { BouncyComp, Bar, CloseBtn, Lineup } from "../uiComps"
+import { BouncyComp, Bar, CloseBtn, Lineup, Loader } from "../uiComps"
 import { ShowBottomBavContext } from "../App"
 import { Outlet, useNavigate } from "react-router-dom"
 import { redeemRewardReq, rewardReq } from "../apis/calls"
@@ -18,7 +18,8 @@ export default function WalletScreen() {
 export const Wallet = () => {
     const upruns = useUserData().userData.upruns;
     const navigate = useNavigate();
-
+    const notification = useShowNotification();
+    
     const [rewards, setRewards] = useState([]);
     const setRewardsFun = (all, claimed) => {
 
@@ -26,28 +27,31 @@ export const Wallet = () => {
         if (claimed.length)
             rewards = rewards.map(i => {
                 let x = !~claimed.findIndex(j => j.reward.id === i.id)
-
                 i.isClaimed = !x
                 return i
             })
 
-        setRewards(all)
+        setRewards(rewards)
+    }
+
+    const apiFailed = (err) => {
+        notification(err?.message ?? 'Something went wrong');
     }
 
     useEffect(() => {
         rewardReq(
             (res) => setRewardsFun(res.rewards, res.claimedRewards),
-            (res) => console.log('fail', res)
+            apiFailed
         )
     }, [])
 
 
-    return <div style={{overflowY: 'scroll'}} className="f fh fc">
+    return <div style={{ overflowY: 'scroll' }} className="f fh fc">
 
         <div className="f walletCard whiteCard sb">
             <h5 style={{ fontWeight: 'normal' }}>Total Balance
                 <br />
-                <p style={{ fontSize: '1.5em', fontWeight: 'bold' }}>{upruns.toLocaleString('en-IN')}</p>
+                <p style={{ fontSize: '1.5em', fontWeight: 'bold' }}>{upruns?.toLocaleString('en-IN')}</p>
             </h5>
 
             <BouncyComp
@@ -61,9 +65,9 @@ export const Wallet = () => {
         <h3 className="heading">Redeem Offers</h3>
 
         {
-            rewards.map((i, index)=><RewardComp
-            data={i} key={index}
-             />)
+            rewards.length ? rewards.map((i, index) => <RewardComp
+                data={i} key={index}
+            />) : <Loader />
         }
     </div>
 }
@@ -71,18 +75,19 @@ export const Wallet = () => {
 const RewardComp = ({ data }) => {
     const bottomSheet = useShowBottomSheet();
     const notification = useShowNotification();
-
     const { price, title, id, desc, isClaimed: isItemClaimed } = data
-
     const [isClaimed, setIsClaimed] = useState(isItemClaimed)
-
+    const userData = useUserData();
     const apiCalled = (isRedeemed, res) => {
 
         bottomSheet(false);
         notification(isRedeemed ? 'Redeemed successfully' : res ?? 'Something went wrong')
-        if (isRedeemed)
+        if (isRedeemed){
             setIsClaimed(true)
-    }
+            let x = userData.userData
+            x.upruns -= price
+            userData.setData({...x})
+    }}
 
 
     const clickFun = () => {
@@ -104,9 +109,10 @@ const RewardComp = ({ data }) => {
 
     }
 
-    const viewDetails=()=>{
+    const viewDetails = () => {
         const bottomsheetPropsForDetails = {
-            customChild: <RewardInfo close={()=>bottomSheet(false)}/>
+            customChild: <RewardInfo details={data} close={() => bottomSheet(false)} />,
+            customConfig: 'gentle'
         }
         bottomSheet(true, bottomsheetPropsForDetails);
     }
@@ -162,67 +168,69 @@ const RewardComp = ({ data }) => {
 }
 
 const RewardInfo = (props) => {
+    const { price, title, id, desc } = props.details;
+    console.log(props.details);
 
+    return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
+        <div style={{ height: '100%', overflowY: 'scroll', paddingBottom: 'calc( 30% + var(--baseVal4) )' }} className="f fc">
+            <div className="f">
+                <img
+                    alt="reward"
+                    style={{ width: 40, height: 40 }}
+                    src={"https://source.unsplash.com/random/60×60"}
+                />
+                <div style={{marginLeft: 'var(--baseVal2)', textTransform: 'capitalize', }} className="f fc">
+                    <h3 style={{fontWeight:'bold'}}>{title}</h3>
+                    <p style={subHeading}>{desc}</p>
+                </div>
+            </div>
 
-    return <div onClick={e=>e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
-<div style={{height: '100%', overflowY:'scroll', paddingBottom: 'calc( 30% + var(--baseVal4) )'}} className="f fc">
-<div className="f">
-            <img
-                style={{ width: 40, height: 40 }}
-                src={"https://source.unsplash.com/random/60×60"}
+            <Bar
+                height={1}
+                otherStyles={{
+                    marginTop: '.8em', marginBottom: '.5em', opacity: .2
+                }}
             />
-            <div className="f fc">
-                <h3>SubWay</h3>
-                <p style={subHeading}>this is some details</p>
+
+            <div className="sb f">
+                <div className="f">
+                    Valid till: {'\u00A0'}<span>Never expires</span>
+                </div>
+                <div className="f">
+                    Avail for: {'\u00A0'}<img src={Coin} /> <span>{'\u00A0' + price}</span>
+                </div>
             </div>
-        </div>
 
-        <Bar
-            height={1}
-            otherStyles={{
-                marginTop: '.8em', marginBottom: '.5em', opacity: .2
-            }}
-        />
+            <Bar
+                height={1}
+                otherStyles={{
+                    marginTop: '.8em', marginBottom: '.5em', opacity: .2
+                }}
+            />
 
-        <div className="sb f">
-            <div className="f">
-                Valid till: <span>Never expires</span>
+            <div style={{ paddingLeft: 'var(--baseVal4)', paddingRight: 'var(--baseVal4)' }}>
+                <h4>How to Redeem</h4>
+                <ol>
+                    <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?</li>
+                    <li>Lorem ipsum dolor sit amet consectetur.</li>
+                </ol>
             </div>
-            <div className="f">
-                Avail for: <img src={Coin} /> <span>40</span>
+
+            <div style={{ paddingLeft: 'var(--baseVal4)', paddingRight: 'var(--baseVal4)', marginTop: 'var(--baseVal4)' }}>
+                <h4>Terms and conditions</h4>
+                <ul style={{ transform: 'translateX(2px)' }}>
+                    <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?</li>
+                    <li>Lorem ipsum dolor sit amet consectetur.</li>
+                </ul>
             </div>
+
+            <CloseBtn
+                onClick={props.close}
+                styles={{ right: 'var(--baseVal3)' }}
+            />
         </div>
-
-        <Bar
-            height={1}
-            otherStyles={{
-                marginTop: '.8em', marginBottom: '.5em', opacity: .2
-            }}
-        />
-
-        <div style={{paddingLeft: 'var(--baseVal4)', paddingRight: 'var(--baseVal4)'}}>
-            <h4>How to Redeem</h4>
-            <ol>
-                <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?</li>
-                <li>Lorem ipsum dolor sit amet consectetur.</li>
-            </ol>
-        </div>
-
-        <div style={{paddingLeft: 'var(--baseVal4)', paddingRight: 'var(--baseVal4)', marginTop: 'var(--baseVal4)'}}>
-            <h4>Terms and conditions</h4>
-            <ul style={{transform: 'translateX(2px)'}}>
-                <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!</li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?</li>
-                <li>Lorem ipsum dolor sit amet consectetur.</li>
-            </ul>
-        </div>
-
-        <CloseBtn
-        onClick={props.close}
-        styles={{right: 'var(--baseVal3)'}}
-        />
-</div>
 
     </div>
 }
@@ -237,5 +245,5 @@ const rewardInfoCard = {
 }
 
 const subHeading = {
-    marginTop: -4
+    
 }

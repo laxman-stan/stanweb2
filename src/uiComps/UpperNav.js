@@ -38,7 +38,7 @@ export default function UpperNav({showBackBtn}){
 {  !showBackButton   ?   <img
         style={{height: '30%'}}
         src={Logo}
-        /> : <h3 style={{color: 'white'}}>Wallet</h3>}
+        /> : <h3 style={{color: 'white'}}>{location.pathname.includes('history')? 'History' : 'Wallet'}</h3>}
 
         <div style={{marginLeft: 'auto'}}/>
         <WalletWidget/>

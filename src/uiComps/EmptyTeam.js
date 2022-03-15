@@ -3,8 +3,8 @@ import { Player } from "../assets"
 import BouncyComp from "./BouncyComp"
 import { useNavigate } from "react-router-dom";
 
-export default function({len, createTeam}){
-    console.log('fo', len, createTeam)
+export default function EmptyTeam({len, createTeam, hideBtn=false}){
+    
     const navigate = useNavigate();
     return <div style={{
         alignSelf: 'center', bottom: 0,
@@ -23,22 +23,23 @@ export default function({len, createTeam}){
         <p style={{color: 'var(--mainHighlight50)', marginTop: 'auto', marginBottom: 'var(--baseVal3)'}}>{len>4 && createTeam ? "You havent' created your team for todaty." : "You need 5 player to create a team."}</p>
         : <>
         <img
+        alt='no player'
         style={{
             width: '30%',
             marginBottom: '.5em',
-            marginTop: 'auto'
+            marginTop: 'auto',
         }}
      src={Player}/>
-    <p style={{color: 'var(--mainHighlight50)'}}>You haven't bought and player yet.</p></>
+    <p style={{color: 'var(--mainHighlight50)', marginBottom: hideBtn? 'auto' : 0}}>You haven't bought and player yet.</p></>
     }
     
-    <BouncyComp
+{ hideBtn ? null :  <BouncyComp
     onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade', {state: 'toBuy'})}
     bounceLevel={.9}
     styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 0, marginRight: 0, width: 'calc(100vw - var(--baseVal6))', flex: 'none' }}
     customClasses='cta'
     text={len>4 && createTeam? 'Create Team' : 'Buy Player'}
-    />
+    />}
 
     </div>
 }

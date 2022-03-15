@@ -15,9 +15,9 @@ const BottomSheet = forwardRef((_, ref) => {
         if (val) {
             setProps({
                 message: values?.message ?? 'warning ⚠',
-                declineText: values?.declineText ?? 'cancel',
+                declineText: values?.declineText ?? 'No',
                 acceptAction: values?.acceptAction ?? nullFun,
-                acceptText: values?.acceptText ?? 'accept',
+                acceptText: values?.acceptText ?? 'Yes',
                 declineAction: values?.declineAction ?? nullFun,
                 customChild: values?.customChild,
                 disableActions: values?.disableActions ?? false,
@@ -169,7 +169,7 @@ const btnStyle={
 const secondBtn={
     color: 'white',
     border: 'none',
-    transition: 'all .3s',
+    transition: 'opacity .3s',
     overflow: 'hidden',
 }
 

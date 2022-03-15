@@ -10,10 +10,11 @@ import { Outlet } from "react-router-dom"
 import useCheckIsLoggedIn from "../hooks/useCheckIsLoggedIn"
 import { BouncyComp, EmptyTeam, Lineup, ActiveMatchComp, Loader } from "../uiComps"
 import { useQuery } from 'react-query'
-import { allPlayersRequest, myPlayersRequest } from "../apis/calls"
+import { allPlayersRequest, myPlayersRequest, getTodaysMatchesReq } from "../apis/calls"
 import useShowBottomSheet from "../hooks/useShowBottomSheet"
 import useUserData from "../hooks/useUserData"
 import { Sell } from "./TradeScreen"
+import useShowNotification from "../hooks/useShowNotification"
 
 
 
@@ -21,7 +22,6 @@ export default function MainScreen() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     useCheckIsLoggedIn(setIsLoggedIn);
-
 
     if (!isLoggedIn)
         return <div />
@@ -31,25 +31,52 @@ export default function MainScreen() {
 }
 
 const MainFunction = () => {
+    const notification = useShowNotification();
+    const userData = useUserData(); 
 
-    let userData = useUserData();
+    const apiFailed=(err)=>{
+        notification(err?.message ?? 'Something went wrong.')
+    }
+    
+    const myPlayerRequestSuccess = (myData, allPlayersData, todaysMatch) => {
+        let todaysMatchData = todaysMatch.map(i=>{
+            return {
+                time: i.time,
+                data: i.date,
+                teamA: {
+                    name: i.teama,
+                    players: i.teama_players
+                },
+                teamB: {
+                    name: i.teamb,
+                    players: i.teamb_players
+                }
+            }
+        })
+        let todaysTeams = todaysMatch.reduce((arr, val)=>{
+            arr.push(val.teama)
+            arr.push(val.teamb)
+            return arr
+        }, [])
 
-    const myPlayerRequestSuccess = (myData, allPlayersData, upruns) => {
+
+        const upruns = myData.upruns;
         let teamCreated = myData?.team_created ?? false
         let inventory = myData.inventory ?? []
         let myPlayers = inventory.map(i => {
             let player = { ...allPlayersData.find(j => j.id === i.id) }
-            player.isPlayingToday = i.locked
+            player.isPlayingToday = todaysTeams.includes(player.team)
+            player.isLocked = i.locked
             return player
         })
-
 
         let data = allPlayersData.map((i, j) => {
             i.isBought = (myPlayers.find(k => k.id === i.id) ? true : false)
             i.growth_perc = parseFloat(i.growth_perc)
-            i.isPlayingToday = Math.random() > .5
+            i.isPlayingToday = todaysTeams.includes(i.team)
             return i
         })
+
 
         data = data.reduce((obj, item) => {
             if (!obj[item.team])
@@ -63,21 +90,32 @@ const MainFunction = () => {
         x.allPlayers = data;
         x.teamCreated = teamCreated;
         x.upruns = upruns;
+        x.name = myData.name;
+        x.gain = myData.uprun_gains
         x.myPlayers = myPlayers
+        x.todaysMatch=todaysMatchData
         userData.setData({
             ...x
         })
 
     }
-    const playerDataSus = res => {
 
-        myPlayersRequest(null, result => myPlayerRequestSuccess(result, res, result.upruns), err => console.log('err', err))
+    const playerDataSus = (allPlayerApiRes, todaysMatch) => {
+        if(userData.userData.userFromLogin===null)
+        myPlayersRequest(null, result => myPlayerRequestSuccess(result, allPlayerApiRes, todaysMatch), apiFailed)
+        else
+        myPlayerRequestSuccess(userData.userData.userFromLogin, allPlayerApiRes, todaysMatch)
     }
 
+    const allPlayersRequestSuccess = (allPlayerApiRes) => {
+        getTodaysMatchesReq(
+            res=>playerDataSus(allPlayerApiRes, res),
+            apiFailed
+        )
+    }
 
     useEffect(() => {
-
-        allPlayersRequest(null, playerDataSus, err => console.log('err', err))
+        allPlayersRequest(null, allPlayersRequestSuccess, apiFailed)
     }, [])
 
     return <div className="app f fc fh">
@@ -114,7 +152,7 @@ const RenderTabs = ({ index, data }) => {
 }
 
 const TodaysMatch = ({ data }) => {
-    const { myPlayers, teamCreated } = data
+    const  { myPlayers, teamCreated, todaysMatch  } = data
 
     const myTeam = myPlayers?.filter(i => i.isPlayingToday)
 
@@ -123,8 +161,7 @@ const TodaysMatch = ({ data }) => {
         <div className="f fc" style={{ gap: 'var(--baseVal3)', paddingTop: 'var(--baseVal2)'}}>
         {
             teamCreated ? null : <>
-                <MatchComp />
-                <MatchComp />
+                {todaysMatch?.map((i, j) => <MatchComp key={j} data={i}/>)}
             </>
         }
 </div>

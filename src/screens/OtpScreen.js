@@ -1,7 +1,7 @@
 import { BouncyComp } from '../uiComps';
 import OtpInput from 'react-otp-input';
 import { useEffect, useRef, useState } from 'react';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.webp';
 const inputWidth = '2.5em'
 export default function OtpScreen() {
 

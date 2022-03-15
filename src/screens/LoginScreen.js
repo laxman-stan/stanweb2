@@ -5,6 +5,7 @@ import { auth } from "../apis/calls";
 import useShowNotification from "../hooks/useShowNotification";
 import { useNavigate } from "react-router-dom";
 import loginBg from '../assets/login.png'
+import useUserData from "../hooks/useUserData";
 
 
 export default function LoginScreen() {
@@ -27,41 +28,37 @@ export default function LoginScreen() {
 
 const MainFunction = () => {
 
-    // const [value, setValue] = useState("");
-    // const onChange = (e) => {
-    //     let t = e.target.value.replace(/[^0-9]/g, '')
-    //     if (t.length < 11)
-    //         setValue(t);
-    // }
+    const userData = useUserData();
+    const x = userData.userData;
+    
     const isNewUser = true;
     const navigate = useNavigate();
     const notification = useShowNotification();
     const loginSuccessful = (res) => {
-        sessionStorage.authToken = res.user.access_token
+        const {upruns, access_token, name, uprun_gains} = res.user
+        sessionStorage.authToken = access_token
         notification('logged in successfully')
+        x.upruns = upruns
+        x.userFromLogin = res.user
+        
+        userData.setData({...x})
         if(isNewUser)
         navigate('/app-guide', {replace: true})
         else
         navigate('/main', {replace: true})
     }
 
+    const loginFail=err=>{
+        notification(err?.message?? 'Something went wrong.')
+    }
+
     const loginFunction = () => {
-        auth({}, (res) => loginSuccessful(res), (rs) => console.log('err', rs))
+        auth({}, (res) => loginSuccessful(res), err => loginFail(err))
     }
 
 
-    // useEffect(()=>{
-    //     auth({}, (res)=>console.log('res', res), (rs)=>console.log('err',rs))
-    // }, [])
+ 
     return <div className="f fc loginPg rp fw">
-        {/* <InputField
-         preComp={<p style={{color: 'var(--white3)'}} className="normalText">+91</p>}
-         placeholder="9999999999"
-         value={value}
-         maxLen={10}
-         type="number"
-         onChange={onChange}
-         /> */}
 
         <img
             src={loginBg}

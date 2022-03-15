@@ -1,4 +1,4 @@
-import {a, config, useSpring, useSprings} from '@react-spring/web'
+import {a, config, useSpring} from '@react-spring/web'
 import { useEffect, useRef, useState } from 'react'
 import { useDrag } from "@use-gesture/react";
 import { colors } from '../constants/colors';
@@ -43,7 +43,6 @@ export default function TabNavigator({
 
     useOnce(()=>{
         setInnerWid(window.innerWidth)
-        console.log('called', initialIndex )
         set.start({
             tx: initialIndex*window.innerWidth,
             barX: initialIndex*window.innerWidth/numberOfTabs,

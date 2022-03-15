@@ -3,13 +3,13 @@ import useUserData from "../hooks/useUserData";
 import { useEffect, useState, useRef } from "react";
 import useShowNotification from "../hooks/useShowNotification";
 import {a, useSpring, config} from '@react-spring/web'
-import { BouncyComp} from "../uiComps";
+import { BouncyComp, Loader} from "../uiComps";
 import RoasterComp from "../uiComps/RoasterComp";
 import { createTeamReq } from "../apis/calls";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateTeam(){
-const userInfo = userData()
+const userInfo = useUserData()
 const userData = userInfo.userData.myPlayers;
 
 const [selected, setSelected] = useState([]);
@@ -72,7 +72,7 @@ const clickFun=()=>{
 }
 
 if(userData===null)
-    return <></>
+    return <Loader/>
 
     return <div
     

@@ -2,7 +2,7 @@ export function isOnline() {
     return window.navigator.onLine;
 }
 
-const SI_SYMBOL = ["", " k", " M", " G", " T", " P", " E"];
+const SI_SYMBOL = ["", "k", "M", "G", "T", "P", "E"];
 
 export function nFormatter(number) {
 

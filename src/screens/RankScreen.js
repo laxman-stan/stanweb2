@@ -4,27 +4,20 @@ import { useEffect, useState } from "react"
 import { getLeaderboardReq } from "../apis/calls"
 import { useOnce } from "@react-spring/shared";
 import useShowNotification from "../hooks/useShowNotification";
+import { Loader } from "../uiComps";
 
 export default function RankScreen() {
-    const getRewardEnum = ['DAILY', 'WEEKLY', 'OVERALL']
-    const uprunContants = ['daily_upruns', 'weekly_upruns', 'overall_upruns'];
 
-    const [currentRequest, setCurrentRequest] = useState(0)
-    const [rewards, setRewards] = useState({
-        DAILY: [], WEEKLY: [], OVERALL: []
-    });
+
+    const [rewards, setRewards] = useState(null);
+    const [myRank, setMyRank] = useState('Undetermined');
     const notification = useShowNotification();
 
     const apiCalled = (isSuccess, result) => {
         if (isSuccess) {
-            let x = result, y = rewards;
-            x.sort((a, b) => a[uprunContants[currentRequest]] - b[uprunContants[currentRequest]])
-            y[getRewardEnum[currentRequest]] = result.map((i, j)=>{
-                return  [j , i.name, i[uprunContants[currentRequest]]] // {name: i.name, rank: j, upruns: i[uprunContants[currentRequest]]} //
-            });
-            setRewards(y);
-            if (currentRequest < 2)
-                setCurrentRequest(currentRequest + 1);
+            let x = result.leaderboard.sort((a,b)=>b.uprun_gains-a.uprun_gains)
+            setRewards(x)
+            setMyRank(result.userIndex + 1)
         }
         else
             notification(result?.message ?? "Something went wrong.")
@@ -32,35 +25,25 @@ export default function RankScreen() {
 
     useEffect(() => {
         getLeaderboardReq(
-            {
-                "type": getRewardEnum[currentRequest],
-            },
             (res) => apiCalled(true, res),
             err => apiCalled(false, err),
         )
-    }, [currentRequest])
+    }, [])
 
-    return <TabNavigator
-        numberOfTabs={3}
-        tabNames={["Daily", "Weekly", "Overall"]}
-        renderTab={i => <RenderTabs data={rewards[getRewardEnum[i]]} index={i} />}
-    />
+    if(rewards===null)
+    return <Loader/>
+    return <div style={{overflowY: 'scroll', }} className="f fc fh">
 
-}
+        <div style={{height: 'calc( 100% - 80px )', overflowY: 'scroll'}} className="rankCont fc hm hp f">
+    <TableComp myRank={myRank} data={rewards} />
+</div>
 
-const RenderTabs = ({ index, data }) => {
-    if (index === 0)
-        return <Daily data={data} />
-    if (index === 1)
-        return <div /> //<Weekly/>
-    if (index === 2)
-        return <div /> // <Overall/>
-}
-
-const Daily = ({ data }) => {
-
-
-    return <div className="rankCont fc hm hp f">
-        <TableComp data={data} />
+<div style={{marginBottom: 'var(--baseVal3)', paddingLeft: 'var(--baseVal6)'}} className="f whiteCard hp hm">
+        <div style={{width: "20%"}}>{myRank}</div>
+        <div style={{width: "50%"}}>Name</div>
+        <div style={{width: "30%"}}>500</div>
     </div>
+    </div>
+
 }
+

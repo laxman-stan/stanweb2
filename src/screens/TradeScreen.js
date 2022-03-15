@@ -1,6 +1,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { BouncyComp, RoseterComp, TabNavigator, Dropdown } from "../uiComps"
+import { BouncyComp, RoseterComp, TabNavigator, Dropdown, EmptyTeam } from "../uiComps"
 import { a, useSprings, config, useTransition, easings } from '@react-spring/web'
 import { colors } from "../constants/colors"
 import useShowBottomSheet from "../hooks/useShowBottomSheet"
@@ -38,7 +38,7 @@ export default function TradeScreen() {
     return <TabNavigator
         numberOfTabs={2}
         initialIndex={si}
-        key={key.current}
+        // key={key.current}
         tabNames={["Sell", "Buy"]}
         renderTab={(i) => <RenderTabs set={set} data={playerData.userData} index={i} />}
     />}
@@ -100,9 +100,9 @@ export const Sell = ({data, set, styles}) => {
     }  
 
     return <div style={{...styles}} className="f fc fh cardCont">
-        {dataToShow.map((i, index) => {
+        { dataToShow.length? dataToShow.map((i, index) => {
   
-            const {price, name, id, growth_perc, isPlayingToday} = i
+            const {price, name, id, growth_perc, isPlayingToday, isLocked} = i
             return <RoseterComp
             name={name}
             price={price}
@@ -113,7 +113,7 @@ export const Sell = ({data, set, styles}) => {
             change={growth_perc}
             isLocked={isPlayingToday}
          />
-        })}
+        }) : <EmptyTeam hideBtn/>}
     </div>
 }
 
@@ -161,6 +161,7 @@ const Buy = ({players, data, set}) => {
     const mutatePlayers=(playerToPush)=>{
 
         data.myPlayers.push({...playerToPush})
+        data.upruns -= playerToPush.price
         set(1);
     }    
 
@@ -271,18 +272,13 @@ const RenderTeam = ({ teamData, isIncreasingSort, operation,ih, setIh, mutatePla
     const endOfCall=(isPlayerBought=true, response, id)=>{
 
         bottomSheet(false);
-        let message = isPlayerBought ? 'Player bought successfully' : response??'Could not buy the player.'
+        let message = isPlayerBought ? 'Player bought successfully' : response?.message ??'Could not buy the player.'
         notification(message);
 
         if(isPlayerBought){
             let u = originalX.current;
             let i = u.findIndex(i=>i.id===id)
             u[i].isBought = true;
-
-            // let v = x;
-            // let j = v.findIndex(i=>i.id===id)
-            // v[j].isBought = true;
-            // set([ ...v ])
 
             mutatePlayers(u[i]);
 

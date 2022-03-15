@@ -94,7 +94,7 @@ function apiRequest(
             }
         })
         .catch(({ response }) => {
-            console.log('API_CATCH', response, JSON.stringify(response));
+            console.log('API_CATCH' + url, response, JSON.stringify(response));
             response &&
                 callbackFailure &&
                 callbackFailure(getErrorMesage(response));
@@ -226,13 +226,13 @@ export function createTeamReq(param, callbackSuccess, callbackFailure){
     )
 }
 
-export function getLeaderboardReq(params, callbackSuccess, callbackFailure){
+export function getLeaderboardReq( callbackSuccess, callbackFailure){
     apiRequest(
         'GET',
         endPoints.baseUrl + endPoints.leaderbardEndpoint,
         getHeader(),
         callbackSuccess,
-        params,
+        {},
         callbackFailure,
         false
     )

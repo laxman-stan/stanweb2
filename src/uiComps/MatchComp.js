@@ -4,15 +4,16 @@ import { ClockIcon } from "../assets";
 import useShowBottomSheet from "../hooks/useShowBottomSheet";
 import { useEffect } from "react";
 
-export default function MatchComp() {
+
+export default function MatchComp({data}) {
+    const {teamA, teamB, time} = data;
     const bottomSheet = useShowBottomSheet();
 
     const hideSheet=()=>{
-        console.log('alsdfj')
         bottomSheet(false)
     };
     const bottomSheetProps = {
-        customChild: <Lineup close={hideSheet} />, customConfig: 'gentle'
+        customChild: <Lineup close={hideSheet} teamA={teamA} teamB={teamB}/>, customConfig: 'gentle'
     }
 
 const showLineUp=()=>{
@@ -30,11 +31,15 @@ const showLineUp=()=>{
         />
 
         <div className="f sb ac">
-            <img style={{ width: 40, height: 40 }} src={"https://source.unsplash.com/random/60×60"} />
-            <h4 style={{marginRight: 'auto', marginLeft: 'var(--baseVal3)'}}>CHN</h4>
+            <img style={{ width: 40, height: 40 }} alt={teamA.name} src={
+                require('../assets/teamLogos/'+ teamA.name + '.png')
+                } />
+            <h4 style={{marginRight: 'auto', marginLeft: 'var(--baseVal3)'}}>{teamA.name}</h4>
                 <VS/>
-            <h4 style={{marginLeft: 'auto',  marginRight: 'var(--baseVal3)'}}>BLR</h4>
-            <img style={{ width: 40, height: 40 }} src={"https://source.unsplash.com/random/60×60"} />
+            <h4 style={{marginLeft: 'auto',  marginRight: 'var(--baseVal3)'}}>{teamB.name}</h4>
+            <img style={{ width: 40, height: 40 }} alt={teamB.name} src={
+                require('../assets/teamLogos/'+ teamB.name + '.png')
+                } />
 
         </div>
 
@@ -48,7 +53,7 @@ const showLineUp=()=>{
 
         <div className="f ac sb">
             <img style={{height: 16}} src={ClockIcon}/>
-            <p style={{marginLeft: 'var(--baseVal2)', marginRight: 'auto', fontSize: '.83em'}}>Starts in 05:12 hrs</p>
+            <p style={{marginLeft: 'var(--baseVal2)', marginRight: 'auto', fontSize: '.83em'}}>{"Starts at "+time }</p>
             <BouncyComp
             onClick={showLineUp}
             text='View lineup'

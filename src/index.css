@@ -413,12 +413,21 @@ table{
   border-collapse: collapse;
 }
   th{
+    padding-top: var(--baseVal2);
     text-align: left;
     border-bottom: 1px solid var(--grey2);
     padding-bottom: var(--baseVal2);
     font-size: 1em;
     padding-left: var(--baseVal2);
     padding-right: var(--baseVal2);
+
+  }
+  thead{
+    /* box-shadow: 0 2px 6px #0003; */
+    position: sticky;
+    background-color: var(--superWhite);
+    top: 0;
+    /* transform: translateX(-10px); */
   }
   td{
     padding: var(--baseVal2);
@@ -446,7 +455,7 @@ tbody:last-child td{
     background-color: var(--superWhite);
     margin-top: var(--baseVal3);
     border-radius: var(--baseVal3);
-    padding-top: var(--baseVal2);
+    
     margin-bottom: var(--baseVal3);
     padding-bottom: var(--baseVal2);
   }
