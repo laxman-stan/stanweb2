@@ -8,7 +8,7 @@ import WalletScreen from './screens/WalletScreen';
 import { PlayScreen } from './screens/MainScreen';
 import TradeScreen from './screens/TradeScreen';
 import { BottomSheet } from './uiComps';
-import { HistoryScreen, Wallet, CreateTeam } from './screens';
+import { HistoryScreen, Wallet, CreateTeam, AppGuide, OtpScreen, PhoneNoScreen } from './screens';
 import {
   // BrowserRouter as Router,
   Routes,
@@ -67,9 +67,12 @@ const userDataContext={
 
       <BottomSheet ref={bottomSheetRef}/>
       <UpperNotification ref={notificationRef} />
+      {/* <PhoneNoScreen/> */}
+      {/* <OtpScreen/> */}
       <Routes>
 
         <Route path="/" element={<LoginScreen/>}/>
+        <Route path="/app-guide" element={<AppGuide/>}/>
         <Route path="/main" element={<MainScreen/>}>
 
           <Route path="/main" element={<PlayScreen/>} />

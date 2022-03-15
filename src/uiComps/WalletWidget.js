@@ -1,10 +1,13 @@
 import Wallet from '../assets/icons/wallet.svg'
 import BouncyComp from './BouncyComp';
-import { useNavigate } from 'react-router-dom';
+
+import useUserData from '../hooks/useUserData';
+import { nFormatter } from '../util';
+import useBetterNavigation from '../hooks/useBetterNavigation';
 
 export default function WalletWidget(){
-const upruns = 500;
-const navigate = useNavigate();
+const upruns = useUserData().userData.upruns;
+const navigate = useBetterNavigation();
 
     return <BouncyComp
     onClick={()=>navigate('/main/wallet')}
@@ -13,7 +16,7 @@ const navigate = useNavigate();
     style={{height: '1em'}}
     src={Wallet}
     />
-    {upruns}
+    {nFormatter(upruns)}
 </div>}
     />
 }

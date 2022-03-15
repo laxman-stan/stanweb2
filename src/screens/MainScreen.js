@@ -8,7 +8,7 @@ import WalletScreen from "./WalletScreen"
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import useCheckIsLoggedIn from "../hooks/useCheckIsLoggedIn"
-import { BouncyComp, EmptyTeam, Lineup, ActiveMatchComp, Dropdown } from "../uiComps"
+import { BouncyComp, EmptyTeam, Lineup, ActiveMatchComp, Loader } from "../uiComps"
 import { useQuery } from 'react-query'
 import { allPlayersRequest, myPlayersRequest } from "../apis/calls"
 import useShowBottomSheet from "../hooks/useShowBottomSheet"
@@ -94,10 +94,11 @@ export const PlayScreen = () => {
 
     const playerData = useUserData();
     if (playerData.userData.myPlayers === null)
-        return <div>loading...</div>
+        return <Loader/>
 
     else
-        return <> <TabNavigator
+        return <> 
+        <TabNavigator
             numberOfTabs={2}
             tabNames={["Today's Match", "My Roaster"]}
             renderTab={(i) => <RenderTabs data={playerData.userData} index={i} />}
@@ -119,7 +120,7 @@ const TodaysMatch = ({ data }) => {
 
     return <div style={{ paddingTop: 0
     }} className="f fc fh cardCont">
-        <div className="f fc" style={{ gap: 'var(--baseVal3)'}}>
+        <div className="f fc" style={{ gap: 'var(--baseVal3)', paddingTop: 'var(--baseVal2)'}}>
         {
             teamCreated ? null : <>
                 <MatchComp />
@@ -127,7 +128,7 @@ const TodaysMatch = ({ data }) => {
             </>
         }
 </div>
-     {teamCreated? <ActiveMatchComp team={myTeam}/> : <EmptyTeam len={myPlayers.length} createTeam/>}
+     {teamCreated? <ActiveMatchComp team={myTeam}/> : <EmptyTeam len={myPlayers.length || 1} createTeam/>}
 
     </div>
 }

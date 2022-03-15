@@ -1,9 +1,23 @@
 
-import {BouncyComp, Bar} from "../uiComps";
+import {BouncyComp, Bar, Lineup} from "../uiComps";
 import { ClockIcon } from "../assets";
+import useShowBottomSheet from "../hooks/useShowBottomSheet";
+import { useEffect } from "react";
 
 export default function MatchComp() {
+    const bottomSheet = useShowBottomSheet();
 
+    const hideSheet=()=>{
+        console.log('alsdfj')
+        bottomSheet(false)
+    };
+    const bottomSheetProps = {
+        customChild: <Lineup close={hideSheet} />, customConfig: 'gentle'
+    }
+
+const showLineUp=()=>{
+    bottomSheet(true, bottomSheetProps)
+}
 
     return <div className="f fc whiteCard">
         <h5 style={{ textAlign: 'center' }}>Indian T20 League</h5>
@@ -36,6 +50,7 @@ export default function MatchComp() {
             <img style={{height: 16}} src={ClockIcon}/>
             <p style={{marginLeft: 'var(--baseVal2)', marginRight: 'auto', fontSize: '.83em'}}>Starts in 05:12 hrs</p>
             <BouncyComp
+            onClick={showLineUp}
             text='View lineup'
             styles={{width: '6.5em'}}
             customClasses={"highlightedSmallBtn btnPrimeColor"}

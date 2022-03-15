@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function useBetterNavigation(screenName){
+export default function useBetterNavigation(){
 
+    let navigate = useNavigate();
     let currentLocation = useLocation().pathname;
-    if(screenName!==currentLocation){
-        useNavigate(screenName)
-    }
+    
+    return (screenName)=> screenName!==currentLocation? navigate(screenName) : ()=>{}
 
 }

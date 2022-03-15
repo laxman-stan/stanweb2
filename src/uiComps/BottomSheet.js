@@ -21,6 +21,7 @@ const BottomSheet = forwardRef((_, ref) => {
                 declineAction: values?.declineAction ?? nullFun,
                 customChild: values?.customChild,
                 disableActions: values?.disableActions ?? false,
+                customConfig: values?.customConfig
             })
             setShowSheet(true)
         }
@@ -56,7 +57,8 @@ const MainFunction = forwardRef(({
     acceptAction,
     hide,
     customChild,
-    disableActions
+    disableActions,
+    customConfig,
 }, ref) => {
 
     const [isActive, setIsActive] = useState(true);
@@ -68,7 +70,7 @@ const MainFunction = forwardRef(({
 
     const [sheet, setSheet] = useSpring(() => ({
         y: 0,
-        config: config.wobbly
+        config: config[customConfig || 'wobbly']
     }))
 
     useOnce(() => {

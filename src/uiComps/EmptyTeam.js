@@ -33,7 +33,7 @@ export default function({len, createTeam}){
     }
     
     <BouncyComp
-    onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade')}
+    onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade', {state: 'toBuy'})}
     bounceLevel={.9}
     styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 0, marginRight: 0, width: 'calc(100vw - var(--baseVal6))', flex: 'none' }}
     customClasses='cta'

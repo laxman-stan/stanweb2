@@ -81,7 +81,7 @@ function apiRequest(
     //   console.log('url', url);
     axios({
         method: method,
-        url: url,
+        url: url + query,
         data: body,
         timeout: timeout,
         headers: headers,
@@ -121,7 +121,7 @@ export function auth(params, callbackSuccess, callbackFailure) {
         endPoints.header,
         callbackSuccess,
         {
-            userId: x
+            "code": x
           },
         callbackFailure,
         false
@@ -221,6 +221,30 @@ export function createTeamReq(param, callbackSuccess, callbackFailure){
         getHeader(),
         callbackSuccess,
         param,
+        callbackFailure,
+        false
+    )
+}
+
+export function getLeaderboardReq(params, callbackSuccess, callbackFailure){
+    apiRequest(
+        'GET',
+        endPoints.baseUrl + endPoints.leaderbardEndpoint,
+        getHeader(),
+        callbackSuccess,
+        params,
+        callbackFailure,
+        false
+    )
+}
+
+export function getTodaysMatchesReq(callbackSuccess, callbackFailure){
+    apiRequest(
+        'GET',
+        endPoints.baseUrl + endPoints.matchesEndpoint,
+        getHeader(),
+        callbackSuccess,
+        {},
         callbackFailure,
         false
     )

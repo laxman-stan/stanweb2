@@ -3,9 +3,9 @@
   --mainHighlight: #41246E;
   --mainHighlight50: #41246E80;
   --mainHighlight75: #41246Ec0;
-  --mainHighlight30: #41246E4d;
+  --mainHighlight30: #83729E;
   --mainHighlight40: #A79CB8;
-  --mainHighlight20: #41246E32;
+  --mainHighlight20: #573d7e;
   --mainRed: #CC5C38;
   --mainGreen: #3D8266;
   --secondaryHighlight: #4498A5;
@@ -26,8 +26,6 @@
   --baseVal5: calc(5*var(--baseVal));
   --baseVal6: calc(6*var(--baseVal));
   --baseVal10: calc(10*var(--baseVal));
-
-  --considerBottomPadding: 15%;
 
   --topBottomBarHeight: calc(17*var(--baseVal));
   --navIconContHt: calc(.45*var(--topBottomBarHeight));
@@ -113,12 +111,12 @@ body{
 .bgg1{
   background-color: var(--superWhite);
 }
-h6, h1{
+h6{
   font-weight: normal;
 }
 .bn{
   border: 1px solid;
-  border-radius: var(--baseVal4);
+  border-radius: var(--baseVal);
 }
 .fh{
   height: 100%;
@@ -130,7 +128,7 @@ h6, h1{
   /* padding-right: var(--baseVal4); */
   /* padding-right: 10%; */
   height: 100%;
-  padding-bottom: var(--considerBottomPadding);
+  padding-bottom: var(--baseVal10);
 }
 
 .whiteCard{
@@ -199,6 +197,10 @@ h6, h1{
   padding-left: var(--baseVal3);
   padding-right: var(--baseVal3);
   transition: all .2s;
+  background-color: var(--mainHighlight20);
+}
+.inputOuterCont *{
+  overflow-y: hidden;
 }
 
 h3{
@@ -327,7 +329,7 @@ a{
 
   .normalText{
     font-size: var(--inputFontSize);
-    color: var(--mainContrast);
+    color: var(--superWhite);
     letter-spacing: 0.8px;
     font-weight: normal;
   }
@@ -337,11 +339,11 @@ a{
     padding: var(--baseVal) var(--baseVal2);
     border-width: 0;
     color: transparent;
-    caret-color: var(--mainContrast);
+    caret-color: var(--superWhite);
     background-color: transparent;
   }
 input::placeholder{
-  color: var(--mainContrast3)
+  color: var(--mainHighlight30)
 }
   .customInput::selection{
     color: transparent;
@@ -539,4 +541,10 @@ tbody:last-child td{
       left: 100%;
       width: 100%;
   }
+}
+
+.whiteBtn{
+  background-color: var(--superWhite);
+  color: var(--mainHighlight);
+  font-weight: bold;
 }

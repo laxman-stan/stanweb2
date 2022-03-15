@@ -1,50 +1,13 @@
 
 
-export default function TableComp() {
+export default function TableComp({data}) {
 
     const tablelDetails = {
         heads: ['Rank', 'Name', 'Upruns'],
         widths: ['20%', '50%', '30%'],
     }
 
-    const tableData = [
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['3', 'Player Name', '50'],
-        ['1', 'Player Name', '50'],
-        ['2', 'Player Name', '50'],
-        ['13', 'Player Name', '50'],
-    ]
+    const tableData = data
 
     return  <table style={{ borderCollapse: 'collapse' }} className="">
             <thead>

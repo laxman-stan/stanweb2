@@ -8,7 +8,7 @@ import RoasterComp from "../uiComps/RoasterComp";
 import { createTeamReq } from "../apis/calls";
 import { useNavigate } from "react-router-dom";
 
-export default function(){
+export default function CreateTeam(){
 const userInfo = userData()
 const userData = userInfo.userData.myPlayers;
 

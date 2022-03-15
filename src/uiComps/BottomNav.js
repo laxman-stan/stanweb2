@@ -9,6 +9,7 @@ import useShowNotification from '../hooks/useShowNotification'
 
 
 import { RankIcon, TradeIcon, PlayIcon } from '../assets';
+import { useOnce } from '@react-spring/shared'
 export default function BottomNav() {
 
     const navData=[
@@ -48,6 +49,13 @@ export default function BottomNav() {
     useEffect(()=>{
         ref.current.style.display=pathNamesToShow.includes(location.pathname)? 'flex' : 'none'
     }, [location])
+
+    useOnce(()=>{
+        if(location.pathname === '/main/trade')
+        setActiveIndex(1)
+if(location.pathname === '/main/rank')
+        setActiveIndex(2)
+    })
 
     return <div ref={ref} className="f se ac fw nav bgg1 bottomNav">
 

@@ -32,13 +32,13 @@ const WID = '100%'
     }, [])
 
     return (
-        <div style={{...ourterContStyle, borderColor: isFocused? colors.mainHighlightRgba : colors.mainContrast2}} className="f ac inputOuterCont bn">
+        <div style={{...ourterContStyle, borderColor: isFocused? 'white' : 'transparent'}} className="f ac inputOuterCont bn">
         {preComp && preComp}
         <div className="f rp">
 
             <div className="f ap animInputCont" style={{ top: 0, width: WID }}>
                 <div ref={animInputRef} style={{ overflowX: 'scroll' }} className="f noScrollBar">
-                    {value.split('').map((value, index) => <AnimText key={index} item={value} />)}
+                    {value?.split('').map((value, index) => <AnimText key={index} item={value} />)}
                 </div>
             </div>
 
@@ -49,6 +49,7 @@ const WID = '100%'
                 onBlur={()=>setIsFocused(false)}
                 className="normalText customInput"
                 value={value}
+                maxLength="10"
                 style={{ zIndex: 3 , width: WID}}
                 onChange={onChange}
                 placeholder={PLACE_HOLDER_TEXT} />

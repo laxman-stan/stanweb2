@@ -1,12 +1,11 @@
 import { CloseBtn, BouncyComp, Bar } from "."
 
-export default function Lineup() {
-
+export default function Lineup(props) {
     const players = [
         'laxmikant', 'swami', 'ghanshyam', 'manisha', 'alpha', 'the withcer', 'wagle', 'bhagle'
     ]
 
-    return <div style={{ padding: 'var(--baseVal3) 0 0 0', marginTop: 'auto', marginBottom:'auto' }} className="whiteCard rp f fc">
+    return <div onClick={e=>e.stopPropagation()} style={{ padding: 'var(--baseVal3) 0 0 0', marginTop: 'auto', marginBottom:'auto' }} className="whiteCard rp f fc">
         <h3 style={styles.h3}>Team Linuup</h3>
         <Bar
             height={1}
@@ -66,8 +65,9 @@ export default function Lineup() {
 
         </div>
 
-        {/* closeIcon */}
+
         <CloseBtn
+        onClick={props.close}
         styles={{right: 'var(--baseVal3)'}}
         />
     </div>

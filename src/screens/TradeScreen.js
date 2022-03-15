@@ -9,15 +9,17 @@ import RoasterComp from "../uiComps/RoasterComp"
 import { useOnce } from "@react-spring/shared"
 import { buyPlayerRequest, sellPlayerRequest } from "../apis/calls"
 import useShowNotification from "../hooks/useShowNotification"
+import { useLocation } from "react-router-dom"
 
 const { mainHighlight, mainHighlig30 } = colors
 
 
-export default function () {
-
+export default function TradeScreen() {
+    let location = useLocation();
+    let initialIndex = location.state === 'toBuy' ? 1 : 0;
     const playerData = useUserData();
     const key=useRef(0);
-    const [si, setSi] = useState(0);
+    const [si, setSi] = useState(initialIndex);
 
     const set=(index=0)=>{
 
