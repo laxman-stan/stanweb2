@@ -442,7 +442,7 @@ tr td:nth-child(2) {
 }
 tr td:nth-child(3) {
   text-align: right;
-  padding-right: var(--baseVal6);
+  padding-right: var(--baseVal10);
 }
 tr th:nth-child(3) {
   text-align: right;
@@ -557,3 +557,4 @@ tbody:last-child td{
   color: var(--mainHighlight);
   font-weight: bold;
 }
+

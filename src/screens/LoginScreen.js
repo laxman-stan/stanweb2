@@ -40,7 +40,7 @@ const MainFunction = () => {
         notification('logged in successfully')
         x.upruns = upruns
         x.userFromLogin = res.user
-        
+        // x.name = name
         userData.setData({...x})
         if(isNewUser)
         navigate('/app-guide', {replace: true})

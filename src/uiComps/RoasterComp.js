@@ -5,7 +5,8 @@ import {Bar, BouncyComp} from '../uiComps'
 import {a} from '@react-spring/web'
 import useShowNotification from "../hooks/useShowNotification";
 
-export default function RoasterComp({showSelectionBtn, isChecked,setIsChecked, name, isLocked, styleFromProp, setIh, price, btnText, change, buyAction, isBought, operation = 'buy'}){
+
+export default function RoasterComp({showSelectionBtn, team, skill, isChecked,setIsChecked, name, isLocked, styleFromProp, setIh, price, btnText, change, buyAction, isBought, operation = 'buy', hideBtn}){
 
     const data=[
         {
@@ -52,11 +53,14 @@ export default function RoasterComp({showSelectionBtn, isChecked,setIsChecked, n
     
      ref={cardRef} className="f fc rp whiteCard ">
         <div style={{gap: '.5em'}} className="f sb ac">
-            <img style={{width: 40, height: 40}} src={"https://source.unsplash.com/random/60×60"}/>
+            <img style={{width: 40, height: 40}} 
+            alt={team}
+            src={require("../assets/teamLogos/" + team + '.png')}
+            />
 
             <div style={{marginRight: 'auto', marginLeft: 'var(--baseVal)'}}>
                 <h3 style={{fontSize: '1em'}}>{name}</h3>
-                <p style={{fontSize: '.8em'}}>Bowl</p>
+                <p style={{fontSize: '.8em'}}>{skill}</p>
             </div>
 
 {   showSelectionBtn?         <BouncyComp
@@ -64,7 +68,7 @@ export default function RoasterComp({showSelectionBtn, isChecked,setIsChecked, n
             customChild={<Checkbox isChecked={isChecked}/>}
             />
 :
-            <BouncyComp
+       hideBtn ? null :  <BouncyComp
             onClick={buyAction}
             bounceLevel={.8}
             styles={{marginLeft: 'auto', width: '4.6em', backgroundColor: operation==='buy' ? 'var(--mainGreen)': 'var(--mainRed)', opacity: isBought? .6 : 1}}

@@ -178,6 +178,7 @@ const MyRoaster = ({ data }) => {
             <Sell
                 styles={{marginTop: 'var(--baseVal)'}}
                 data={data}
+                hideBuy
             /></div> : null}
 
         {len < 5 ? <EmptyTeam len={len} /> : null}

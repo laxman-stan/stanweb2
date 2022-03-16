@@ -16,19 +16,22 @@ const { mainHighlight, mainHighlig30 } = colors
 
 export default function TradeScreen() {
     let location = useLocation();
-    let initialIndex = location.state === 'toBuy' ? 1 : 0;
+    let initialIndex = useRef(location.state === 'toBuy' ? 1 : 0);
     const playerData = useUserData();
     const [key, setK] = useState(0);
-    const [si, setSi] = useState(initialIndex);
-    const [shouldRefresh, setShouldRefresh] = useState(false);
+    const [preData, setPd] = useState(null);
 
-    const set=(index=0)=>{
+    const set=(index=0, preData=null)=>{
         let x = {...playerData.userData};
-        setK(key+1)
-        setSi(index)
-        playerData.setData(x)  
-
+        // preData.current = preData;
+        initialIndex.current = index;
+        setTimeout(() => {
+            setPd(preData);
+            playerData.setData(x)  
+            setK(key+1)
+        }, 300);
     }
+
     if(playerData.userData.allPlayers===null){ 
         return <Loader/>
     }
@@ -36,45 +39,43 @@ export default function TradeScreen() {
         
     return <TabNavigator
         numberOfTabs={2}
-        initialIndex={si}
+        initialIndex={initialIndex.current}
         key={key}
+        callBackOnMount={i=>set(i)}
         tabNames={["Sell", "Buy"]}
-        renderTab={(i) => <RenderTabs set={set} data={playerData.userData} index={i} />}
+        renderTab={(i) => <RenderTabs preData={preData} data={playerData.userData} set={set} index={i} />}
     />}
 }
 
-const RenderTabs = ({ index, data, set }) => {
+const RenderTabs = ({ index, set, data, preData }) => {
 
 
     if (index === 0) {
-        return <Sell set={set} data={data}/>
+        return <Sell data={data} set={set}/>
     }
     else
-        return <Buy set={set} data={data} players={data.allPlayers}/>
+        return <Buy data={data} preData={preData} set={set}/>
 }
 
-export const Sell = ({data, set, styles}) => {
-
+export const Sell = ({set, styles, hideBuy, data}) => {
     const bottomSheet = useShowBottomSheet();
     const notification = useShowNotification();
-
-
     const [dataToShow, setDataToShow] = useState([...data.myPlayers])
 
     const endOfCall=(isPlayerSold=true, response, index, team)=>{
 
         bottomSheet(false);
-        let message = isPlayerSold ? 'Player Sold successfully' : response??'Could not sell the player.'
+        let message = isPlayerSold ? 'Player Sold successfully' : response.message??'Could not sell the player.'
         notification(message);
 
-        if(isPlayerSold){
-            
-            data.myPlayers.splice(index, 1)
+        if(isPlayerSold){ 
             let i = data.allPlayers[team].findIndex(p=>p.id===data.myPlayers[index].id)
             data.allPlayers[team][i].isBought = false
-            // setDataToShow([...data.myPlayers])
-            set(0);
-
+            data.myPlayers.splice(index, 1)
+            setDataToShow([...data.myPlayers])
+            setTimeout(()=>{
+                set(0);
+            }, 300)
         }
 
     }
@@ -100,15 +101,18 @@ export const Sell = ({data, set, styles}) => {
 
     return <div style={{...styles}} className="f fc fh cardCont">
         { dataToShow.length? dataToShow.map((i, index) => {
-  
-            const {price, name, id, growth_perc, isPlayingToday, isLocked} = i
+            {/* console.log(i) */}
+            const {price, name, id, growth_perc, skill, isLocked, team} = i
             return <RoseterComp
             name={name}
             price={price}
             key={id} 
             buyAction={()=>sellPlayer(i, index)}
             btnText="Sell"
+            hideBtn={hideBuy??false}
             operation='sell'
+            skill={skill}
+            team={team}
             change={growth_perc}
             isLocked={isLocked}
          />
@@ -116,28 +120,29 @@ export const Sell = ({data, set, styles}) => {
     </div>
 }
 
-const Buy = ({players, data, set}) => {
+const Buy = ({data, set, preData}) => {
 
+    const players = data.allPlayers;
     const teams = data.teams;
 
     const [ih , setIh] = useState(null);
 
     const [isIncreasingSort, setIsIncreasingSort] = useState(false)
-    const [activeCategory, setActive] = useState(0);
-    const [currentTeamIndex, setCurrentTeamIndex] = useState(0)
+    const [activeCategory, setActive] = useState(preData?.activeCategory ?? 0);
+    const [currentTeamIndex, setCurrentTeamIndex] = useState(preData?.currentTeamIndex ?? 0);
     const categories = [
         {
-            type: 'all',
+            type: 'All',
             applyOperation: false,
             // operation: ()=>{},
         },
         {
-            type: 'top Gainers',
+            type: 'Top Gainers',
             applyOperation: true,
             operation: val=>val.growth_perc > 0
         },
         {
-            type: 'top Losers',
+            type: 'Top Losers',
             applyOperation: true,
             operation: val=>val.growth_perc < 0
         }
@@ -153,10 +158,13 @@ const Buy = ({players, data, set}) => {
 
 
     const mutatePlayers=(playerToPush)=>{
-
+        let preData={
+            activeCategory: activeCategory,
+            currentTeamIndex: currentTeamIndex,
+        }
         data.myPlayers.push({...playerToPush})
         data.upruns -= playerToPush.price
-        set(1);
+        set(1, preData);
     }    
 
     return <div className="f fc fh cardCont">
@@ -273,7 +281,7 @@ const RenderTeam = ({ teamData, isIncreasingSort, operation,ih, setIh, mutatePla
             let u = originalX.current;
             let i = u.findIndex(i=>i.id===id)
             u[i].isBought = true;
-
+            set([...x])
             mutatePlayers(u[i]);
 
         }
@@ -314,6 +322,8 @@ const RenderTeam = ({ teamData, isIncreasingSort, operation,ih, setIh, mutatePla
                 price={item.price}
                 isBought={item.isBought}
                 item={item}
+                team={item.team}
+                skill={item.skill}
                 btnText={item.isBought ? 'Bought' : 'Buy'}
                 buyAction={()=>buyPlayer(item)}
                 change={item.growth_perc}

@@ -72,10 +72,10 @@ const TransctionList = ({date, data}) => {
     return <div style={{ gap: 'var(--baseVal3)', marginTop: 'var(--baseVal3)' }} className="f fc whiteCard">
 
 
-        <h3 className="f sb ac">{date}</h3>
+        <h3 style={{fontSize: '1em'}} className="f sb ac">{date}</h3>
 
         {data.map(({ message, time, amount }, index) =><div key={index}> <div  className="f sb">
-            <h5 style={{ lineHeight: '1.4em' }}><span>{message}</span>
+            <h5 style={{ fontSize:'.83em' }}><span>{message}</span>
                 <br />
                 {time}
             </h5>

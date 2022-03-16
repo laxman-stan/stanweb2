@@ -6,7 +6,6 @@ export default function TableComp({data, myRank}) {
         heads: ['Rank', 'Name', 'Uprun gain'],
         widths: ['20%', '50%', '30%'],
     }
-    console.log(myRank, 'aljdfla')
     return  <table style={{ borderCollapse: 'collapse', }} className="">
             <thead>
                 <tr>
