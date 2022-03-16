@@ -57,7 +57,6 @@ const userDataContext={
   
   useEffect(() => {
     appRef.current.style.height = window.innerHeight + 'px';
-
     // setTimeout(() => {
     //  bottomSheetRef.current.showSheet(true)
     // }, 3000);
@@ -77,6 +76,8 @@ const userDataContext={
       <Routes>
 
         <Route path="/" element={<LoginScreen/>}/>
+        <Route path="/phone-no" element={<PhoneNoScreen/>}/>
+        <Route path="/OTP" element={<OtpScreen/>}/>
         <Route path="/app-guide" element={<AppGuide/>}/>
         <Route path="/main" element={<MainScreen/>}>
 

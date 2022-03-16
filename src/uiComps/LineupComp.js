@@ -59,7 +59,7 @@ export default function Lineup(props) {
             />
 
             <div style={{ ...styles.column }} className="f fc">
-                {teamA.players.map((item, index) => <p
+                {teamB.players.map((item, index) => <p
                style={{
                     width: '100%', textOverflow: 'ellipsis', overflow: "hidden"
                 }}

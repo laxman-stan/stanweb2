@@ -102,7 +102,7 @@ export const Sell = ({set, styles, hideBuy, data}) => {
     return <div style={{...styles}} className="f fc fh cardCont">
         { dataToShow.length? dataToShow.map((i, index) => {
             {/* console.log(i) */}
-            const {price, name, id, growth_perc, skill, isLocked, team} = i
+            const {price, name, id, growth_perc, skill, isLocked, team, batting_avg, batting_sr, bowling_eco, bowling_sr} = i
             return <RoseterComp
             name={name}
             price={price}
@@ -112,6 +112,12 @@ export const Sell = ({set, styles, hideBuy, data}) => {
             hideBtn={hideBuy??false}
             operation='sell'
             skill={skill}
+
+            batting_avg={batting_avg} 
+            batting_sr={ batting_sr} 
+            bowling_eco={bowling_eco} 
+            bowling_sr={ bowling_sr}
+
             team={team}
             change={growth_perc}
             isLocked={isLocked}
@@ -257,7 +263,7 @@ const RenderTeam = ({ teamData, isIncreasingSort, operation,ih, setIh, mutatePla
         y: j* ih, ...i, index: j
     })), {
         keys: (item) => item.id,
-        from: {  opacity: 0, y: 0 },
+        from: ({y})=>({  opacity: 0, y }),
         leave: ({y})=>({  opacity: 0, y: y+ih }),
         enter: ({ y }) => ({ y , opacity: 1 }),
         update: ({ y }) => ({ y }),
@@ -324,6 +330,13 @@ const RenderTeam = ({ teamData, isIncreasingSort, operation,ih, setIh, mutatePla
                 item={item}
                 team={item.team}
                 skill={item.skill}
+                
+                batting_avg={item.batting_avg}
+                batting_sr={item.batting_sr}
+                bowling_eco={item.bowling_eco}
+                bowling_sr={item.batting_avg}
+
+
                 btnText={item.isBought ? 'Bought' : 'Buy'}
                 buyAction={()=>buyPlayer(item)}
                 change={item.growth_perc}

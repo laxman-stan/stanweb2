@@ -139,7 +139,7 @@ export const PlayScreen = () => {
         return <> 
         <TabNavigator
             numberOfTabs={2}
-            tabNames={["Today's Match", "My Roaster"]}
+            tabNames={["Today's Match", "My Roster"]}
             renderTab={(i) => <RenderTabs data={playerData.userData} index={i} />}
         />
         </>

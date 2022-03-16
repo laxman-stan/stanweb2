@@ -26,6 +26,7 @@
   --baseVal5: calc(5*var(--baseVal));
   --baseVal6: calc(6*var(--baseVal));
   --baseVal10: calc(10*var(--baseVal));
+  --baseVal12: calc(12*var(--baseVal));
 
   --topBottomBarHeight: calc(17*var(--baseVal));
   --navIconContHt: calc(.45*var(--topBottomBarHeight));
@@ -33,7 +34,10 @@
   --inputFontSize: 1.2em;
 }
 
-
+#root{
+  width: 100%;
+  max-width: 45vh;
+}
 html {
   scroll-behavior: smooth;
   background-color: var(--mainBg);
@@ -46,6 +50,7 @@ html {
 }
 body{
   overscroll-behavior: contain;
+
 }
 * {
   color: var(--mainContrast);
@@ -167,7 +172,7 @@ h6{
   background-color: var(--superWhite);
   padding: var(--baseVal2) var(--baseVal3);
   border-radius: var(--baseVal);
-  margin-right: var(--baseVal4);
+  /* margin-right: var(--baseVal4); */
   gap: 0.5em;
   font-weight: bold;
 }
@@ -244,6 +249,7 @@ a{
   border-top-left-radius: var(--borderRadius4); 
   justify-content: space-around;
   box-shadow: 0 -3px 6px #0002;
+  z-index: 1000;
 }
 .upperNav{
   margin-bottom: auto;
@@ -442,7 +448,7 @@ tr td:nth-child(2) {
 }
 tr td:nth-child(3) {
   text-align: right;
-  padding-right: var(--baseVal10);
+  padding-right: var(--baseVal12);
 }
 tr th:nth-child(3) {
   text-align: right;
@@ -511,7 +517,9 @@ tbody:last-child td{
 .loader-line {
   width: 100%;
   height: 3px;
-  position: relative;
+  position: absolute;
+  left: 0;
+  bottom: 0;
   overflow: hidden;
   background-color: var(--mainHighlight40);
   /* margin: 100px auto; */

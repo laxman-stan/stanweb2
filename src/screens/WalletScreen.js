@@ -24,10 +24,13 @@ export const Wallet = () => {
     const setRewardsFun = (all, claimed) => {
 
         let rewards = all
-        if (claimed.length)
+        // if (claimed.length)
             rewards = rewards.map(i => {
+                if(claimed.length){
                 let x = !~claimed.findIndex(j => j.reward.id === i.id)
                 i.isClaimed = !x
+            }
+            i.canBuy= upruns>i.price
                 return i
             })
 
@@ -75,16 +78,21 @@ export const Wallet = () => {
 const RewardComp = ({ data }) => {
     const bottomSheet = useShowBottomSheet();
     const notification = useShowNotification();
-    const { price, title, id, desc, isClaimed: isItemClaimed } = data
+    const { price, title, id, desc, isClaimed: isItemClaimed, canBuy } = data
+    const count = data.availableCount + "/" + data.maxCount
+    // console.log('count', data.canBuy);
     const [isClaimed, setIsClaimed] = useState(isItemClaimed)
     const userData = useUserData();
     const apiCalled = (isRedeemed, res) => {
 
         bottomSheet(false);
-        notification(isRedeemed ? 'Redeemed successfully' : res ?? 'Something went wrong')
+        notification(isRedeemed ? 
+            res?.reward_claimed ? "Claimed successfully" : "Reward not claimed." 
+            : res ?? 'Something went wrong')
         if (isRedeemed){
             setIsClaimed(true)
-            let x = userData.userData
+            showMsg(res.message);
+            let x = userData.userData;
             x.upruns -= price
             userData.setData({...x})
     }}
@@ -93,6 +101,9 @@ const RewardComp = ({ data }) => {
     const clickFun = () => {
         if (isClaimed)
             notification('Already claimed')
+        if(!canBuy)
+            notification('Not enough upruns')
+    
         else {
 
             const props = {
@@ -117,6 +128,18 @@ const RewardComp = ({ data }) => {
         bottomSheet(true, bottomsheetPropsForDetails);
     }
 
+    const showMsg=(message)=>{
+        console.log('is called', message);
+        const props = {
+            message: message + '\n' + "Please visit the https://upstox.com/ for more details.",
+        acceptAction: ()=>window.open('https://upstox.com/'),
+        declineText: "Later",
+        acceptText: "Visit Now",
+    }
+        setTimeout(() => {
+            bottomSheet(true, props)
+        }, 500);
+    }
     return <div style={{ marginBottom: 'var(--baseVal3)' }} className="f whiteCard fc">
 
         <div style={{ gap: '.5em' }} className="f sb ac">
@@ -124,7 +147,9 @@ const RewardComp = ({ data }) => {
 
             <div style={{ marginRight: 'auto', marginLeft: 'var(--baseVal)' }}>
                 <h3 style={{ fontSize: '1em' }}>{title}</h3>
-                <p style={{ fontSize: '.8em' }}>{desc}</p>
+                <p style={{ fontSize: '.8em' }}>{desc}
+                <span style={{marginLeft: 'var(--baseVal2)'}}>{"Available: " + count}</span>
+                </p>
             </div>
         </div>
 
@@ -140,6 +165,7 @@ const RewardComp = ({ data }) => {
 
             <BouncyComp
                 text='See details'
+                // onClick={showMsg}
                 onClick={viewDetails}
                 styles={{
                     fontSize: '.8em',
@@ -158,7 +184,7 @@ const RewardComp = ({ data }) => {
             <BouncyComp
                 onClick={clickFun}
                 bounceLevel={.8}
-                styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed ? .6 : 1 }}
+                styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed || !canBuy ? .6 : 1 }}
                 text={'Redeem'}
                 customClasses="highlightedSmallBtn"
             />
@@ -173,7 +199,7 @@ const RewardInfo = (props) => {
 
     return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
         <div style={{ height: '100%', overflowY: 'scroll', paddingBottom: 'calc( 30% + var(--baseVal4) )' }} className="f fc">
-            <div className="f">
+            <div className="f ac">
                 <img
                     alt="reward"
                     style={{ width: 40, height: 40 }}

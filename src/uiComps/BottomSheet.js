@@ -97,7 +97,7 @@ const MainFunction = forwardRef(({
         hideSheet();
     }}
 
-    return <div ref={sheetRef} style={{ display: 'none', zIndex: 1000 }} className='fp fh fw'>
+    return <div ref={sheetRef} style={{ display: 'none', zIndex: 1001 }} className='fp fh fw'>
         <a.div onClick={declineFun} style={{ background: 'black', ...blackLayer }} className="fh fw" />
  {   !customChild?     <a.div style={{ ...sheet, ...cardCont}} className="ap whiteCard">
         <div style={{ ...cardStyle}} ref={contentContRef} className="f whiteCard fw fc">

@@ -6,20 +6,22 @@ import {a} from '@react-spring/web'
 import useShowNotification from "../hooks/useShowNotification";
 
 
-export default function RoasterComp({showSelectionBtn, team, skill, isChecked,setIsChecked, name, isLocked, styleFromProp, setIh, price, btnText, change, buyAction, isBought, operation = 'buy', hideBtn}){
+export default function RoasterComp({
+    batting_avg, batting_sr, bowling_eco, bowling_sr,
+    showSelectionBtn, team, skill, isChecked,setIsChecked, name, isLocked, styleFromProp, setIh, price, btnText, change, buyAction, isBought, operation = 'buy', hideBtn}){
 
     const data=[
         {
-            key: 'Eco. rate', value: 54
+            key: 'Batting avg', value: batting_avg
         },
         {
-            key: 'Most wkts', value: 5,
+            key: 'Batting sr', value: batting_sr,
         },
         {
-            key: 'Avg. wkts', value: 3,
+            key: 'Bowling eco', value: bowling_eco,
         },
         {
-            key: 'total wkts', value: 10,
+            key: 'Bowling sr', value: bowling_sr,
         }
     ]
     const upruns = price;
@@ -55,7 +57,7 @@ export default function RoasterComp({showSelectionBtn, team, skill, isChecked,se
         <div style={{gap: '.5em'}} className="f sb ac">
             <img style={{width: 40, height: 40}} 
             alt={team}
-            src={require("../assets/teamLogos/" + team + '.png')}
+            src={team? require("../assets/teamLogos/" + team + '.png') : null}
             />
 
             <div style={{marginRight: 'auto', marginLeft: 'var(--baseVal)'}}>

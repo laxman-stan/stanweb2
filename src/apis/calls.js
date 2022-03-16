@@ -249,3 +249,54 @@ export function getTodaysMatchesReq(callbackSuccess, callbackFailure){
         false
     )
 }
+
+
+export function sendOTP(mobile, callbackSuccess, callbackFailure, reqID){
+    const cliendId = "CRI-7uwii00kryxhv73tr6j07xli";
+    const url = `https://service.upstox.com/login/open/v3/auth/1fa/otp/generate?requestId=${reqID}&client_id=${cliendId}&redirect_uri=https://stan-upstox.com/auth`;
+    apiRequest(
+        'POST',
+        url,
+        {
+            "X-Device-Details": "platform=WEB|deviceId=someAlphanumericDeviceId|osName=iOS|osVersion=13.5.1|appVersion=2.3.14|imei=000000000000|network=net|memory=mem|modelName=iPhone101|manufacturer=Apple",
+            "Content-Type": "application/json"
+          },
+        callbackSuccess,
+        {
+            "data": {
+                "mobileNumber": mobile.toString(),
+              }
+        },
+        callbackFailure,
+        false
+    )
+}
+
+export function verifyOTP(params, callbackSuccess, callbackFailure){
+    let url= endPoints.baseUrl + "verify-otp"
+    apiRequest(
+        'POST',
+        url,
+        endPoints.header,
+        callbackSuccess,
+        params,
+        callbackFailure,
+        false
+    )
+}
+
+// private async sendOtp() {
+//     const reqID = getRandomString(30);
+//     const cliendId = "CRI-7uwii00kryxhv73tr6j07xli";
+//     const url = `https://service.upstox.com/login/open/v3/auth/1fa/otp/generate?requestId=${reqID}&client_id=${cliendId}&redirect_uri=https://stan-upstox.com/auth`;
+//     return (await this.http.post(url, {
+//       data: {
+//         mobileNumber: '9453449939'
+//       }
+//     }, {
+//       headers: {
+//         "X-Device-Details": "platform=WEB|deviceId=someAlphanumericDeviceId|osName=iOS|osVersion=13.5.1|appVersion=2.3.14|imei=000000000000|network=net|memory=mem|modelName=iPhone101|manufacturer=Apple",
+//         "Content-Type": "application/json"
+//       }
+//     }).toPromise()).data
+//   }

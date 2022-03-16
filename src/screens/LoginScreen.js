@@ -57,6 +57,7 @@ const MainFunction = () => {
     }
 
 
+
  
     return <div className="f fc loginPg rp fw">
 
@@ -70,8 +71,8 @@ const MainFunction = () => {
             customClasses={"cta whiteBtn"}
             styles={{ marginTop: 'auto', marginLeft: 0, marginRight: 0 }}
             useDefaultBtnStyles
-            text="Login with Upstox"
-            onClick={loginFunction}
+            text="Login with phone no."
+            onClick={()=>navigate('./phone-no')}
         />
 
         <BouncyComp

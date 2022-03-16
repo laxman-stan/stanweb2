@@ -42,6 +42,6 @@ export default function UpperNav({showBackBtn}){
 
         <div style={{marginLeft: 'auto'}}/>
         <WalletWidget/>
-        <HelpWidget/>
+        {/* <HelpWidget/> */}
     </div>
 }

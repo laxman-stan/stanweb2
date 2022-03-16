@@ -3,7 +3,7 @@
 export default function TableComp({data, myRank}) {
 
     const tablelDetails = {
-        heads: ['Rank', 'Name', 'Uprun gain'],
+        heads: ['Rank', 'Name', 'Upruns Earned'],
         widths: ['20%', '50%', '30%'],
     }
     return  <table style={{ borderCollapse: 'collapse', }} className="">

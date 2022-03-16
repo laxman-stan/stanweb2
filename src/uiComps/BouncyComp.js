@@ -30,7 +30,7 @@ export default function BouncyComp({
     ${useHighlightedBtnStyles&& "highlightedBtn "}
     ${customClasses}
     noSelect`}
-    style={{...styles, ...bounce}} onClick={onClick}>
+    style={{...styles, ...bounce, overflow: 'hidden'}} onClick={onClick}>
         {text&& text}
         {customChild && customChild}
 

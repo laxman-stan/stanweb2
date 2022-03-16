@@ -22,12 +22,13 @@ const RenderTeamList = ({team}) => {
     return <div style={{gap: 'var(--baseValH3)'}} className="f fc ">
         <div style={{
             marginTop: 'var(--baseVal2)',
-            marginBottom: 'var(--baseVal2)'
+            marginBottom: 'var(--baseVal2)',
+            marginLeft: 'var(--baseVal2)'
         }} className="f">
             <h4 style={{
                 width: '50%'
             }}>My Team</h4>
-            <h4>UPruns earned</h4>
+            <h4>Upruns</h4>
         </div>
 
         {
@@ -35,9 +36,9 @@ const RenderTeamList = ({team}) => {
                 <p style={{
                     width: '50%'
                 }}>{item.name}</p>
-                <div style={{marginLeft: 'var(--baseVal3)', gap: 'var(--baseVal)'}} className="f">
+                <div style={{marginLeft: '0', gap: 'var(--baseVal)'}} className="f">
                     <img src={Coin}/>
-                    <p>{"not determined"}</p>
+                    <p>{item.price}</p>
                     </div>
 
                 </div>)
