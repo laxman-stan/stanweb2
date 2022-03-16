@@ -47,6 +47,8 @@ const [userData, setUserData] = useState({
   userFromLogin : null,
   name: null,
   gain: null,
+  todaysMatch: [],
+  teams: [],
 })
 const userDataContext={
   userData,

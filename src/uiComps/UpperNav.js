@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from "react"
-// import { NotificationContext } from "../App"
-// import Logo from '../assets/logo.svg'
-import { BackArrow, Logo } from "../assets"
+import { BackArrow } from "../assets"
+import logo from '../assets/logo.png'
 import BouncyComp from "./BouncyComp"
 import HelpWidget from "./HelpWidget"
 import WalletWidget from "./WalletWidget"
@@ -36,8 +35,9 @@ export default function UpperNav({showBackBtn}){
     }
 
 {  !showBackButton   ?   <img
-        style={{height: '30%'}}
-        src={Logo}
+        style={{height: '55%'}}
+        src={logo}
+        alt="Upstox"
         /> : <h3 style={{color: 'white'}}>{location.pathname.includes('history')? 'History' : 'Wallet'}</h3>}
 
         <div style={{marginLeft: 'auto'}}/>

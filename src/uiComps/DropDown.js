@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-
+const WID=180
 export default function Dropdown({
     maxWid,
     items=['a'],
@@ -12,7 +12,7 @@ export default function Dropdown({
 
     const styles={
         topCont:{
-            width: maxWid ?? 120,
+            width: maxWid ?? WID,
             border: '2px solid',
             padding: 'var(--baseVal) var(--baseVal3)',
             paddingLeft: 'var(--baseVal3)',
@@ -24,7 +24,7 @@ export default function Dropdown({
             transition: 'all .2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
         },
         itemCont: {
-            width: maxWid ?? 120,
+            width: maxWid ?? WID,
             hieght: 20,
             background: 'white',
             zIndex: 100,
@@ -54,11 +54,11 @@ export default function Dropdown({
         setIsOpen(false);
     }
 
-    const dn=e=>{
-        e.target.style.background='var(--mainHighlight30)'
+    const dn=i=>{
+        document.querySelectorAll('.ddList')[i].style.background='var(--mainHighlight20)'
     }
-    const up=e=>{
-        e.target.style.background='transparent'
+    const up=i=>{
+        document.querySelectorAll('.ddList')[i].style.background='transparent'
     }
 
     const handleClick=(e)=>{
@@ -75,13 +75,22 @@ export default function Dropdown({
         };
     }, [isOpen])
 
+    const dot={
+        width: 'var(--baseVal2)',
+        height: 'var(--baseVal2)',
+        background: 'var(--secondaryHighlight)',
+        borderRadius: 40,
+        transform: 'translateY(.5px)',
+        marginRight: 'auto',
+        marginLeft: 12,
+    }
 
-
-    return <div ref={itemRef} style={{ width: maxWid ?? 120, marginLeft: 'auto', marginRight: 12 }} className="f rp fc">
+    return <div ref={itemRef} style={{ width: maxWid ?? WID, marginLeft: 'auto', marginRight: 12 }} className="f rp fc">
         <div style={styles.topCont}
         onClick={()=>setIsOpen(!isOpen)}
          className="f sb ac">
-            {items[activeIndex]}
+            {items[activeIndex].name}
+            {items[activeIndex].isPlayingToday ? <div style={dot}/> : null}
             <Arrow isOpen={isOpen}/>
 
         </div>
@@ -91,14 +100,19 @@ export default function Dropdown({
                 return <div
                 key={i}
                 onClick={()=>clickfun(i)}
-                onMouseUp={up} 
-                onMouseDown={dn}
-                onMouseLeave={up} 
-                onTouchStart={dn}
-                onTouchEnd={up}
-                onTouchCancel={up}
-                style={styles.item} className="f sb ac">
-                {item} 
+                onMouseUp={()=>up(i)} 
+                onMouseDown={()=>dn(i)}
+                onMouseLeave={()=>up(i)} 
+                onTouchStart={()=>dn(i)}
+                onTouchEnd={()=>up(i)}
+                onTouchCancel={()=>up(i)}
+                style={styles.item} className="f ddList ac">
+                {item.name} 
+                <span style={{
+                    width: 130,
+                    fontSize: '.83em',
+                    color: 'var(--mainHighlight30)',
+                }}>{item.isPlayingToday? '\u00A0\u00A0(playing today)': ''}</span>
             </div>
             })}
         </div>

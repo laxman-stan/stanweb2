@@ -70,7 +70,7 @@ const MainFunction = () => {
             customClasses={"cta whiteBtn"}
             styles={{ marginTop: 'auto', marginLeft: 0, marginRight: 0 }}
             useDefaultBtnStyles
-            text="Login with upstocks"
+            text="Login with Upstox"
             onClick={loginFunction}
         />
 
@@ -79,7 +79,7 @@ const MainFunction = () => {
             outlined
             styles={ outlinedBtnStyles }
             useDefaultBtnStyles
-            text="Login with upstocks"
+            text="Login with Upstox"
             onClick={loginFunction}
         />
 

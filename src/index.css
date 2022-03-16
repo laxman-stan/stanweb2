@@ -45,7 +45,7 @@ html {
   height: 0;
 }
 body{
-  /* overscroll-behavior: contain; */
+  overscroll-behavior: contain;
 }
 * {
   color: var(--mainContrast);
@@ -132,7 +132,7 @@ h6{
 }
 
 .whiteCard{
-  background-color: var(--cardWhite);
+  background-color: var(--superWhite);
   border-radius: var(--baseVal2);
   padding: var(--baseVal3);
   box-shadow: 0px 0px 10px var(--grey2);

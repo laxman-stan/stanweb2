@@ -1,6 +1,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { BouncyComp, RoseterComp, TabNavigator, Dropdown, EmptyTeam } from "../uiComps"
+import { BouncyComp, RoseterComp, TabNavigator, Dropdown, EmptyTeam, Loader } from "../uiComps"
 import { a, useSprings, config, useTransition, easings } from '@react-spring/web'
 import { colors } from "../constants/colors"
 import useShowBottomSheet from "../hooks/useShowBottomSheet"
@@ -18,27 +18,26 @@ export default function TradeScreen() {
     let location = useLocation();
     let initialIndex = location.state === 'toBuy' ? 1 : 0;
     const playerData = useUserData();
-    const key=useRef(0);
+    const [key, setK] = useState(0);
     const [si, setSi] = useState(initialIndex);
+    const [shouldRefresh, setShouldRefresh] = useState(false);
 
     const set=(index=0)=>{
-
         let x = {...playerData.userData};
-        key.current++;
+        setK(key+1)
         setSi(index)
-        playerData.setData(x)
-        
+        playerData.setData(x)  
+
     }
-    if(playerData.userData.allPlayers===null){
-        
-        return <div>Loading...</div>
+    if(playerData.userData.allPlayers===null){ 
+        return <Loader/>
     }
     else{
         
     return <TabNavigator
         numberOfTabs={2}
         initialIndex={si}
-        // key={key.current}
+        key={key}
         tabNames={["Sell", "Buy"]}
         renderTab={(i) => <RenderTabs set={set} data={playerData.userData} index={i} />}
     />}
@@ -111,7 +110,7 @@ export const Sell = ({data, set, styles}) => {
             btnText="Sell"
             operation='sell'
             change={growth_perc}
-            isLocked={isPlayingToday}
+            isLocked={isLocked}
          />
         }) : <EmptyTeam hideBtn/>}
     </div>
@@ -119,23 +118,18 @@ export const Sell = ({data, set, styles}) => {
 
 const Buy = ({players, data, set}) => {
 
-    const teams = Object.keys(players);
+    const teams = data.teams;
 
     const [ih , setIh] = useState(null);
 
     const [isIncreasingSort, setIsIncreasingSort] = useState(false)
-    const [activeCategory, setActive] = useState(1);
+    const [activeCategory, setActive] = useState(0);
     const [currentTeamIndex, setCurrentTeamIndex] = useState(0)
     const categories = [
         {
             type: 'all',
             applyOperation: false,
             // operation: ()=>{},
-        },
-        {
-            type: 'Playing today',
-            applyOperation: true,
-            operation: val=>val.isPlayingToday
         },
         {
             type: 'top Gainers',
@@ -205,8 +199,8 @@ const Buy = ({players, data, set}) => {
         key={currentTeamIndex}
         operation={categories[activeCategory]}
         isIncreasingSort={isIncreasingSort} 
-        teamName={teams[currentTeamIndex]} 
-        teamData={players[teams[currentTeamIndex]]} />  
+        teamName={teams[currentTeamIndex].name} 
+        teamData={players[teams[currentTeamIndex].name]} />  
 
     </div>
 

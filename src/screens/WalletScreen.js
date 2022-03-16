@@ -180,7 +180,7 @@ const RewardInfo = (props) => {
                     src={"https://source.unsplash.com/random/60×60"}
                 />
                 <div style={{marginLeft: 'var(--baseVal2)', textTransform: 'capitalize', }} className="f fc">
-                    <h3 style={{fontWeight:'bold'}}>{title}</h3>
+                    <h3 style={{fontWeight:'bold', color: 'var(--mainHighlight)'}}>{title}</h3>
                     <p style={subHeading}>{desc}</p>
                 </div>
             </div>
@@ -197,7 +197,7 @@ const RewardInfo = (props) => {
                     Valid till: {'\u00A0'}<span>Never expires</span>
                 </div>
                 <div className="f">
-                    Avail for: {'\u00A0'}<img src={Coin} /> <span>{'\u00A0' + price}</span>
+                    Avail for: {'\u00A0'}<img src={Coin} style={{width: 16}} /> <span>{'\u00A0' + price}</span>
                 </div>
             </div>
 
@@ -242,8 +242,10 @@ const rewardInfoCard = {
     marginTop: 'auto',
     alignSelf: 'flex-end',
     transform: 'translateY(30%)',
+    paddingLeft: 'var(--baseVal4)',
+    paddingRight: 'var(--baseVal4)',
 }
 
 const subHeading = {
-    
+    color: 'var(--mainHighlight30)'
 }

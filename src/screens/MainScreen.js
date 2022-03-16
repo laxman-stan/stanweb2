@@ -94,6 +94,7 @@ const MainFunction = () => {
         x.gain = myData.uprun_gains
         x.myPlayers = myPlayers
         x.todaysMatch=todaysMatchData
+        x.teams = Object.keys(data).map(i=>({name: i, isPlayingToday: todaysTeams.includes(i)}))
         userData.setData({
             ...x
         })
