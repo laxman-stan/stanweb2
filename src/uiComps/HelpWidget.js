@@ -1,8 +1,13 @@
 import BouncyComp from "./BouncyComp"
+import useBetterNavigation from "../hooks/useBetterNavigation"
 export default function HelpWidget(){
 
 const showdot=true
+const navigate = useBetterNavigation();
     return <BouncyComp
+    onClick={
+      ()=>navigate('/main/help')
+    }
     customChild={<div className="f ac rp jc">
      <svg
     width={24}

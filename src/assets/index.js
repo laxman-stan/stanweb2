@@ -9,3 +9,4 @@ export {default as SortIcon} from './icons/sort.svg';
 export {default as Coin} from './icons/coin.svg';
 export {default as Close} from './icons/closeIcon.svg';
 export {default as Call} from './icons/phoneIcn.svg';
+export {default as UserIcon} from './icons/user.svg';

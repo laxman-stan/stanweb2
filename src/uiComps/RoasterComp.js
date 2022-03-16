@@ -8,8 +8,9 @@ import useShowNotification from "../hooks/useShowNotification";
 
 export default function RoasterComp({
     batting_avg, batting_sr, bowling_eco, bowling_sr,
+    isPlayingToday,
     showSelectionBtn, team, skill, isChecked,setIsChecked, name, isLocked, styleFromProp, setIh, price, btnText, change, buyAction, isBought, operation = 'buy', hideBtn}){
-
+        console.log('sfa', isPlayingToday);
     const data=[
         {
             key: 'Batting avg', value: batting_avg
@@ -65,10 +66,10 @@ export default function RoasterComp({
                 <p style={{fontSize: '.8em'}}>{skill}</p>
             </div>
 
-{   showSelectionBtn?         <BouncyComp
+{   showSelectionBtn?  <BouncyComp
             onClick={()=>setIsChecked(!isChecked)}
-            customChild={<Checkbox isChecked={isChecked}/>}
-            />
+            customChild={<Checkbox isChecked={isChecked}/> }
+            /> 
 :
        hideBtn ? null :  <BouncyComp
             onClick={buyAction}
@@ -103,9 +104,9 @@ export default function RoasterComp({
         </div>
         </div>
 
-{   isLocked ?  <div className="f ap fc ac jc" style={{top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'var(--mainHighlight75)', borderRadius: 'var(--baseVal2)', color: 'white', gap: 8, fontSize: '.83em'}}>
+{   isLocked || (!isPlayingToday && showSelectionBtn) ?  <div className="f ap fc ac jc" style={{top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'var(--mainHighlight75)', borderRadius: 'var(--baseVal2)', color: 'white', gap: 8, fontSize: '.83em'}}>
         <Lock/>
-        Player locked (Already in use)
+       {showSelectionBtn?  "Player locked (Not playing today)" : "Player locked (Used in today's team)"}
         </div> : null}
     </a.div>
 }
@@ -170,3 +171,7 @@ viewBox="0 0 12 9"
   strokeLinejoin="round"
 />
 </svg>
+
+/**<p style={{
+                fontSize: '.83em', fontWeight: "bold", color: 'var(--mainHighlight)', marginBottom: 8
+            }}>Not playing today</p> */

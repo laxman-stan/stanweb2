@@ -83,6 +83,15 @@ export default function PhoneNoScreen() {
                 onChange={onChange}
             />
 
+            <NormalInput
+                preComp={<img style={{ height: '70%', transform: 'translateY(0px)' }} src={Call} />}
+                placeholder="9999999999"
+                value={phoneNo}
+                // maxLen={10}
+                type="number"
+                onChange={onChange}
+            />
+
             <BouncyComp
                 customClasses={"cta whiteBtn"}
                 styles={{ marginTop: 'var(--baseVal6)', marginLeft: 0, marginRight: 0 }}
@@ -94,4 +103,40 @@ export default function PhoneNoScreen() {
 
         </div>
     )
+}
+
+export const NormalInput=({
+    preComp, placeholder, value, type, onChange,
+})=>{
+
+    return <div style={{marginTop: 20}} className='rp'>
+    {
+        preComp? <div style={{
+            top: 11, left: 11, 
+        }} className='ap'> 
+            {preComp}
+        </div> : null
+    }
+        <input
+        className=' normalText animInputCont sinput'
+        style={style}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+    />
+    </div>
+}
+
+const style={
+    width: '100%',
+    backgroundColor: 'var(--mainHighlight20)',
+    border: 'none',
+    height: 48,
+    borderRadius: 2,
+    paddingLeft: 46,
+    WebkitUserSelect: 'text',
+    userSelect: 'text',
+    msUserSelect: 'text',
+    MozUserSelect: 'text',
 }

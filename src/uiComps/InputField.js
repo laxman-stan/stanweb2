@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { a, useSpring } from '@react-spring/web'
 import { useEffect, useRef } from "react"
-import { colors} from "../constants/colors"
 
 
 export default function InputField({
@@ -10,7 +9,8 @@ export default function InputField({
     value,
     onChange,
     type,
-    preComp
+    preComp,
+    maxLength
 }) {
 const PLACE_HOLDER_TEXT = placeholder
 const WID = '100%'
@@ -49,7 +49,7 @@ const WID = '100%'
                 onBlur={()=>setIsFocused(false)}
                 className="normalText customInput"
                 value={value}
-                maxLength="10"
+                maxLength={maxLength}
                 style={{ zIndex: 3 , width: WID}}
                 onChange={onChange}
                 placeholder={PLACE_HOLDER_TEXT} />

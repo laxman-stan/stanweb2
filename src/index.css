@@ -146,6 +146,7 @@ h6{
 .rosterCard{
   transition: all .4s;
 }
+
 .rosterCard * {
   transition: all .4s;
 }
@@ -170,9 +171,9 @@ h6{
 }
 .walletWidget{
   background-color: var(--superWhite);
-  padding: var(--baseVal2) var(--baseVal3);
+  padding: var(--baseVal) var(--baseVal3);
   border-radius: var(--baseVal);
-  /* margin-right: var(--baseVal4); */
+  margin-right: var(--baseVal4);
   gap: 0.5em;
   font-weight: bold;
 }
@@ -287,8 +288,9 @@ a{
 }
 .container{
   position: fixed;
-  z-index: 1000;
+  z-index: 3000;
   width: calc(100vw - 2*var(--baseVal*2));
+  /* top: var(--topBottomBarHeight); */
   top: 0;
   margin: 0 auto;
   display: flex;
@@ -297,6 +299,7 @@ a{
   align-items: center;
   gap: var(--baseVal2);
   margin-top: var(--baseVal2);
+  /* background-color: rebeccapurple; */
 }
 
 .message{
@@ -310,15 +313,15 @@ a{
 .content{
   color: white;
   background: var(--secondaryHighlight);
-  padding-top: var(--baseVal3);
-  padding-bottom: var(--baseVal3);
+  padding-top: var(--baseVal2);
+  padding-bottom: var(--baseVal2);
   padding-left: var(--baseVal3);
   padding-right: var(--baseVal3);
   display: grid;
   grid-gap: var(--baseVal2);
   overflow: hidden;
   height: auto;
-  border-radius: var(--baseVal2);
+  border-radius: var(--baseValH);
   margin-top: 0;
   width: 80vw;
 }
@@ -347,6 +350,8 @@ a{
     color: transparent;
     caret-color: var(--superWhite);
     background-color: transparent;
+    /* user-select: text; */
+    -webkit-user-select: text;
   }
 input::placeholder{
   color: var(--mainHighlight30)
@@ -565,4 +570,32 @@ tbody:last-child td{
   color: var(--mainHighlight);
   font-weight: bold;
 }
+.qnaCont{
+  padding-top: var(--baseVal2);
+  padding-bottom: var(--baseVal2);
+  gap: var(--baseVal3)
+}
+.qnaCont::after{
+  content:"0";
+  display:block;
+  font-size: .5px;
+  line-height: 0px;
+  /* overflow-y:hidden; */
+  opacity: 0;
+}
+.q{
+  width: calc(100% - 30px);
+  /* background-color: tan */
+}
+.qnaBar{
+  width: 14px;
+  height: 2px;
+  background-color: black;
+  transition: none;
+}
+.qnaBarCont{
+  top: 20px;
+  right: 30px;
+}
+
 

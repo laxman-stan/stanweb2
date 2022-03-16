@@ -23,10 +23,15 @@ export default function CreateTeam() {
     }))
 
     const selectionFun = index => {
+        if(userData[index].isPlayingToday){
         if (selected.length < 5)
             setSelected(selected.includes(index) ? selected.filter(i => i !== index) : [...selected, index])
+        else if(selected.includes(index))
+            setSelected(selected.filter(i => i !== index))
         else
-            notification("You can select only 5 players.")
+            notification("You can select only 5 players.")}
+        else
+        notification("You can't select players who are not playing today.")
     }
 
     useEffect(() => {
@@ -43,8 +48,8 @@ export default function CreateTeam() {
         setSelected([]);
         if (teamCreated) {
             notification('You team has been created successfully.')
-            userInfo.userData.myPlayers = userData.map(i => {
-                i.isLocked = true
+            userInfo.userData.myPlayers = userData.map((i, j) => {
+                i.isLocked = selected.includes(j)
                 return i
             })
             userInfo.userData.teamCreated = true;
@@ -93,6 +98,7 @@ export default function CreateTeam() {
                     team={item.team}
                     skill={item.skill}
 
+                    isPlayingToday={item.isPlayingToday}
                     change={item.growth_perc}
                     setIsChecked={() => selectionFun(index)}
                     isChecked={selected.includes(index)}

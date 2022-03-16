@@ -179,8 +179,8 @@ export const TitleComp = ({
         />
 
         <h1 style={{ color: 'var(--superWhite)' }}>{titleText}</h1>
-        <p style={{ ...para, marginTop: '.5em', marginBottom: '.1em' }}>{line1}</p>
-        <p style={{ ...para, marginBottom: '10%' }}>{line2}</p>
+        <p style={{ ...para, marginTop: '.5em', marginBottom: line2? '.1em' :'1em' }}>{line1}</p>
+        {line2 ? <p style={{ ...para, marginBottom: '10%' }}>{line2}</p> : null}
     </div>
 }
 

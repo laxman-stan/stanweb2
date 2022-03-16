@@ -2,12 +2,10 @@
     import { useTransition, a } from '@react-spring/web'
 import { useOnce } from '@react-spring/shared'
   
-    
     let id = 0
-    
-    
+ 
     function MessageHub({
-      config = { tension: 125, friction: 20, precision: 0.1 },
+      config = { tension: 125, friction: 20, },
       timeout = 2500,
       children,
     }) {

@@ -8,7 +8,7 @@ import WalletScreen from './screens/WalletScreen';
 import { PlayScreen } from './screens/MainScreen';
 import TradeScreen from './screens/TradeScreen';
 import { BottomSheet } from './uiComps';
-import { HistoryScreen, Wallet, CreateTeam, AppGuide, OtpScreen, PhoneNoScreen } from './screens';
+import { HistoryScreen, Wallet, CreateTeam, AppGuide, OtpScreen, PhoneNoScreen, HelpScreen, GetUserName } from './screens';
 import {
   // BrowserRouter as Router,
   Routes,
@@ -56,10 +56,12 @@ const userDataContext={
 }
   
   useEffect(() => {
-    appRef.current.style.height = window.innerHeight + 'px';
-    // setTimeout(() => {
-    //  bottomSheetRef.current.showSheet(true)
-    // }, 3000);
+      appRef.current.style.height = window.innerHeight + 'px';
+      setTimeout(() => {
+        if(window.innerHeight > appRef.current.offsetHeight)
+        // showNotification(window.innerHeight + " hj " + appRef.current.offsetHeight + 'woai')
+        appRef.current.style.height = window.innerHeight + 'px';
+      }, 1000);
   }, [])
 
   return (
@@ -67,23 +69,23 @@ const userDataContext={
       <UserDataContext.Provider value={userDataContext}>
   <NotificationContext.Provider value={showNotification}>
     <BottomSheetContext.Provider value={showBottomSheet}>
-    <div ref={appRef} className="app f fc">
+    <div ref={appRef} style={{height: '100dvh'}} className="app f fc">
 
       <BottomSheet ref={bottomSheetRef}/>
       <UpperNotification ref={notificationRef} />
-      {/* <PhoneNoScreen/> */}
-      {/* <OtpScreen/> */}
       <Routes>
 
         <Route path="/" element={<LoginScreen/>}/>
         <Route path="/phone-no" element={<PhoneNoScreen/>}/>
         <Route path="/OTP" element={<OtpScreen/>}/>
+        <Route path="/user-info" element={<GetUserName/>}/>
         <Route path="/app-guide" element={<AppGuide/>}/>
         <Route path="/main" element={<MainScreen/>}>
 
           <Route path="/main" element={<PlayScreen/>} />
           <Route path="/main/create-team" element={<CreateTeam/>} />
           <Route path="/main/rank" element={<RankScreen/>}/>
+          <Route path="/main/help" element={<HelpScreen/>}/>
           <Route path="/main/wallet" element={<WalletScreen/>}>
             <Route path="/main/wallet" element={<Wallet/>}/>
             <Route path="/main/wallet/history" element={<HistoryScreen/>}/>
@@ -91,7 +93,6 @@ const userDataContext={
           <Route path="/main/trade" element={<TradeScreen/>}/>
 
         </Route>
-
 
       </Routes>
     </div>

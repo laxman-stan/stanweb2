@@ -199,10 +199,10 @@ const RewardInfo = (props) => {
 
     return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
         <div style={{ height: '100%', overflowY: 'scroll', paddingBottom: 'calc( 30% + var(--baseVal4) )' }} className="f fc">
-            <div className="f ac">
+            <div className="f ">
                 <img
                     alt="reward"
-                    style={{ width: 40, height: 40 }}
+                    style={{ width: 40, height: 40, transform: 'translateY(5px)' }}
                     src={"https://source.unsplash.com/random/60×60"}
                 />
                 <div style={{marginLeft: 'var(--baseVal2)', textTransform: 'capitalize', }} className="f fc">

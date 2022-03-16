@@ -13,6 +13,7 @@ export default function UpperNav({showBackBtn}){
     const [showBackButton, setShowBackButton] = useState(false);
 
     const location = useLocation();
+    const pathName = location.pathname;
     const pathNamesToShow = ['/main/', '/main/trade', '/main/rank' ,'/main']
 
     useEffect(()=>{
@@ -38,10 +39,10 @@ export default function UpperNav({showBackBtn}){
         style={{height: '55%'}}
         src={logo}
         alt="Upstox"
-        /> : <h3 style={{color: 'white'}}>{location.pathname.includes('history')? 'History' : 'Wallet'}</h3>}
+        /> : <h3 style={{color: 'white'}}>{pathName.includes('history')? 'History' : pathName.includes('team') ? 'Create Team' : pathName.includes('help')? "Help" : 'Wallet'}</h3>}
 
         <div style={{marginLeft: 'auto'}}/>
         <WalletWidget/>
-        {/* <HelpWidget/> */}
+        <HelpWidget/>
     </div>
 }

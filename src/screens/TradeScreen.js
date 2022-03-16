@@ -72,6 +72,7 @@ export const Sell = ({set, styles, hideBuy, data}) => {
             let i = data.allPlayers[team].findIndex(p=>p.id===data.myPlayers[index].id)
             data.allPlayers[team][i].isBought = false
             data.myPlayers.splice(index, 1)
+            data.upruns +=data.allPlayers[team][i].price
             setDataToShow([...data.myPlayers])
             setTimeout(()=>{
                 set(0);

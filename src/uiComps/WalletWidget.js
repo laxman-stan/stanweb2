@@ -1,4 +1,5 @@
-import Wallet from '../assets/icons/wallet.svg'
+// import Wallet from '../assets/icons/wallet.svg'
+import { Coin } from '../assets';
 import BouncyComp from './BouncyComp';
 
 import useUserData from '../hooks/useUserData';
@@ -14,7 +15,7 @@ const navigate = useBetterNavigation();
     customChild={<div className="f ac walletWidget">
     <img
     style={{height: '1em'}}
-    src={Wallet}
+    src={Coin}
     />
     {nFormatter(upruns)}
 </div>}

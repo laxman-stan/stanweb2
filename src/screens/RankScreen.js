@@ -40,7 +40,7 @@ export default function RankScreen() {
 </div>
 
  <div style={{marginBottom: 'var(--baseVal3)', paddingLeft: 'var(--baseVal6)', backgroundColor: 'var(--mainHighlight)'}} className="f whiteCard hp hm">
-        <div style={{width: !myRank? "35%" : '20%' , color: 'white'}}>{myRank || 'Unranked'}</div>
+        <div style={{width: !myRank? "35%" : '20%' , color: 'white'}}>{myRank || '--'}</div>
         <div style={{width: !myRank? "45%" : "60%" , color: 'white'}}>You</div>
         <div style={{width: "20%" , color: 'white', textAlign: 'right', paddingRight: 'var(--baseVal10)'}}>{myData.gain}</div>
     </div> 
