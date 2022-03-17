@@ -30,7 +30,7 @@ export default function Help(){
     return <div style={{overflowY: 'scroll'}} className="f fh fc qnaCont fw">
     {dimension? <iframe width={dimension} style={{marginLeft: 12, borderRadius: 8, boxShadow: '0px 0px 10px var(--grey2)'}} src="https://www.youtube.com/embed/tmhmdai14oE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> : null}
            {
-               [...data.qna, ...data.qna, ...data.qna, ...data.qna].map((i, j)=><Accordion key={j} q={i.q} a={i.a}/>)
+               data.qna.map((i, j)=><Accordion key={j} q={i.q} a={i.a}/>)
            }
     </div>
 }

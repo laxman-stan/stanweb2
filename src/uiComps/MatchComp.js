@@ -32,13 +32,13 @@ const showLineUp=()=>{
 
         <div className="f sb ac">
             <img style={{ width: 40, height: 40 }} alt={teamA.name} src={
-                require('../assets/teamLogos/'+ teamA.name + '.png')
+                require('../assets/teamLogos/'+ teamA.name + '.webp')
                 } />
             <h4 style={{marginRight: 'auto', marginLeft: 'var(--baseVal3)'}}>{teamA.name}</h4>
                 <VS/>
             <h4 style={{marginLeft: 'auto',  marginRight: 'var(--baseVal3)'}}>{teamB.name}</h4>
             <img style={{ width: 40, height: 40 }} alt={teamB.name} src={
-                require('../assets/teamLogos/'+ teamB.name + '.png')
+                require('../assets/teamLogos/'+ teamB.name + '.webp')
                 } />
 
         </div>

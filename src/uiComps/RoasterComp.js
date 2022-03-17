@@ -58,7 +58,7 @@ export default function RoasterComp({
         <div style={{gap: '.5em'}} className="f sb ac">
             <img style={{width: 40, height: 40}} 
             alt={team}
-            src={team? require("../assets/teamLogos/" + team + '.png') : null}
+            src={team? require("../assets/teamLogos/" + team + '.webp') : null}
             />
 
             <div style={{marginRight: 'auto', marginLeft: 'var(--baseVal)'}}>

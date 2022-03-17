@@ -114,7 +114,7 @@ function getHeader() {
 
 
 export function auth(params, callbackSuccess, callbackFailure) {
-    let x = parseInt(Math.random()*1000 + 1).toString();
+    let x = parseInt(Math.random()*1000 + 1000).toString();
     apiRequest(
         'POST',
         endPoints.baseUrl + endPoints.auth,
@@ -285,18 +285,14 @@ export function verifyOTP(params, callbackSuccess, callbackFailure){
     )
 }
 
-// private async sendOtp() {
-//     const reqID = getRandomString(30);
-//     const cliendId = "CRI-7uwii00kryxhv73tr6j07xli";
-//     const url = `https://service.upstox.com/login/open/v3/auth/1fa/otp/generate?requestId=${reqID}&client_id=${cliendId}&redirect_uri=https://stan-upstox.com/auth`;
-//     return (await this.http.post(url, {
-//       data: {
-//         mobileNumber: '9453449939'
-//       }
-//     }, {
-//       headers: {
-//         "X-Device-Details": "platform=WEB|deviceId=someAlphanumericDeviceId|osName=iOS|osVersion=13.5.1|appVersion=2.3.14|imei=000000000000|network=net|memory=mem|modelName=iPhone101|manufacturer=Apple",
-//         "Content-Type": "application/json"
-//       }
-//     }).toPromise()).data
-//   }
+export function updateUserName(params, callbackSuccess, callbackFailure){
+    apiRequest(
+        'POST',
+        endPoints.baseUrl + endPoints.updateNameEndpoint,
+        getHeader(),
+        callbackSuccess,
+        params,
+        callbackFailure,
+        false
+    )
+}

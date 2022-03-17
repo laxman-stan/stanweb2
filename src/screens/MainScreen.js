@@ -18,7 +18,7 @@ import useShowNotification from "../hooks/useShowNotification"
 
 
 
-export default function MainScreen() {
+export default function MainScreen({setHeight}) {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     useCheckIsLoggedIn(setIsLoggedIn);
@@ -27,10 +27,10 @@ export default function MainScreen() {
         return <div />
 
     if (isLoggedIn)
-        return <MainFunction />
+        return <MainFunction setHeight={setHeight}/>
 }
 
-const MainFunction = () => {
+const MainFunction = ({setHeight}) => {
     const notification = useShowNotification();
     const userData = useUserData(); 
 
@@ -116,6 +116,7 @@ const MainFunction = () => {
     }
 
     useEffect(() => {
+        setHeight();
         allPlayersRequest(null, allPlayersRequestSuccess, apiFailed)
     }, [])
 

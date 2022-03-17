@@ -311,8 +311,8 @@ a{
 }
 
 .content{
-  color: white;
-  background: var(--secondaryHighlight);
+  background-color: var(--mainHighlight30);
+  color: var(--mainHighlight);
   padding-top: var(--baseVal2);
   padding-bottom: var(--baseVal2);
   padding-left: var(--baseVal3);
@@ -351,7 +351,7 @@ a{
     caret-color: var(--superWhite);
     background-color: transparent;
     /* user-select: text; */
-    -webkit-user-select: text;
+    /* -webkit-user-select: text; */
   }
 input::placeholder{
   color: var(--mainHighlight30)
@@ -585,7 +585,12 @@ tbody:last-child td{
 }
 .q{
   width: calc(100% - 30px);
+  color: var(--mainHighlight)
   /* background-color: tan */
+}
+.a{
+  color: var(--mainHighlight30);
+  width: calc(100% - 30px);
 }
 .qnaBar{
   width: 14px;

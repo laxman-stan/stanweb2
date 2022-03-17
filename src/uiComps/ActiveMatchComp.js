@@ -74,11 +74,11 @@ const MatchLine = ({
     let name1 = teams[0].name;
     let name2 = teams[1].name
     return <div className="f sb ac">
-        <img alt={name1} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name1 + ".png" )} />
+        <img alt={name1} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name1 + ".webp" )} />
         <h4 style={{ width: '4.5em', marginRight: 'auto', marginLeft: 'var(--baseVal3)' }}>{name1}</h4>
         <VS />
         <h4 style={{ width: '4.5em', marginLeft: 'auto', marginRight: 'var(--baseVal3)', textAlign: 'end' }}>{name2}</h4>
-        <img alt={name2} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name1 + ".png" )} />
+        <img alt={name2} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name1 + ".webp" )} />
 
     </div>
 }

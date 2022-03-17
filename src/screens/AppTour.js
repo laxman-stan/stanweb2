@@ -1,7 +1,7 @@
 
-import onBoarding1 from '../assets/Onboarding1.png'
-import onBoarding2 from '../assets/Onboarding2.png'
-import onBoarding3 from '../assets/Onboarding3.png'
+import onBoarding1 from '../assets/Onboarding1.webp'
+import onBoarding2 from '../assets/Onboarding2.webp'
+import onBoarding3 from '../assets/Onboarding3.webp'
 import {a, config, useSpring} from '@react-spring/web'
 import { useEffect, useRef, useState } from 'react'
 import { BouncyComp } from '../uiComps'

@@ -54,13 +54,16 @@ const userDataContext={
   userData,
   setData: val=>setUserData(val)
 }
+
+const setHeight=()=>{
+  if(window.innerHeight > appRef.current.offsetHeight)
+  appRef.current.style.height = window.innerHeight + 'px';
+}
   
   useEffect(() => {
       appRef.current.style.height = window.innerHeight + 'px';
       setTimeout(() => {
-        if(window.innerHeight > appRef.current.offsetHeight)
-        // showNotification(window.innerHeight + " hj " + appRef.current.offsetHeight + 'woai')
-        appRef.current.style.height = window.innerHeight + 'px';
+        setHeight();
       }, 1000);
   }, [])
 
@@ -80,7 +83,7 @@ const userDataContext={
         <Route path="/OTP" element={<OtpScreen/>}/>
         <Route path="/user-info" element={<GetUserName/>}/>
         <Route path="/app-guide" element={<AppGuide/>}/>
-        <Route path="/main" element={<MainScreen/>}>
+        <Route path="/main" element={<MainScreen setHeight={setHeight}/>}>
 
           <Route path="/main" element={<PlayScreen/>} />
           <Route path="/main/create-team" element={<CreateTeam/>} />

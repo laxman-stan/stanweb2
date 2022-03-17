@@ -3,8 +3,8 @@ import InputField from "../uiComps/InputField"
 import { useEffect, useState, useContext } from "react";
 import { auth } from "../apis/calls";
 import useShowNotification from "../hooks/useShowNotification";
-import { useNavigate } from "react-router-dom";
-import loginBg from '../assets/login.png'
+import { useLocation, useNavigate } from "react-router-dom";
+import loginBg from '../assets/login.webp'
 import useUserData from "../hooks/useUserData";
 
 
@@ -12,6 +12,9 @@ export default function LoginScreen() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(null)
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location);
+
     useEffect(() => {
         if (sessionStorage.authToken)
             navigate('/main')
@@ -31,19 +34,19 @@ const MainFunction = () => {
     const userData = useUserData();
     const x = userData.userData;
     
-    const isNewUser = true;
+    
     const navigate = useNavigate();
     const notification = useShowNotification();
     const loginSuccessful = (res) => {
-        const {upruns, access_token, name, uprun_gains} = res.user
+        const {upruns, access_token, name, uprun_gains, is_new_user} = res.user
         sessionStorage.authToken = access_token
         notification('logged in successfully')
         x.upruns = upruns
         x.userFromLogin = res.user
         // x.name = name
         userData.setData({...x})
-        if(isNewUser)
-        navigate('/app-guide', {replace: true})
+        if(is_new_user || name===" ")
+        navigate('/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
         else
         navigate('/main', {replace: true})
     }

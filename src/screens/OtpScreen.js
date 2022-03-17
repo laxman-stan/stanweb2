@@ -76,8 +76,8 @@ const MainFun = ({location, navigate}) => {
             x.userFromLogin = res.user
             // x.name = name
             userData.setData({ ...x })
-            if (is_new_user)
-                navigate('/app-guide', { replace: true })
+            if(is_new_user || name===" ")
+            navigate('/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
             else
                 navigate('/main', { replace: true })
         }

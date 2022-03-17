@@ -14,3 +14,4 @@ export const redeem = 'claim-reward';
 export const createTeamEndpoint = 'create-team';
 export const leaderbardEndpoint = 'leaderboard';
 export const matchesEndpoint = 'matches';
+export const updateNameEndpoint = 'update-name';
