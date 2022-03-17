@@ -23,10 +23,10 @@ const RenderTeamList = ({team}) => {
         <div style={{
             marginTop: 'var(--baseVal2)',
             marginBottom: 'var(--baseVal2)',
-            marginLeft: 'var(--baseVal2)'
+            // marginLeft: 'var(--baseVal2)'
         }} className="f">
             <h4 style={{
-                width: '50%'
+                width: '60%'
             }}>My Team</h4>
             <h4>Upruns</h4>
         </div>
@@ -34,9 +34,10 @@ const RenderTeamList = ({team}) => {
         {
             team.map((item, index)=><div key={index} className="f">
                 <p style={{
-                    width: '50%'
+                    width: '60%',
+                    
                 }}>{item.name}</p>
-                <div style={{marginLeft: '0', gap: 'var(--baseVal)'}} className="f">
+                <div alt="upruns" style={{marginLeft: 'var(--baseVal2)', gap: 'var(--baseVal)'}} className="f">
                     <img src={Coin}/>
                     <p>{item.price}</p>
                     </div>

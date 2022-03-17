@@ -15,6 +15,7 @@ import useShowBottomSheet from "../hooks/useShowBottomSheet"
 import useUserData from "../hooks/useUserData"
 import { Sell } from "./TradeScreen"
 import useShowNotification from "../hooks/useShowNotification"
+import { Coin } from "../assets"
 
 
 
@@ -154,8 +155,9 @@ const RenderTabs = ({ index, data }) => {
 }
 
 const TodaysMatch = ({ data }) => {
-    const  { myPlayers, teamCreated, todaysMatch  } = data
-
+    const  { myPlayers, teamCreated, todaysMatch, gain  } = data
+    const canEditTeam = false;
+    // console.log(data);
     const myTeam = myPlayers?.filter(i => i.isPlayingToday)
 
     return <div style={{ paddingTop: 0
@@ -168,7 +170,18 @@ const TodaysMatch = ({ data }) => {
         }
 </div>
      {teamCreated? <ActiveMatchComp team={myTeam}/> : <EmptyTeam len={myPlayers.length || 1} createTeam/>}
-
+     {canEditTeam? <BouncyComp
+    // onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade', {state: 'toBuy'})}
+    bounceLevel={.9}
+    styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 'var(--baseVal3)', marginRight: 0, width: 'calc(100vw - var(--baseVal6))', flex: 'none' }}
+    customClasses='cta'
+    text={'Edit Team'}
+    /> : <div style={{marginTop: 'auto', fontWeight: 'bold'}} className="f ac jc whiteCard">
+            <p style={{color: 'var(--mainHighlight)'}}>{`Total upruns earned${gain? ": " : ""}`}</p>
+          {gain? <> <img alt="upruns" style={{width: 14, marginTop: 4, marginLeft: 8, marginRight: 4}} src={Coin}/>
+            <p style={{color: 'var(--mainHighlight)'}}>{gain}</p> </> : <p style={{color: 'var(--mainHighlight)', marginLeft: 12}}>--</p>}
+    </div>}
+    
     </div>
 }
 
