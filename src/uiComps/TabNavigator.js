@@ -29,7 +29,7 @@ export default function TabNavigator({
         // scrollSnapAligh: 'start'
     }
     const tabTitle={
-        width: `${100/numberOfTabs}vw`,
+        width: `calc( ${100/numberOfTabs} * var(--vw))`,
         flex: 'none',
         color: mainHighlight,
         fontSize: '.83em',
@@ -42,10 +42,12 @@ export default function TabNavigator({
     }))
 
     useOnce(()=>{
-        setInnerWid(window.innerWidth)
+        let x = document.querySelector('.app').offsetWidth;
+        // console.log(document.querySelector('.app').offsetWidth)
+        setInnerWid(x)
         set.start({
-            tx: initialIndex*window.innerWidth,
-            barX: initialIndex*window.innerWidth/numberOfTabs,
+            tx: initialIndex*x,
+            barX: initialIndex*x/numberOfTabs,
             immediate: true
         })
     })
@@ -53,6 +55,7 @@ export default function TabNavigator({
 
 const timer = useRef();
    const setActiveTab=(i)=>{
+       console.log(' click registered ',innerWid, i)
        clearTimeout(timer.current);
                 set.start({
             from: {

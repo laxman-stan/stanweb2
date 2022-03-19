@@ -14,7 +14,7 @@ export default function UpperNav({showBackBtn}){
 
     const location = useLocation();
     const pathName = location.pathname;
-    const pathNamesToShow = ['/main/', '/main/trade', '/main/rank' ,'/main']
+    const pathNamesToShow = ['/cricexchange/main/', '/cricexchange/main/trade', '/cricexchange/main/rank' ,'/cricexchange/main']
 
     useEffect(()=>{
         setShowBackButton(!pathNamesToShow.includes(location.pathname))

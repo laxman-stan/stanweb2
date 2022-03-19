@@ -4,12 +4,12 @@ export default function TableComp({data, myRank}) {
 
     const tablelDetails = {
         heads: ['Rank', 'Name', 'Upruns Earned'],
-        widths: ['20%', '50%', '30%'],
+        widths: ['18%', '45%', '37%'],
     }
     return  <table style={{ borderCollapse: 'collapse', }} className="">
             <thead>
                 <tr>
-                    {tablelDetails.heads.map((i, j) =><th style={{width: tablelDetails.widths[j]}} key={j} >{i}</th>)}
+                    {tablelDetails.heads.map((i, j) =><th style={{ width: tablelDetails.widths[j] }} key={j} >{i}</th>)}
                 </tr></thead>
             {data.map((i, j) =><tbody key={j}><tr >
                 <td style={{width: tablelDetails.widths[0] , color: myRank===j+1 ? '#41246E' : 'black', fontWeight:myRank===j+1 ? 'bold' : 'normal'}}>{j + 1}</td>

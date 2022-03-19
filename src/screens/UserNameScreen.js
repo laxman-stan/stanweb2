@@ -39,7 +39,7 @@ const MainFun=({location, navigate})=>{
         if (e.target.value.length <= 24)
             setName(e.target.value)
         else
-            notification('Name should be less 25 characters.')
+            notification('Name should be less than 25 characters.')
     }
 
     const apiCalled=(isSuccess, res)=>{

@@ -72,8 +72,8 @@ const setHeight=()=>{
       <UserDataContext.Provider value={userDataContext}>
   <NotificationContext.Provider value={showNotification}>
     <BottomSheetContext.Provider value={showBottomSheet}>
+    <div className='supercont f jc'>
     <div ref={appRef} style={{height: '100dvh'}} className="app f fc">
-
       <BottomSheet ref={bottomSheetRef}/>
       <UpperNotification ref={notificationRef} />
       <Routes>
@@ -101,6 +101,8 @@ const setHeight=()=>{
 
       </Routes>
     </div>
+    </div>
+   
     </BottomSheetContext.Provider>
   </NotificationContext.Provider>
   </UserDataContext.Provider>

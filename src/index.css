@@ -32,6 +32,8 @@
   --navIconContHt: calc(.45*var(--topBottomBarHeight));
   --borderRadius4: calc(4*var(--baseVal));
   --inputFontSize: 1.2em;
+
+  --vw: clamp(1px, 1vw, 5px);
 }
 
 #root{
@@ -41,7 +43,7 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--mainBg);
-  width: 100vw;
+  width: calc( 100 * var(--vw) );
   /* overflow-x: hidden; */
 }
 ::-webkit-scrollbar {
@@ -191,7 +193,7 @@ h6{
   opacity: 0;
 }
 .fw{
-  width: 100vw;
+  width: calc( 100 * var(--vw) );
 }
 .label{
   margin-bottom: var(--baseVal3);
@@ -232,11 +234,15 @@ a{
   margin-bottom: var(--baseVal2);
   margin-left: var(--baseVal5);
 }
-
-.app{
+.supercont{
   width: 100vw;
+  background-color: var(--mainHighlight20);
+}
+.app{
+  width: calc( 100 * var(--vw) );
   overflow: hidden;
-  background-color: var(--mainBg)
+  background-color: var(--mainBg);
+
 }
 .nav{
   height: var(--topBottomBarHeight);
@@ -289,7 +295,7 @@ a{
 .container{
   position: fixed;
   z-index: 3000;
-  width: calc(100vw - 2*var(--baseVal*2));
+  width: calc( (100 * var(--vw)) - 2*var(--baseVal*2));
   /* top: var(--topBottomBarHeight); */
   top: 0;
   margin: 0 auto;
@@ -323,7 +329,7 @@ a{
   height: auto;
   border-radius: var(--baseValH);
   margin-top: 0;
-  width: 80vw;
+  width: calc( 80 * var(--vw) );
 }
 
 .animInputCont{
@@ -601,6 +607,29 @@ tbody:last-child td{
 .qnaBarCont{
   top: 20px;
   right: 30px;
+}
+.tourImg{
+  width: calc( 100 * var(--vw) );
+  min-width: calc( 100 * var(--vw) );
+  height: 100%;
+  background-size: cover;
+}
+
+.otpCont{
+  gap: var(--baseVal3);
+  /* padding-left: var(--baseVal3); */
+  margin-bottom: var(--baseVal2);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 
