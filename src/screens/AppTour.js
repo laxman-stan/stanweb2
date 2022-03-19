@@ -20,6 +20,7 @@ export default function AppTour(){
 
 
 const MainFun=()=>{
+    const [innerWid, setInnerWid] = useState(0);
     const navigate = useNavigate();
     const [style, setStyle] = useSpring(()=>({
         x: 0,
@@ -30,11 +31,16 @@ const nextFun=()=>{
     iteration.current++
     if(iteration.current< 3)
     setStyle.start({
-        x: -window.innerWidth*iteration.current
+        x: -innerWid*iteration.current
     })
     else
     navigate('/cricexchange/main', {replace: true})
 }
+
+useEffect(()=>{
+    let x = document.querySelector('.app').offsetWidth;
+    setInnerWid(x);
+}, [])
 
 
 return <div style={{ paddingBottom: 'var(--baseVal10)'}} className="fh fw f fc rp">

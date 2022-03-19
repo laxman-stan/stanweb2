@@ -24,7 +24,7 @@ export default function Help(){
 
     const [dimension, set] = useState(null);
     useEffect(()=>{
-        set(window.innerWidth - 24);
+        set(document.querySelector('.app').offsetWidth - 24);
     }, [])
 
     return <div style={{overflowY: 'scroll'}} className="f fh fc qnaCont fw">
