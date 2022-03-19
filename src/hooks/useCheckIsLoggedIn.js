@@ -8,6 +8,6 @@ export default function useCheckIsLoggedIn(setState){
         if(sessionStorage.authToken)
             setState(true);
         else
-            navigate('/', {replace: true})
+            navigate('/cricexchange', {replace: true})
     }, [])
 }

@@ -11,7 +11,7 @@ const upruns = useUserData().userData.upruns;
 const navigate = useBetterNavigation();
 
     return <BouncyComp
-    onClick={()=>navigate('/main/wallet')}
+    onClick={()=>navigate('/cricexchange/main/wallet')}
     customChild={<div className="f ac walletWidget">
     <img
     style={{height: '1em'}}
