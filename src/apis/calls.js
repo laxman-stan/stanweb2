@@ -296,3 +296,15 @@ export function updateUserName(params, callbackSuccess, callbackFailure){
         false
     )
 }
+
+export function loginViaTokenAuth(params, callbackSuccess,callbackFailure){
+    apiRequest(
+        "POST",
+        endPoints.baseUrl + endPoints.loginViaTokenAuth,
+        endPoints.header,
+        callbackSuccess,
+        params,
+        callbackFailure,
+        false
+    )
+}

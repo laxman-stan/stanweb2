@@ -1,7 +1,7 @@
 import BouncyComp from "../uiComps/BouncyComp"
 import InputField from "../uiComps/InputField"
 import { useEffect, useState, useContext } from "react";
-import { auth } from "../apis/calls";
+import { auth, loginViaTokenAuth } from "../apis/calls";
 import useShowNotification from "../hooks/useShowNotification";
 import { useLocation, useNavigate } from "react-router-dom";
 import loginBg from '../assets/login.webp'
@@ -13,11 +13,11 @@ export default function LoginScreen() {
     const [isLoggedIn, setIsLoggedIn] = useState(null)
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location);
+    // console.log(location.search.split("=")[1]);
 
     useEffect(() => {
         if (sessionStorage.authToken)
-            navigate('/main')
+            navigate('/cricexchange/main')
         else
             setIsLoggedIn(false)
     }, [])
@@ -25,12 +25,13 @@ export default function LoginScreen() {
     if (isLoggedIn === null)
         return <div />
     if (isLoggedIn === false)
-        return <MainFunction />
+        return <MainFunction location={location} />
 
 }
 
-const MainFunction = () => {
+const MainFunction = ({location}) => {
 
+    const z = location.search.split("=")[1];
     const userData = useUserData();
     const x = userData.userData;
     
@@ -38,6 +39,7 @@ const MainFunction = () => {
     const navigate = useNavigate();
     const notification = useShowNotification();
     const loginSuccessful = (res) => {
+        console.log('success', res)
         const {upruns, access_token, name, uprun_gains, is_new_user} = res.user
         sessionStorage.authToken = access_token
         notification('logged in successfully')
@@ -46,25 +48,41 @@ const MainFunction = () => {
         // x.name = name
         userData.setData({...x})
         if(is_new_user || name===" ")
-        navigate('/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
+        navigate('/cricexchange/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
         else
-        navigate('/main', {replace: true})
+        navigate('/cricexchange/main', {replace: true})
     }
 
     const loginFail=err=>{
+        console.log('fail', err)
         notification(err?.message?? 'Something went wrong.')
     }
 
     const loginFunction = () => {
-        auth({}, (res) => loginSuccessful(res), err => loginFail(err))
+        auth({}, loginSuccessful, loginFail)
     }
 
-
-
+    useEffect(() => {
+        console.log(location);
+        if(location.pathname==='/cricexchange/auth'){
+            
+            console.log('yha tq shi h', x)
+            if(z){
+                loginViaTokenAuth(
+                    {
+                        "code" : z
+                    },
+                    loginSuccessful,
+                    loginFail
+                )
+            }
+        }
+    }, [])
  
     return <div className="f fc loginPg rp fw">
 
         <img
+            alt="login-background"
             src={loginBg}
             style={{ left: 0, objectFit: 'cover' }}
             className="ap fw fh"
@@ -74,16 +92,18 @@ const MainFunction = () => {
             customClasses={"cta whiteBtn"}
             styles={{ marginTop: 'auto', marginLeft: 0, marginRight: 0 }}
             useDefaultBtnStyles
-            text="Login with phone no."
-            onClick={()=>navigate('./phone-no')}
+            showLoading={z?true:false}
+            text={z?`Logging in...`:`Login with Phone No.`}
+            onClick={()=>navigate('/cricexchange/phone-no')}
         />
 
         <BouncyComp
             customClasses={"cta whiteBtn"}
             outlined
+            // showLoading={z?true:false}
             styles={ outlinedBtnStyles }
             useDefaultBtnStyles
-            text="Login with Upstox"
+            text={"Login with Upstox"}
             onClick={loginFunction}
         />
 

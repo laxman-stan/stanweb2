@@ -33,7 +33,7 @@ const nextFun=()=>{
         x: -window.innerWidth*iteration.current
     })
     else
-    navigate('/main', {replace: true})
+    navigate('/cricexchange/main', {replace: true})
 }
 
 

@@ -6,7 +6,7 @@ const showdot=true
 const navigate = useBetterNavigation();
     return <BouncyComp
     onClick={
-      ()=>navigate('/main/help')
+      ()=>navigate('/cricexchange/main/help')
     }
     customChild={<div className="f ac rp jc">
      <svg

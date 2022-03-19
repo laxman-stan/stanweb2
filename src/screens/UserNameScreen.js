@@ -16,7 +16,7 @@ export default function UserNameScreen() {
     useEffect(()=>{
         console.log(location);
         if(!location?.isNameEmpty){
-            navigate('/')
+            navigate('/cricexchange')
         }
         else
         set(false)
@@ -48,9 +48,9 @@ const MainFun=({location, navigate})=>{
         if(isSuccess){
             notification('Name updated successfully.')
             if(isNewUser)
-                navigate('/app-guide', {replace: true})
+                navigate('/cricexchange/app-guide', {replace: true})
             else
-                navigate('/main', {replace: true})
+                navigate('/cricexchange/main', {replace: true})
     
         }
         else{

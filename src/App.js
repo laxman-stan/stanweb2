@@ -8,7 +8,7 @@ import WalletScreen from './screens/WalletScreen';
 import { PlayScreen } from './screens/MainScreen';
 import TradeScreen from './screens/TradeScreen';
 import { BottomSheet } from './uiComps';
-import { HistoryScreen, Wallet, CreateTeam, AppGuide, OtpScreen, PhoneNoScreen, HelpScreen, GetUserName } from './screens';
+import { HistoryScreen, Wallet, CreateTeam, AppGuide, OtpScreen, PhoneNoScreen, HelpScreen, GetUserName, NoMatch } from './screens';
 import {
   // BrowserRouter as Router,
   Routes,
@@ -77,23 +77,25 @@ const setHeight=()=>{
       <BottomSheet ref={bottomSheetRef}/>
       <UpperNotification ref={notificationRef} />
       <Routes>
+        <Route path="*" element={<NoMatch/>}/>
+        <Route path="/cricexchange" element={<LoginScreen/>}/>
+        <Route path="/cricexchange/auth" element={<LoginScreen/>}/>
+        <Route path="/cricexchange/phone-no" element={<PhoneNoScreen/>}/>
+        <Route path="/cricexchange/OTP" element={<OtpScreen/>}/>
+        <Route path="/cricexchange/user-info" element={<GetUserName/>}/>
+        <Route path="/cricexchange/app-guide" element={<AppGuide/>}/>
+        <Route path="/cricexchange/main" element={<MainScreen setHeight={setHeight}/>}>
 
-        <Route path="/" element={<LoginScreen/>}/>
-        <Route path="/phone-no" element={<PhoneNoScreen/>}/>
-        <Route path="/OTP" element={<OtpScreen/>}/>
-        <Route path="/user-info" element={<GetUserName/>}/>
-        <Route path="/app-guide" element={<AppGuide/>}/>
-        <Route path="/main" element={<MainScreen setHeight={setHeight}/>}>
-
-          <Route path="/main" element={<PlayScreen/>} />
-          <Route path="/main/create-team" element={<CreateTeam/>} />
-          <Route path="/main/rank" element={<RankScreen/>}/>
-          <Route path="/main/help" element={<HelpScreen/>}/>
-          <Route path="/main/wallet" element={<WalletScreen/>}>
-            <Route path="/main/wallet" element={<Wallet/>}/>
-            <Route path="/main/wallet/history" element={<HistoryScreen/>}/>
+          <Route path="/cricexchange/main" element={<PlayScreen/>} />
+          <Route path="/cricexchange/main/create-team" element={<CreateTeam/>} />
+          <Route path="/cricexchange/main/rank" element={<RankScreen/>}/>
+          <Route path="/cricexchange/main/help" element={<HelpScreen/>}/>
+          <Route path="/cricexchange/main/wallet" element={<WalletScreen/>}>
+            <Route path="/cricexchange/main/wallet" element={<Wallet/>}/>
+            <Route path="/cricexchange/main/wallet/history" element={<HistoryScreen/>}/>
           </Route>
-          <Route path="/main/trade" element={<TradeScreen/>}/>
+          <Route path="/cricexchange/main/trade" element={<TradeScreen/>}/>
+          
 
         </Route>
 

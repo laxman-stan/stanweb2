@@ -15,3 +15,4 @@ export const createTeamEndpoint = 'create-team';
 export const leaderbardEndpoint = 'leaderboard';
 export const matchesEndpoint = 'matches';
 export const updateNameEndpoint = 'update-name';
+export const loginViaTokenAuth = "token-auth";

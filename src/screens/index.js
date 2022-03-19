@@ -6,3 +6,4 @@ export {default as OtpScreen} from './OtpScreen';
 export {default as PhoneNoScreen} from './PhoneNoScreen';
 export {default as HelpScreen} from './HelpScreen';
 export {default as GetUserName} from './UserNameScreen';
+export {default as NoMatch} from './NoMatch';
