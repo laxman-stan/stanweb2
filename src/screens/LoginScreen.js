@@ -31,7 +31,7 @@ export default function LoginScreen() {
 
 const MainFunction = ({location}) => {
 
-    const z = location.search.split("=")[1];
+    const z = location.search?.split("=")[1];
     const userData = useUserData();
     const x = userData.userData;
     
@@ -55,7 +55,7 @@ const MainFunction = ({location}) => {
 
     const loginFail=err=>{
         console.log('fail', err)
-        notification(err?.message?? 'Something went wrong.')
+        notification(err?.message ?? err?.toString() ?? "Something  went wrong.")
     }
 
     const loginFunction = () => {
@@ -63,8 +63,7 @@ const MainFunction = ({location}) => {
     }
 
     useEffect(() => {
-        console.log(location);
-        if(location.pathname==='/cricexchange/auth'){
+        if(location.search.includes("code=")){
             
             console.log('yha tq shi h', x)
             if(z){

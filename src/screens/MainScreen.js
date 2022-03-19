@@ -170,7 +170,7 @@ const TodaysMatch = ({ data }) => {
         }
 </div>
      {teamCreated? <ActiveMatchComp team={myTeam}/> : <EmptyTeam len={myPlayers.length || 1} createTeam/>}
-     {canEditTeam? <BouncyComp
+     {/* {canEditTeam? <BouncyComp
     // onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade', {state: 'toBuy'})}
     bounceLevel={.9}
     styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 'var(--baseVal3)', marginRight: 0, width: 'calc(100vw - var(--baseVal6))', flex: 'none' }}
@@ -180,7 +180,7 @@ const TodaysMatch = ({ data }) => {
             <p style={{color: 'var(--mainHighlight)'}}>{`Total upruns earned${gain? ": " : ""}`}</p>
           {gain? <> <img alt="upruns" style={{width: 14, marginTop: 4, marginLeft: 8, marginRight: 4}} src={Coin}/>
             <p style={{color: 'var(--mainHighlight)'}}>{gain}</p> </> : <p style={{color: 'var(--mainHighlight)', marginLeft: 12}}>--</p>}
-    </div>}
+    </div>} */}
     
     </div>
 }
