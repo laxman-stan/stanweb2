@@ -6,13 +6,19 @@ import { a, useSpring, config } from '@react-spring/web'
 import { BouncyComp, Loader } from "../uiComps";
 import RoasterComp from "../uiComps/RoasterComp";
 import { createTeamReq } from "../apis/calls";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CreateTeam() {
     const userInfo = useUserData()
     const userData = userInfo.userData.myPlayers;
+    const location = useLocation();
 
-    const [selected, setSelected] = useState([]);
+    const [shouldUpdate, setSU] = useState(location?.state?.edit);
+    const [selected, setSelected] = useState(shouldUpdate? userData.reduce((arr, i, j)=>{
+            if(i.isLocked)
+            arr.push(j)
+            return arr
+    }, []) : []);
     const [isLoading, setIsLoading] = useState(false);
     const notification = useShowNotification();
     const navigate = useNavigate();
@@ -47,7 +53,7 @@ export default function CreateTeam() {
         setIsLoading(false);
         setSelected([]);
         if (teamCreated) {
-            notification('You team has been created successfully.')
+            notification(shouldUpdate? "Team updated successfully." :  'You team has been created successfully.')
             userInfo.userData.myPlayers = userData.map((i, j) => {
                 i.isLocked = selected.includes(j)
                 return i
@@ -56,8 +62,10 @@ export default function CreateTeam() {
             userInfo.setData({ ...userInfo.userData })
             navigate(-1)
         }
-        else
-            notification(res?.message ?? 'Something went wrong.')
+        else{
+            // console.log(")
+            notification(res?.toString() ?? 'Something went wrong.')
+        }
 
     }
 

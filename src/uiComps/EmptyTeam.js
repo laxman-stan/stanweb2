@@ -38,7 +38,7 @@ export default function EmptyTeam({len, createTeam, hideBtn=false}){
     bounceLevel={.9}
     styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 0, marginRight: 0, width: 'calc( (100 * var(--vw) ) - var(--baseVal6))', flex: 'none' }}
     customClasses='cta'
-    text={len>4 && createTeam? 'Create Team' : 'Buy Player'}
+    text={len>4 && createTeam? 'Create Team' : 'Buy Players'}
     />}
 
     </div>

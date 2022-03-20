@@ -6,7 +6,7 @@ import RankScreen from "./RankScreen"
 import MatchComp from "../uiComps/MatchComp"
 import WalletScreen from "./WalletScreen"
 import { useEffect, useState } from "react"
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import useCheckIsLoggedIn from "../hooks/useCheckIsLoggedIn"
 import { BouncyComp, EmptyTeam, Lineup, ActiveMatchComp, Loader } from "../uiComps"
 import { useQuery } from 'react-query'
@@ -17,6 +17,19 @@ import { Sell } from "./TradeScreen"
 import useShowNotification from "../hooks/useShowNotification"
 import { Coin } from "../assets"
 
+
+function convertTime12To24(time) {
+    var hours   = Number(time.match(/^(\d+)/)[1]);
+    var minutes = Number(time.match(/:(\d+)/)[1]);
+    var AMPM    = time.match(/\s(.*)$/)[1];
+    if (AMPM === "PM" && hours < 12) hours = hours + 12;
+    if (AMPM === "AM" && hours === 12) hours = hours - 12;
+    var sHours   = hours.toString();
+    var sMinutes = minutes.toString();
+    if (hours < 10) sHours = "0" + sHours;
+    if (minutes < 10) sMinutes = "0" + sMinutes;
+    return (sHours + ":" + sMinutes);
+}
 
 
 export default function MainScreen({setHeight}) {
@@ -156,8 +169,21 @@ const RenderTabs = ({ index, data }) => {
 
 const TodaysMatch = ({ data }) => {
     const  { myPlayers, teamCreated, todaysMatch, gain  } = data
-    const canEditTeam = false;
-    // console.log(data);
+    // const canEditTeam = false;
+    const matchTime = todaysMatch.map(i=>i.time)?.sort()[0]?.split(':').reduce((val, i, j)=>{
+        i = parseInt(i)
+        if(j===0) i *=60
+        return val+i
+    }, 0);
+    const currentTime = convertTime12To24(new Date().toLocaleTimeString()).split(":").reduce((val, i, j)=>{
+        i = parseInt(i)
+        if(j===0) i *=60
+        return val+i
+    }, 0);
+
+    const canEditTeam =  matchTime ? matchTime - currentTime > -10 : false
+
+    const navigate = useNavigate();
     const myTeam = myPlayers?.filter(i => i.isPlayingToday)
 
     return <div style={{ paddingTop: 0
@@ -170,7 +196,8 @@ const TodaysMatch = ({ data }) => {
         }
 </div>
      {teamCreated? <ActiveMatchComp team={myTeam}/> : <EmptyTeam len={myPlayers.length || 1} createTeam/>}
-     {/* {canEditTeam? <BouncyComp
+     {teamCreated?  canEditTeam? <BouncyComp
+     onClick={()=>navigate('/cricexchange/main/create-team', {state: {edit: true}})}
     // onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade', {state: 'toBuy'})}
     bounceLevel={.9}
     styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 'var(--baseVal3)', marginRight: 0, width: 'calc(100vw - var(--baseVal6))', flex: 'none' }}
@@ -180,7 +207,7 @@ const TodaysMatch = ({ data }) => {
             <p style={{color: 'var(--mainHighlight)'}}>{`Total upruns earned${gain? ": " : ""}`}</p>
           {gain? <> <img alt="upruns" style={{width: 14, marginTop: 4, marginLeft: 8, marginRight: 4}} src={Coin}/>
             <p style={{color: 'var(--mainHighlight)'}}>{gain}</p> </> : <p style={{color: 'var(--mainHighlight)', marginLeft: 12}}>--</p>}
-    </div>} */}
+    </div> : null}
     
     </div>
 }

@@ -115,6 +115,7 @@ function getHeader() {
 
 export function auth(params, callbackSuccess, callbackFailure) {
     let x = parseInt(Math.random()*1000 + 1000).toString();
+    console.log('uid', x);
     apiRequest(
         'POST',
         endPoints.baseUrl + endPoints.auth,

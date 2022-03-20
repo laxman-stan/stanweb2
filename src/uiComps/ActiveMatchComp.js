@@ -12,7 +12,7 @@ export default function ActiveMatchComp({team}) {
             matchData?.map((i, j)=><CompToMap key={j} data={i}/>)
         }
 
-        <RenderTeamList team={team}/>
+        <RenderTeamList team={team.filter(i=>i.isLocked)}/>
 
     </div>
 }
