@@ -34,7 +34,7 @@ export default function EmptyTeam({len, createTeam, hideBtn=false}){
     }
     
 { hideBtn ? null :  <BouncyComp
-    onClick={()=>navigate(len>4 && createTeam ? '/cricexchange/main/create-team' : '/cricexchange/main/trade', {state: 'toBuy'})}
+    onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade', {state: 'toBuy'})}
     bounceLevel={.9}
     styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 0, marginRight: 0, width: 'calc( (100 * var(--vw) ) - var(--baseVal6))', flex: 'none' }}
     customClasses='cta'

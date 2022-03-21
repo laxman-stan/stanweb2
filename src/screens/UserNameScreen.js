@@ -48,9 +48,9 @@ const MainFun=({location, navigate})=>{
         if(isSuccess){
             notification('Name updated successfully.')
             if(isNewUser)
-                navigate('/cricexchange/app-guide', {replace: true})
+                navigate('/app-guide', {replace: true})
             else
-                navigate('/cricexchange/main', {replace: true})
+                navigate('/main', {replace: true})
     
         }
         else{

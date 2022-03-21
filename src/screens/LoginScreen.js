@@ -21,7 +21,7 @@ export default function LoginScreen() {
             localStorage.removeItem("authToken")
             setIsLoggedIn(false)
             }else
-            navigate('/cricexchange/main')
+            navigate('/main')
         }
         else
             setIsLoggedIn(false)
@@ -55,9 +55,9 @@ const MainFunction = ({location}) => {
         // x.name = name
         userData.setData({...x})
         if(is_new_user || name===" ")
-        navigate('/cricexchange/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
+        navigate('/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
         else
-        navigate('/cricexchange/main', {replace: true})
+        navigate('/main', {replace: true})
     }
 
     const loginFail=err=>{
@@ -101,7 +101,7 @@ const MainFunction = ({location}) => {
             showLoading={z?true:false}
             text={z?`Logging in...`:`Login with Phone No.`}
             onClick={
-                z? ()=>{} : ()=> navigate('/cricexchange/phone-no')
+                z? ()=>{} : ()=> navigate('/phone-no')
             }
         />
 

@@ -197,7 +197,7 @@ const TodaysMatch = ({ data }) => {
 </div>
      {teamCreated? <ActiveMatchComp team={myTeam}/> : <EmptyTeam len={myPlayers.length || 1} createTeam/>}
      {teamCreated?  canEditTeam? <BouncyComp
-     onClick={()=>navigate('/cricexchange/main/create-team', {state: {edit: true}})}
+     onClick={()=>navigate('/main/create-team', {state: {edit: true}})}
     // onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade', {state: 'toBuy'})}
     bounceLevel={.9}
     styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 'var(--baseVal3)', marginRight: 0, width: 'calc(100vw - var(--baseVal6))', flex: 'none' }}

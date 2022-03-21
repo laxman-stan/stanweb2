@@ -58,7 +58,7 @@ export const Wallet = () => {
             </h5>
 
             <BouncyComp
-                onClick={() => navigate('/cricexchange/main/wallet/history')}
+                onClick={() => navigate('/main/wallet/history')}
                 text="History"
                 styles={{ marginTop: 'auto', width: '4.7em', }}
                 customClasses="highlightedSmallBtn btnPrimeColor"

@@ -34,7 +34,7 @@ const nextFun=()=>{
         x: -innerWid*iteration.current
     })
     else
-    navigate('/cricexchange/main', {replace: true})
+    navigate('/main', {replace: true})
 }
 
 useEffect(()=>{

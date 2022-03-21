@@ -14,13 +14,13 @@ export default function BottomNav() {
 
     const navData=[
         {
-            source: PlayIcon, name: 'Play', path: '/cricexchange/main/'
+            source: PlayIcon, name: 'Play', path: '/main/'
         },
         {
-            source: TradeIcon, name: 'Trade', path: '/cricexchange/main/trade'
+            source: TradeIcon, name: 'Trade', path: '/main/trade'
         },
         {
-            source: RankIcon, name: 'Rank', path: '/cricexchange/main/rank'
+            source: RankIcon, name: 'Rank', path: '/main/rank'
         },
     ]
     const ref=useRef();
@@ -44,7 +44,7 @@ export default function BottomNav() {
         navigate(navData[index].path)}
 
     const location = useLocation();
-    const pathNamesToShow = ['/cricexchange/main/', '/cricexchange/main/trade', '/cricexchange/main/rank' ,'/cricexchange/main']
+    const pathNamesToShow = ['/main/', '/main/trade', '/main/rank' ,'/main']
 
     useEffect(()=>{
         ref.current.style.display=pathNamesToShow.includes(location.pathname)? 'flex' : 'none'
@@ -55,9 +55,9 @@ export default function BottomNav() {
     }, [location])
 
     useOnce(()=>{
-        if(location.pathname === '/cricexchange/main/trade')
+        if(location.pathname === '/main/trade')
         setActiveIndex(1)
-if(location.pathname === '/cricexchange/main/rank')
+if(location.pathname === '/main/rank')
         setActiveIndex(2)
     })
 

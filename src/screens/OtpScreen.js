@@ -21,7 +21,7 @@ export default function OtpScreen() {
         if(location?.state?.phoneNo)
         setIsOtpCalled(true)
         else
-        navigate('/cricexchange/phone-no', {replace: true})
+        navigate('/phone-no', {replace: true})
     
     }, [])
 
@@ -79,9 +79,9 @@ const MainFun = ({location, navigate}) => {
             // x.name = name
             userData.setData({ ...x })
             if(is_new_user || name===" ")
-            navigate('/cricexchange/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
+            navigate('/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
             else
-                navigate('/cricexchange/main', { replace: true })
+                navigate('/main', { replace: true })
         }
         else {
             notification(res?.message ?? 'Something went wrong.')

@@ -51,7 +51,7 @@ export default function PhoneNoScreen() {
             let { validateOTPToken: token, nextRequestInterval: timeOut } = res?.data
             notification('OTP sent successfully.');
             console.log(phoneNo, token, timeOut, reqID);
-            navigate('/cricexchange/otp', { state: { phoneNo, token, timeOut, reqID } });
+            navigate('/otp', { state: { phoneNo, token, timeOut, reqID } });
         } else
             notification(
                 res?.message ?? 'Something went wrong.'
