@@ -78,7 +78,7 @@ const setHeight=()=>{
       <UpperNotification ref={notificationRef} />
       <Routes>
         <Route path="*" element={<NoMatch/>}/>
-        <Route path="/cricexchange" element={<LoginScreen/>}/>
+        <Route path="/" element={<LoginScreen/>}/>
         <Route path="/auth" element={<LoginScreen/>}/>
         <Route path="/phone-no" element={<PhoneNoScreen/>}/>
         <Route path="/OTP" element={<OtpScreen/>}/>

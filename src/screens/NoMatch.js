@@ -6,7 +6,7 @@ export default function NoMath(){
 
     useOnce(()=>{
         console.log('no match')
-        navigate("/cricexchange", {replace: true})
+        navigate("/", {replace: true})
     })
     return <div/>
 }

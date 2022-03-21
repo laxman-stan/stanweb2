@@ -16,7 +16,7 @@ export default function UserNameScreen() {
     useEffect(()=>{
         console.log(location);
         if(!location?.isNameEmpty){
-            navigate('/cricexchange')
+            navigate('/')
         }
         else
         set(false)
