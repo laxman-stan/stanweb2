@@ -96,7 +96,7 @@ const MainFunction = ({location}) => {
             onClick={()=>navigate('/cricexchange/phone-no')}
         />
 
-        <BouncyComp
+        {/* <BouncyComp
             customClasses={"cta whiteBtn"}
             outlined
             // showLoading={z?true:false}
@@ -104,7 +104,7 @@ const MainFunction = ({location}) => {
             useDefaultBtnStyles
             text={"Login with Upstox"}
             onClick={loginFunction}
-        />
+        /> */}
 
     </div>
 }
