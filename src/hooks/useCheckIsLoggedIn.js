@@ -5,9 +5,14 @@ export default function useCheckIsLoggedIn(setState){
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(sessionStorage.authToken)
+        if(localStorage.getItem("authToken")){
+            if(localStorage.getItem("savingTime") - Date.now() > 86400000){
+                localStorage.removeItem("authToken")
+                navigate('/cricexchange', {replace: true})
+            }
+            else
             setState(true);
-        else
+        }else
             navigate('/cricexchange', {replace: true})
     }, [])
 }

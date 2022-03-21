@@ -103,7 +103,7 @@ function apiRequest(
 }
 
 function getHeader() {
-    const token = sessionStorage.authToken;
+    const token = localStorage.getItem('authToken');
     if (token) {
       return {
         Authorization: `Bearer ${token}`,

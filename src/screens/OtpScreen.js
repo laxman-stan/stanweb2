@@ -70,7 +70,9 @@ const MainFun = ({location, navigate}) => {
         if (isSuccess) {
             setOtpStatus(true);
             const { upruns, access_token, name, uprun_gains, is_new_user } = res.user
-            sessionStorage.authToken = access_token
+            // sessionStorage.authToken = access_token
+            localStorage.setItem("authToken", access_token)
+            localStorage.setItem("savingTime", Date.now())
             notification('logged in successfully')
             x.upruns = upruns
             x.userFromLogin = res.user

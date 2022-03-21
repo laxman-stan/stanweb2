@@ -16,8 +16,13 @@ export default function LoginScreen() {
     // console.log(location.search.split("=")[1]);
 
     useEffect(() => {
-        if (sessionStorage.authToken)
+        if (localStorage.getItem("authToken")){
+            if(Date.now() - localStorage.getItem("savingTime") > 86400000){
+            localStorage.removeItem("authToken")
+            setIsLoggedIn(false)
+            }else
             navigate('/cricexchange/main')
+        }
         else
             setIsLoggedIn(false)
     }, [])
@@ -39,9 +44,11 @@ const MainFunction = ({location}) => {
     const navigate = useNavigate();
     const notification = useShowNotification();
     const loginSuccessful = (res) => {
-        console.log('success', res)
+        // console.log('success', res)
         const {upruns, access_token, name, uprun_gains, is_new_user} = res.user
-        sessionStorage.authToken = access_token
+        // sessionStorage.authToken = access_token
+        localStorage.setItem("authToken", access_token)
+        localStorage.setItem("savingTime", Date.now())
         notification('logged in successfully')
         x.upruns = upruns
         x.userFromLogin = res.user
@@ -93,10 +100,12 @@ const MainFunction = ({location}) => {
             useDefaultBtnStyles
             showLoading={z?true:false}
             text={z?`Logging in...`:`Login with Phone No.`}
-            onClick={()=>navigate('/cricexchange/phone-no')}
+            onClick={
+                z? ()=>{} : ()=> navigate('/cricexchange/phone-no')
+            }
         />
 
-        {/* <BouncyComp
+        <BouncyComp
             customClasses={"cta whiteBtn"}
             outlined
             // showLoading={z?true:false}
@@ -104,7 +113,7 @@ const MainFunction = ({location}) => {
             useDefaultBtnStyles
             text={"Login with Upstox"}
             onClick={loginFunction}
-        /> */}
+        />
 
     </div>
 }
