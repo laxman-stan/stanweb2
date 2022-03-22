@@ -18,18 +18,18 @@ import useShowNotification from "../hooks/useShowNotification"
 import { Coin } from "../assets"
 
 
-function convertTime12To24(time) {
-    var hours   = Number(time.match(/^(\d+)/)[1]);
-    var minutes = Number(time.match(/:(\d+)/)[1]);
-    var AMPM    = time.match(/\s(.*)$/)[1];
-    if (AMPM === "PM" && hours < 12) hours = hours + 12;
-    if (AMPM === "AM" && hours === 12) hours = hours - 12;
-    var sHours   = hours.toString();
-    var sMinutes = minutes.toString();
-    if (hours < 10) sHours = "0" + sHours;
-    if (minutes < 10) sMinutes = "0" + sMinutes;
-    return (sHours + ":" + sMinutes);
-}
+// function convertTime12To24(time) {
+//     var hours   = Number(time.match(/^(\d+)/)[1]);
+//     var minutes = Number(time.match(/:(\d+)/)[1]);
+//     var AMPM    = time.match(/\s(.*)$/)[1];
+//     if (AMPM === "PM" && hours < 12) hours = hours + 12;
+//     if (AMPM === "AM" && hours === 12) hours = hours - 12;
+//     var sHours   = hours.toString();
+//     var sMinutes = minutes.toString();
+//     if (hours < 10) sHours = "0" + sHours;
+//     if (minutes < 10) sMinutes = "0" + sMinutes;
+//     return (sHours + ":" + sMinutes);
+// }
 
 
 export default function MainScreen({setHeight}) {
@@ -53,6 +53,7 @@ const MainFunction = ({setHeight}) => {
     }
     
     const myPlayerRequestSuccess = (myData, allPlayersData, todaysMatch) => {
+
         let todaysMatchData = todaysMatch.map(i=>{
             return {
                 time: i.time,
@@ -72,8 +73,7 @@ const MainFunction = ({setHeight}) => {
             arr.push(val.teamb)
             return arr
         }, [])
-
-
+        
         const upruns = myData.upruns;
         let teamCreated = myData?.team_created ?? false
         let inventory = myData.inventory ?? []
@@ -92,14 +92,12 @@ const MainFunction = ({setHeight}) => {
             return i
         })
 
-
         data = data.reduce((obj, item) => {
             if (!obj[item.team])
                 obj[item.team] = []
             obj[item.team].push(item)
             return obj
         }, {})
-
 
         let x = userData.userData;
         x.allPlayers = data;
@@ -113,7 +111,6 @@ const MainFunction = ({setHeight}) => {
         userData.setData({
             ...x
         })
-
     }
 
     const playerDataSus = (allPlayerApiRes, todaysMatch) => {
@@ -170,17 +167,13 @@ const RenderTabs = ({ index, data }) => {
 
 const TodaysMatch = ({ data }) => {
     const  { myPlayers, teamCreated, todaysMatch, gain  } = data
-    // const canEditTeam = false;
+    const d = new Date();
     const matchTime = todaysMatch.map(i=>i.time)?.sort()[0]?.split(':').reduce((val, i, j)=>{
         i = parseInt(i)
         if(j===0) i *=60
         return val+i
     }, 0);
-    const currentTime = convertTime12To24(new Date().toLocaleTimeString()).split(":").reduce((val, i, j)=>{
-        i = parseInt(i)
-        if(j===0) i *=60
-        return val+i
-    }, 0);
+    const currentTime = d.getHours()*60 + d.getMinutes();
 
     const canEditTeam =  matchTime ? matchTime - currentTime > -10 : false
 

@@ -79,7 +79,7 @@ const MatchLine = ({
         <h4 style={{ width: '4.5em', marginRight: 'auto', marginLeft: 'var(--baseVal3)' }}>{name1}</h4>
         <VS />
         <h4 style={{ width: '4.5em', marginLeft: 'auto', marginRight: 'var(--baseVal3)', textAlign: 'end' }}>{name2}</h4>
-        <img alt={name2} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name1 + ".webp" )} />
+        <img alt={name2} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name2 + ".webp" )} />
 
     </div>
 }

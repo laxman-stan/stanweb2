@@ -56,9 +56,10 @@ const userDataContext={
 }
 
 const setHeight=()=>{
+  if(appRef.current){
   if(window.innerHeight > appRef.current.offsetHeight)
   appRef.current.style.height = window.innerHeight + 'px';
-}
+}}
   
   useEffect(() => {
       appRef.current.style.height = window.innerHeight + 'px';

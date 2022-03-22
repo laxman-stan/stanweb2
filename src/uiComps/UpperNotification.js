@@ -6,7 +6,7 @@ import { useOnce } from '@react-spring/shared'
  
     function MessageHub({
       config = { tension: 125, friction: 20, },
-      timeout = 2500,
+      timeout = 2500* 10,
       children,
     }) {
 
