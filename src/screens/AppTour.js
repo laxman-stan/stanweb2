@@ -5,21 +5,22 @@ import onBoarding3 from '../assets/Onboarding3.webp'
 import {a, config, useSpring} from '@react-spring/web'
 import { useEffect, useRef, useState } from 'react'
 import { BouncyComp } from '../uiComps'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import useCheckIsLoggedIn from '../hooks/useCheckIsLoggedIn'
 
 export default function AppTour(){
     const [isLI, setIsLI] = useState(false);
     useCheckIsLoggedIn(setIsLI);
-
+    const location = useLocation();
+    const isNewUser= location?.state?.isNewUser;
     if(isLI)
-    return <MainFun />
+    return <MainFun isNewUser={isNewUser}/>
     else
     return <div />
 }
 
 
-const MainFun=()=>{
+const MainFun=({isNewUser})=>{
     const [innerWid, setInnerWid] = useState(0);
     const navigate = useNavigate();
     const [style, setStyle] = useSpring(()=>({
@@ -34,7 +35,7 @@ const nextFun=()=>{
         x: -innerWid*iteration.current
     })
     else
-    navigate('/main', {replace: true})
+    navigate('/main', {replace: true, state: {isNewUser: isNewUser}})
 }
 
 useEffect(()=>{
