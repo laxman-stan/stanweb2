@@ -13,7 +13,7 @@ export default function LoginScreen() {
     const [isLoggedIn, setIsLoggedIn] = useState(null)
     const navigate = useNavigate();
     const location = useLocation();
-    // console.log(location.search.split("=")[1]);
+    // //console.log(location.search.split("=")[1]);
 
     useEffect(() => {
         if (localStorage.getItem("authToken")){
@@ -44,9 +44,7 @@ const MainFunction = ({location}) => {
     const navigate = useNavigate();
     const notification = useShowNotification();
     const loginSuccessful = (res) => {
-        // console.log('success', res)
         const {upruns, access_token, name, uprun_gains, is_new_user} = res.user
-        // sessionStorage.authToken = access_token
         localStorage.setItem("authToken", access_token)
         localStorage.setItem("savingTime", Date.now())
         notification('logged in successfully')
@@ -61,7 +59,7 @@ const MainFunction = ({location}) => {
     }
 
     const loginFail=err=>{
-        console.log('fail', err)
+        //console.log('fail', err)
         notification(err?.message ?? err?.toString() ?? "Something  went wrong.")
     }
 
@@ -72,7 +70,6 @@ const MainFunction = ({location}) => {
     useEffect(() => {
         if(location.search.includes("code=")){
             
-            console.log('yha tq shi h', x)
             if(z){
                 loginViaTokenAuth(
                     {
@@ -105,7 +102,7 @@ const MainFunction = ({location}) => {
             }
         />
 
-        <BouncyComp
+        {/* <BouncyComp
             customClasses={"cta whiteBtn"}
             outlined
             // showLoading={z?true:false}
@@ -113,7 +110,7 @@ const MainFunction = ({location}) => {
             useDefaultBtnStyles
             text={"Login with Upstox"}
             onClick={loginFunction}
-        />
+        /> */}
 
     </div>
 }

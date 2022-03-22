@@ -102,7 +102,7 @@ export const Sell = ({set, styles, hideBuy, data}) => {
 
     return <div style={{...styles}} className="f fc fh cardCont">
         { dataToShow.length? dataToShow.map((i, index) => {
-            {/* console.log(i) */}
+            {/* //console.log(i) */}
             const {price, name, id, growth_perc, skill, isLocked, team, batting_avg, batting_sr, bowling_eco, bowling_sr} = i
             return <RoseterComp
             name={name}
@@ -183,7 +183,7 @@ const Buy = ({data, set, preData}) => {
                         key={index}
                         onClick={() => {
                             document.querySelector(`#${item.type.replace(/ /g, "")}`).scrollIntoView({ behavior: 'smooth', block: 'end' })
-                            // console.log(document.querySelector(`#${item.type}`))
+                            // //console.log(document.querySelector(`#${item.type}`))
                             setActive(index)
                         }}
                         customChild={<a.h5

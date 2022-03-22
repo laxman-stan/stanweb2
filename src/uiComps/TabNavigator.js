@@ -43,7 +43,7 @@ export default function TabNavigator({
 
     useOnce(()=>{
         let x = document.querySelector('.app').offsetWidth;
-        // console.log(document.querySelector('.app').offsetWidth)
+        // //console.log(document.querySelector('.app').offsetWidth)
         setInnerWid(x)
         set.start({
             tx: initialIndex*x,
@@ -55,7 +55,7 @@ export default function TabNavigator({
 
 const timer = useRef();
    const setActiveTab=(i)=>{
-       console.log(' click registered ',innerWid, i)
+       //console.log(' click registered ',innerWid, i)
        clearTimeout(timer.current);
                 set.start({
             from: {

@@ -14,7 +14,7 @@ export default function UserNameScreen() {
     const [emptyName, set] = useState(true);
 
     useEffect(()=>{
-        console.log(location);
+        //console.log(location);
         if(!location?.isNameEmpty){
             navigate('/')
         }
@@ -44,7 +44,7 @@ const MainFun=({location, navigate})=>{
 
     const apiCalled=(isSuccess, res)=>{
         setLoader(false)
-        console.log(res);
+        //console.log(res);
         if(isSuccess){
             notification('Name updated successfully.')
             if(isNewUser)

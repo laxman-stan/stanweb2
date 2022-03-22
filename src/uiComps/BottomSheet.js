@@ -11,7 +11,7 @@ const BottomSheet = forwardRef((_, ref) => {
     const sheetRef = useRef();
     const nullFun=()=>{}
     const setSheet = (val, values) => {
-        // console.log('here', message)
+        // //console.log('here', message)
         if (val) {
             setProps({
                 message: values?.message ?? 'warning ⚠',
@@ -91,7 +91,7 @@ const MainFunction = forwardRef(({
     }))
 
     const declineFun=()=>{ 
-        console.log(isActive, 'iafj')
+        //console.log(isActive, 'iafj')
         if(isActive){
         declineAction();
         hideSheet();

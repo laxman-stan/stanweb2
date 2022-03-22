@@ -80,7 +80,7 @@ const RewardComp = ({ data }) => {
     const notification = useShowNotification();
     const { price, title, id, desc, isClaimed: isItemClaimed, canBuy } = data
     const count = data.availableCount + "/" + data.maxCount
-    // console.log('count', data.canBuy);
+    // //console.log('count', data.canBuy);
     const [isClaimed, setIsClaimed] = useState(isItemClaimed)
     const userData = useUserData();
     const apiCalled = (isRedeemed, res) => {
@@ -129,7 +129,7 @@ const RewardComp = ({ data }) => {
     }
 
     const showMsg=(message)=>{
-        console.log('is called', message);
+        //console.log('is called', message);
         const props = {
             message: message + '\n' + "Please visit the https://upstox.com/ for more details.",
         acceptAction: ()=>window.open('https://upstox.com/'),
@@ -195,7 +195,7 @@ const RewardComp = ({ data }) => {
 
 const RewardInfo = (props) => {
     const { price, title, id, desc } = props.details;
-    console.log(props.details);
+    //console.log(props.details);
 
     return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
         <div style={{ height: '100%', overflowY: 'scroll', paddingBottom: 'calc( 30% + var(--baseVal4) )' }} className="f fc">

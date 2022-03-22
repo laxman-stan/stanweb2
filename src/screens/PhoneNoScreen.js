@@ -44,13 +44,13 @@ export default function PhoneNoScreen() {
     }
     const browser = detectBrowser();
     const apiRes = (isSuccess, res, reqID) => {
-        console.log(res);
+        //console.log(res);
         setLoader(false);
         if (isSuccess && res.success) {
-            console.log(res?.data)
+            //console.log(res?.data)
             let { validateOTPToken: token, nextRequestInterval: timeOut } = res?.data
             notification('OTP sent successfully.');
-            console.log(phoneNo, token, timeOut, reqID);
+            //console.log(phoneNo, token, timeOut, reqID);
             navigate('/otp', { state: { phoneNo, token, timeOut, reqID } });
         } else
             notification(
@@ -62,7 +62,7 @@ export default function PhoneNoScreen() {
         if (phoneNo.length === 10) {
             let reqId = getRandomString(30);
             setLoader(true);
-            console.log(reqId);
+            //console.log(reqId);
             sendOTP(
                 phoneNo,
                 res => apiRes(true, res, reqId),
