@@ -578,7 +578,7 @@ tbody:last-child td{
 }
 .qnaCont{
   padding-top: var(--baseVal2);
-  padding-bottom: var(--baseVal2);
+  padding-bottom: 1px;
   gap: var(--baseVal3)
 }
 .qnaCont::after{

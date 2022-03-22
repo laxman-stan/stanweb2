@@ -11,7 +11,6 @@ const BottomSheet = forwardRef((_, ref) => {
     const sheetRef = useRef();
     const nullFun=()=>{}
     const setSheet = (val, values) => {
-        // //console.log('here', message)
         if (val) {
             setProps({
                 message: values?.message ?? 'warning ⚠',
@@ -21,7 +20,8 @@ const BottomSheet = forwardRef((_, ref) => {
                 declineAction: values?.declineAction ?? nullFun,
                 customChild: values?.customChild,
                 disableActions: values?.disableActions ?? false,
-                customConfig: values?.customConfig
+                customConfig: values?.customConfig,
+                onlyOneBtn: values.onlyOneBtn ?? false
             })
             setShowSheet(true)
         }
@@ -59,6 +59,7 @@ const MainFunction = forwardRef(({
     customChild,
     disableActions,
     customConfig,
+    onlyOneBtn
 }, ref) => {
 
     const [isActive, setIsActive] = useState(true);
@@ -91,7 +92,6 @@ const MainFunction = forwardRef(({
     }))
 
     const declineFun=()=>{ 
-        //console.log(isActive, 'iafj')
         if(isActive){
         declineAction();
         hideSheet();
@@ -104,14 +104,14 @@ const MainFunction = forwardRef(({
             <h4 style={{textAlign: 'center', fontWeight: 'normal'}}>{message}</h4>
 
             <div style={{gap: 'var(--baseVal4)', marginTop: '1em'}} className="f">
-                <BouncyComp
+              { onlyOneBtn ? null : <BouncyComp
                 onClick={declineFun}
                 bounceLevel={isActive? .9 : 1}
-                    styles={btnStyle}
+                    styles={{...btnStyle}}
                     outlined
                     text={declineText}
                 />
-
+}
                 <BouncyComp
                 onClick={()=>{
                     if(isActive){
@@ -124,7 +124,9 @@ const MainFunction = forwardRef(({
                 showLoading={!isActive}
                 bounceLevel={isActive? .9 : 1}
                     styles={{...btnStyle, ...secondBtn,
-                        background: isActive? 'var(--mainHighlight)' : 'var(--mainHighlight75)'
+                        background: isActive? 'var(--mainHighlight)' : 'var(--mainHighlight75)',
+                        // marginLeft: onlyOneBtn? 'auto' : 0, marginRight: onlyOneBtn? 'auto' : 0
+                        width: onlyOneBtn ? '100%' : 'calc( 50% - var(--baseVal2) )'
                     }}
                     outlined
                     text={acceptText}

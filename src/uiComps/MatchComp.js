@@ -5,10 +5,9 @@ import useShowBottomSheet from "../hooks/useShowBottomSheet";
 import { useEffect } from "react";
 
 
-export default function MatchComp({data}) {
+export default function MatchComp({data, index}) {
     const {teamA, teamB, time} = data;
     const bottomSheet = useShowBottomSheet();
-
     const hideSheet=()=>{
         bottomSheet(false)
     };
@@ -20,7 +19,7 @@ const showLineUp=()=>{
     bottomSheet(true, bottomSheetProps)
 }
 
-    return <div className="f fc whiteCard">
+    return <div style={{marginTop: index===0? 'var(--baseVal)' : 0}} className="f fc whiteCard">
         <h5 style={{ textAlign: 'center' }}>Indian T20 League</h5>
 
         <Bar

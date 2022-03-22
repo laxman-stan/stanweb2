@@ -6,9 +6,9 @@ import RankScreen from "./RankScreen"
 import MatchComp from "../uiComps/MatchComp"
 import WalletScreen from "./WalletScreen"
 import { useEffect, useState } from "react"
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import useCheckIsLoggedIn from "../hooks/useCheckIsLoggedIn"
-import { BouncyComp, EmptyTeam, Lineup, ActiveMatchComp, Loader } from "../uiComps"
+import { BouncyComp, EmptyTeam, Lineup, ActiveMatchComp, Loader, BottomSheet } from "../uiComps"
 import { useQuery } from 'react-query'
 import { allPlayersRequest, myPlayersRequest, getTodaysMatchesReq } from "../apis/calls"
 import useShowBottomSheet from "../hooks/useShowBottomSheet"
@@ -17,36 +17,24 @@ import { Sell } from "./TradeScreen"
 import useShowNotification from "../hooks/useShowNotification"
 import { Coin } from "../assets"
 
-
-// function convertTime12To24(time) {
-//     var hours   = Number(time.match(/^(\d+)/)[1]);
-//     var minutes = Number(time.match(/:(\d+)/)[1]);
-//     var AMPM    = time.match(/\s(.*)$/)[1];
-//     if (AMPM === "PM" && hours < 12) hours = hours + 12;
-//     if (AMPM === "AM" && hours === 12) hours = hours - 12;
-//     var sHours   = hours.toString();
-//     var sMinutes = minutes.toString();
-//     if (hours < 10) sHours = "0" + sHours;
-//     if (minutes < 10) sMinutes = "0" + sMinutes;
-//     return (sHours + ":" + sMinutes);
-// }
-
-
 export default function MainScreen({setHeight}) {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     useCheckIsLoggedIn(setIsLoggedIn);
+    const location = useLocation();
+    const isNewUser = location?.state?.isNewUser;
 
     if (!isLoggedIn)
         return <div />
 
     if (isLoggedIn)
-        return <MainFunction setHeight={setHeight}/>
+        return <MainFunction isNewUser={isNewUser} setHeight={setHeight}/>
 }
 
-const MainFunction = ({setHeight}) => {
+const MainFunction = ({setHeight, isNewUser}) => {
     const notification = useShowNotification();
-    const userData = useUserData(); 
+    const userData = useUserData();
+    const bottomSheet = useShowBottomSheet(); 
 
     const apiFailed=(err)=>{
         notification(err?.message ?? 'Something went wrong.')
@@ -101,7 +89,7 @@ const MainFunction = ({setHeight}) => {
 
         let x = userData.userData;
         x.allPlayers = data;
-        x.teamCreated = teamCreated;
+        x.teamCreated = teamCreated==="false" ? false : teamCreated;
         x.upruns = upruns;
         x.name = myData.name;
         x.gain = myData.uprun_gains
@@ -111,6 +99,15 @@ const MainFunction = ({setHeight}) => {
         userData.setData({
             ...x
         })
+
+        if(isNewUser){
+            bottomSheet(true, {
+                message: 'Congratulations🎉! 1000 UPruns credited to your account as joining bonus.',
+                onlyOneBtn: true,
+                acceptText: 'Got it',
+                acceptAction: ()=>bottomSheet(false)
+            })
+        }
     }
 
     const playerDataSus = (allPlayerApiRes, todaysMatch) => {
@@ -166,7 +163,8 @@ const RenderTabs = ({ index, data }) => {
 }
 
 const TodaysMatch = ({ data }) => {
-    const  { myPlayers, teamCreated, todaysMatch, gain  } = data
+    const  { myPlayers, teamCreated, todaysMatch, gain } = data
+    
     const d = new Date();
     const matchTime = todaysMatch.map(i=>i.time)?.sort()[0]?.split(':').reduce((val, i, j)=>{
         i = parseInt(i)
@@ -174,18 +172,16 @@ const TodaysMatch = ({ data }) => {
         return val+i
     }, 0);
     const currentTime = d.getHours()*60 + d.getMinutes();
-
     const canEditTeam =  matchTime ? matchTime - currentTime > -10 : false
 
     const navigate = useNavigate();
     const myTeam = myPlayers?.filter(i => i.isPlayingToday)
 
-    return <div style={{ paddingTop: 0
-    }} className="f fc fh cardCont">
+    return <div style={{ paddingTop: 0 }} className="f fc fh cardCont">
         <div className="f fc" style={{ gap: 'var(--baseVal3)', paddingTop: 'var(--baseVal2)'}}>
         {
             teamCreated ? null : <>
-                {todaysMatch?.map((i, j) => <MatchComp key={j} data={i}/>)}
+                {todaysMatch?.map((i, j) => <MatchComp index={j} key={j} data={i}/>)}
             </>
         }
 </div>

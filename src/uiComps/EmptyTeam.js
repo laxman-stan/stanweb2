@@ -20,7 +20,7 @@ export default function EmptyTeam({len, createTeam, hideBtn=false}){
     /> */}
     {
         len? 
-        <p style={{color: 'var(--mainHighlight50)', marginTop: 'auto', marginBottom: 'var(--baseVal3)'}}>{len>4 && createTeam ? "You havent' created your team for todaty." : "You need 5 player to create a team."}</p>
+        <p style={{color: 'var(--mainHighlight50)', marginTop: 'auto', marginBottom: 'var(--baseVal3)'}}>{len>4 && createTeam ? "You haven't created your team for today." : "You need 5 players to create a team."}</p>
         : <>
         <img
         alt='no player'
@@ -30,7 +30,7 @@ export default function EmptyTeam({len, createTeam, hideBtn=false}){
             marginTop: 'auto',
         }}
      src={Player}/>
-    <p style={{color: 'var(--mainHighlight50)', marginBottom: hideBtn? 'auto' : 0}}>You haven't bought and player yet.</p></>
+    <p style={{color: 'var(--mainHighlight50)', marginBottom: hideBtn? 'auto' : 0}}>You haven't bought any players yet.</p></>
     }
     
 { hideBtn ? null :  <BouncyComp

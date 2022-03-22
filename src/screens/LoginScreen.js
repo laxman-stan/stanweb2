@@ -96,7 +96,7 @@ const MainFunction = ({location}) => {
             styles={{ marginTop: 'auto', marginLeft: 0, marginRight: 0 }}
             useDefaultBtnStyles
             showLoading={z?true:false}
-            text={z?`Logging in...`:`Login with Phone No.`}
+            text={z?`Logging in...`:`Login with Mobile No.`}
             onClick={
                 z? ()=>{} : ()=> navigate('/phone-no')
             }

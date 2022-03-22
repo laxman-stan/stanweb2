@@ -6,12 +6,12 @@ import HelpWidget from "./HelpWidget"
 import WalletWidget from "./WalletWidget"
 import useShowNotification from "../hooks/useShowNotification"
 import { useLocation, useNavigate } from "react-router-dom"
+import useUserData from "../hooks/useUserData"
 
-export default function UpperNav({showBackBtn}){
-    let notification = useShowNotification();
+export default function UpperNav(){
     let history = useNavigate();
     const [showBackButton, setShowBackButton] = useState(false);
-
+    const userData = useUserData().userData;
     const location = useLocation();
     const pathName = location.pathname;
     const pathNamesToShow = ['/main/', '/main/trade', '/main/rank' ,'/main']
@@ -29,6 +29,7 @@ export default function UpperNav({showBackBtn}){
  onClick={()=>history(-1)}
  styles={{height: '40%'}}
  customChild={   <img
+    alt="back"
     style={{height: '100%', marginRight: 8}}
     src={BackArrow}
     />   }
@@ -39,7 +40,9 @@ export default function UpperNav({showBackBtn}){
         style={{height: '55%'}}
         src={logo}
         alt="Upstox"
-        /> : <h3 style={{color: 'white'}}>{pathName.includes('history')? 'History' : pathName.includes('team') ? 'Create Team' : pathName.includes('help')? "Help" : 'Wallet'}</h3>}
+        /> : <h3 style={{color: 'white'}}>{pathName.includes('history')? 'History' : 
+        pathName.includes('team') ? userData.teamCreated? 'Edit team' : 'Create Team' : 
+        pathName.includes('help')? "Help" : 'Wallet'}</h3>}
 
         <div style={{marginLeft: 'auto'}}/>
         <WalletWidget/>
