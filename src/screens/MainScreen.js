@@ -81,6 +81,7 @@ const MainFunction = ({setHeight}) => {
             let player = { ...allPlayersData.find(j => j.id === i.id) }
             player.isPlayingToday = todaysTeams.includes(player.team)
             player.isLocked = i.locked
+            player.buyPrice = i.buy_price
             return player
         })
 
@@ -200,7 +201,7 @@ const TodaysMatch = ({ data }) => {
      onClick={()=>navigate('/main/create-team', {state: {edit: true}})}
     // onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade', {state: 'toBuy'})}
     bounceLevel={.9}
-    styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 'var(--baseVal3)', marginRight: 0, width: 'calc(100vw - var(--baseVal6))', flex: 'none' }}
+    styles={{ marginBottom: '.5em', marginTop: 'auto', marginLeft: 'var(--baseVal3)', marginRight: 0, width: 'calc( 100*var(--vw) - var(--baseVal6))', flex: 'none' }}
     customClasses='cta'
     text={'Edit Team'}
     /> : <div style={{marginTop: 'auto', fontWeight: 'bold'}} className="f ac jc whiteCard">

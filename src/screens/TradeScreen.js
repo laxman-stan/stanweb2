@@ -288,6 +288,7 @@ const RenderTeam = ({ teamData, isIncreasingSort, operation,ih, setIh, mutatePla
             let u = originalX.current;
             let i = u.findIndex(i=>i.id===id)
             u[i].isBought = true;
+            u[i].buyPrice = u[i].price;
             set([...x])
             mutatePlayers(u[i]);
 

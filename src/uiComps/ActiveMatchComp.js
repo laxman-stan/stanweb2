@@ -28,7 +28,7 @@ const RenderTeamList = ({team}) => {
             <h4 style={{
                 width: '60%'
             }}>My Team</h4>
-            <h4>Upruns</h4>
+            <h4>Uprun gain</h4>
         </div>
 
         {
@@ -39,7 +39,7 @@ const RenderTeamList = ({team}) => {
                 }}>{item.name}</p>
                 <div alt="upruns" style={{marginLeft: 'var(--baseVal2)', gap: 'var(--baseVal)'}} className="f">
                     <img src={Coin}/>
-                    <p>{item.price}</p>
+                    <p>{item.price - item.buyPrice}</p>
                     </div>
 
                 </div>)
