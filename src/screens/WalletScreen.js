@@ -91,7 +91,7 @@ export const Wallet = () => {
 const RewardComp = ({ data }) => {
     const bottomSheet = useShowBottomSheet();
     const notification = useShowNotification();
-    const { price, title, id, desc, isClaimed: isItemClaimed, canBuy } = data
+    const { price, title, id, desc, isClaimed: isItemClaimed, canBuy, image } = data
     const count = data.availableCount + "/" + data.maxCount
     const [isClaimed, setIsClaimed] = useState(isItemClaimed)
     const userData = useUserData();
@@ -115,7 +115,7 @@ const RewardComp = ({ data }) => {
         if (isClaimed)
             notification('Already claimed')
         if (!canBuy)
-            notification('Not enough upruns')
+            notification('Not enough UPruns')
 
         else {
 
@@ -155,7 +155,7 @@ const RewardComp = ({ data }) => {
     return <div style={{ marginBottom: 'var(--baseVal3)' }} className="f whiteCard fc">
 
         <div style={{ gap: '.5em' }} className="f sb ac">
-            <img style={{ width: 40, height: 40 }} src={"https://source.unsplash.com/random/60×60"} />
+            <img style={{ width: 40, height: 40, borderRadius: 2 }} src={image} />
 
             <div style={{ marginRight: 'auto', marginLeft: 'var(--baseVal)' }}>
                 <h3 style={{ fontSize: '1em' }}>{title}</h3>
@@ -206,8 +206,8 @@ const RewardComp = ({ data }) => {
 }
 
 const RewardInfo = (props) => {
-    const { price, title, id, desc, data } = props.details;
-
+    const { price, title, id, desc, data, image } = props.details;
+    console.log(props.details);
     const listData = data ?? DATA
 
     return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
@@ -215,8 +215,8 @@ const RewardInfo = (props) => {
             <div className="f ">
                 <img
                     alt="reward"
-                    style={{ width: 40, height: 40, transform: 'translateY(5px)' }}
-                    src={"https://source.unsplash.com/random/60×60"}
+                    style={{ width: 40, height: 40, transform: 'translateY(5px)', borderRadius: 2 }}
+                    src={image}
                 />
                 <div style={{ marginLeft: 'var(--baseVal2)', textTransform: 'capitalize', }} className="f fc">
                     <h3 style={{ fontWeight: 'bold', color: 'var(--mainHighlight)' }}>{title}</h3>
