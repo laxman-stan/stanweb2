@@ -5,7 +5,7 @@ export default function NoMath(){
     const navigate = useNavigate()
 
     useOnce(()=>{
-        //console.log('no match')
+        ////console.log('no match')
         navigate("/", {replace: true})
     })
     return <div/>

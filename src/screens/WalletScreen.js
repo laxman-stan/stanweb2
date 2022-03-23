@@ -102,7 +102,7 @@ const RewardComp = ({ data }) => {
     const apiCalled = (isRedeemed, res) => {
 
         bottomSheet(false);
-        console.log(res.reward_claimed, 'll')
+        //console.log(res.reward_claimed, 'll')
         notification(isRedeemed ?
             res?.reward_claimed ? "Claimed successfully" : "Reward not claimed."
             : res?.toString() ?? 'Something went wrong')

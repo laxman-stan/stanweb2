@@ -49,7 +49,7 @@ const [userData, setUserData] = useState({
 })
 
 const success = data =>{
-  console.log('reset')
+  // //console.log('reset')
   let x = userData;
   x.upruns = data.upruns;
   x.gain = data.uprun_gains?? 0

@@ -10,7 +10,7 @@ export default function RoasterComp({
     batting_avg, batting_sr, bowling_eco, bowling_sr,
     isPlayingToday,
     showSelectionBtn, team, skill, isChecked,setIsChecked, name, isLocked, styleFromProp, setIh, price, btnText, change, buyAction, isBought, operation = 'buy', hideBtn}){
-        //console.log('sfa', isPlayingToday);
+        ////console.log('sfa', isPlayingToday);
     const data=[
         {
             key: 'Batting avg', value: batting_avg

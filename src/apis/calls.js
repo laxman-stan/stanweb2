@@ -78,7 +78,7 @@ function apiRequest(
     else if (method === 'DELETE') {
         body = params;
     }
-    //   //console.log('url', url);
+    //   ////console.log('url', url);
     axios({
         method: method,
         url: url + query,
@@ -94,7 +94,7 @@ function apiRequest(
             }
         })
         .catch(({ response }) => {
-            // //console.log('API_CATCH' + url, response, JSON.stringify(response));
+            // ////console.log('API_CATCH' + url, response, JSON.stringify(response));
             response &&
                 callbackFailure &&
                 callbackFailure(getErrorMesage(response));
@@ -115,7 +115,7 @@ function getHeader() {
 
 export function auth(params, callbackSuccess, callbackFailure) {
     let x = parseInt(Math.random()*1000 + 1000).toString();
-    //console.log('uid', x);
+    ////console.log('uid', x);
     apiRequest(
         'POST',
         endPoints.baseUrl + endPoints.auth,

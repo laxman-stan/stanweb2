@@ -40,7 +40,7 @@ export default function BottomNav() {
     const setActiveIndexFun = index =>{
 
         setActiveIndex(index)
-        // //console.log(index);
+        // ////console.log(index);
         navigate(navData[index].path)}
 
     const location = useLocation();

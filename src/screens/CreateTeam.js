@@ -63,7 +63,7 @@ export default function CreateTeam() {
             navigate(-1)
         }
         else{
-            // //console.log(")
+            // ////console.log(")
             notification(res?.toString() ?? 'Something went wrong.')
         }
 
