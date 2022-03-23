@@ -37,7 +37,7 @@ export default function UpperNav(){
     }
 
 {  !showBackButton   ?   <img
-        style={{height: '55%'}}
+        className="upperNavLogo"
         src={logo}
         alt="Upstox"
         /> : <h3 style={{color: 'white'}}>{pathName.includes('history')? 'History' : 
