@@ -113,6 +113,7 @@ const RewardComp = ({ data }) => {
                 setIsClaimed(true)
                 let x = userData.userData;
                 x.upruns -= price
+                x.gain -= price
                 userData.setData({...x})
             }
         }
