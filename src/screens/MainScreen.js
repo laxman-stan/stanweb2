@@ -102,7 +102,7 @@ const MainFunction = ({setHeight, isNewUser}) => {
 
         if(isNewUser){
             bottomSheet(true, {
-                message: 'Congratulations🎉! 1000 UPruns credited to your account as joining bonus.',
+                message: 'Congratulations🎉! 1000 UpRuns credited to your account as joining bonus.',
                 onlyOneBtn: true,
                 acceptText: 'Got it',
                 acceptAction: ()=>bottomSheet(false)
@@ -194,7 +194,7 @@ const TodaysMatch = ({ data }) => {
     customClasses='cta'
     text={'Edit Team'}
     /> : <div style={{marginTop: 'auto', fontWeight: 'bold'}} className="f ac jc whiteCard">
-            <p style={{color: 'var(--mainHighlight)'}}>{`Total upruns earned${gain? ": " : ""}`}</p>
+            <p style={{color: 'var(--mainHighlight)'}}>{`Total UpRuns earned${gain? ": " : ""}`}</p>
           {gain? <> <img alt="upruns" style={{width: 14, marginTop: 4, marginLeft: 8, marginRight: 4}} src={Coin}/>
             <p style={{color: 'var(--mainHighlight)'}}>{gain}</p> </> : <p style={{color: 'var(--mainHighlight)', marginLeft: 12}}>--</p>}
     </div> : null}
