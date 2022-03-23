@@ -18,12 +18,17 @@ if(number){
 
     let scaled = number / scale;
     let x = scaled.toFixed(1).toString();
-    console.log('fachi', x, number, scaled)
     if (x[x.length - 1] === '0')
         x = x.split('.')[0]
     return x + suffix;
 }
-return number.toFixed(1);
+else {
+
+    let num = number.toFixed(1).toString();
+    if(num[num.length-1]==='0')
+        num = num.split(".")[0]
+    return num;
+}
 }
 }
 
