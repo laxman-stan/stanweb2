@@ -26,3 +26,23 @@ if(number){
 return number.toFixed(1);
 }
 }
+
+const teamNames =  {
+    CSK : "Chennai",
+    MI : "Mumbai",
+    DC : "Delhi",
+    RCB : "Bangalore",
+    KKR : "Kolkata",
+    SRH : "Hyderabad",
+    PBKS : "Punjab",
+    RR : "Rajasthan",
+    LSG : "Lucknow",
+    GT : "Gujarat"
+  }
+
+export function teamNameCorrection(teamName){
+    if(teamName in teamNames){
+        return teamNames[teamName]
+    }
+    else return teamNames["CSK"]
+}

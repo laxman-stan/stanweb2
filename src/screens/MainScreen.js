@@ -16,6 +16,7 @@ import useUserData from "../hooks/useUserData"
 import { Sell } from "./TradeScreen"
 import useShowNotification from "../hooks/useShowNotification"
 import { Coin } from "../assets"
+import { teamNameCorrection } from "../util"
 
 export default function MainScreen({setHeight}) {
 
@@ -46,18 +47,18 @@ const MainFunction = ({setHeight, isNewUser}) => {
                 time: i.time,
                 data: i.date,
                 teamA: {
-                    name: i.teama,
+                    name: teamNameCorrection(i.teama),
                     players: i.teama_players
                 },
                 teamB: {
-                    name: i.teamb,
+                    name: teamNameCorrection(i.teamb),
                     players: i.teamb_players
                 }
             }
         })
         let todaysTeams = todaysMatch.reduce((arr, val)=>{
-            arr.push(val.teama)
-            arr.push(val.teamb)
+            arr.push(teamNameCorrection(val.teama))
+            arr.push(teamNameCorrection(val.teamb))
             return arr
         }, [])
         
@@ -101,7 +102,7 @@ const MainFunction = ({setHeight, isNewUser}) => {
 
         if(isNewUser){
             bottomSheet(true, {
-                message: 'Congratulations🎉! 1000 UpRuns credited to your account as joining bonus.',
+                message: 'Congratulations🎉! 1000 UPruns credited to your account as joining bonus.',
                 onlyOneBtn: true,
                 acceptText: 'Got it',
                 acceptAction: ()=>bottomSheet(false)
@@ -118,7 +119,10 @@ const MainFunction = ({setHeight, isNewUser}) => {
 
     const allPlayersRequestSuccess = (allPlayerApiRes) => {
         getTodaysMatchesReq(
-            res=>playerDataSus(allPlayerApiRes, res),
+            res=>playerDataSus(allPlayerApiRes.map(i=>{
+                i.team = teamNameCorrection(i.team)
+                return i
+            }), res),
             apiFailed
         )
     }
@@ -148,7 +152,7 @@ export const PlayScreen = () => {
         return <> 
         <TabNavigator
             numberOfTabs={2}
-            tabNames={["Today's Match", "My Roster"]}
+            tabNames={["Today's Match", "My Portfolio"]}
             renderTab={(i) => <RenderTabs data={playerData.userData} index={i} />}
         />
         </>

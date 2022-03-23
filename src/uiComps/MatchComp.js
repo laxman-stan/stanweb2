@@ -20,7 +20,7 @@ const showLineUp=()=>{
 }
 
     return <div style={{marginTop: index===0? 'var(--baseVal)' : 0}} className="f fc whiteCard">
-        <h5 style={{ textAlign: 'center' }}>Indian T20 League</h5>
+        <h5 style={{ textAlign: 'center' }}>IPL 2022</h5>
 
         <Bar
             height={1}

@@ -16,14 +16,15 @@ export default function WalletScreen() {
 
 const DATA = {
     howToRedeem: [
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!",
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?",
-        "Lorem ipsum dolor sit amet consectetur."
+        "UPruns collected during the gameplay help unlock rewards on the platform. Based on your performance, you can level up in the game, and when a new level unlocks, a new reward can be claimed. You can claim these rewards in exchange for UPruns.",
+        "To claim a reward, first check if you have required UPruns in your wallet. Then, select the reward you want to claim and all you have to do is click on the ‘Claim’ button. Once the reward is claimed, the amount of UPruns will be deducted from your wallet.",
+        "If you are an existing Upstox user, the claim request is processed once you press the button and a confirmation email is sent to your given email address within the next 7 working days. The rest of the process to claim the reward would be explained in the email.",
+        "If you do not have an Upstox account, you will need to create an account to redeem the reward. And then the request would be processed as mentioned above."
     ],
     tnC: [
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!",
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?",
-        "Lorem ipsum dolor sit amet consectetur."
+        "Every person who signs up and accesses this gaming app agrees to abide by the terms, rules, and regulations set by Upstox, RKSV Securities India Pvt. Ltd. If you have any questions, please contact us.",
+        "UCE reserves the right to review, update, change or replace any part of these Terms of Use or other terms of the agreement as it may consider appropriate at its sole and absolute discretion.",
+        "Every user’s continued usage of the platform before or/and after the update, change, modification, or replacement in the agreement accounts for their valid consent to the terms.",
     ]
 }
 
@@ -119,7 +120,7 @@ const RewardComp = ({ data }) => {
         else {
 
             const props = {
-                message: `Are you sure to redeem ${title}?`,
+                message: `Are you sure to claim ${title}?`,
                 acceptAction: () => redeemRewardReq(
                     { "rewardId": id },
                     (res) => apiCalled(true, res),
@@ -196,7 +197,7 @@ const RewardComp = ({ data }) => {
                 onClick={clickFun}
                 bounceLevel={.8}
                 styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed || !canBuy ? .6 : 1 }}
-                text={'Redeem'}
+                text={isClaimed? 'Claimed' : 'Claim'}
                 customClasses="highlightedSmallBtn"
             />
         </div>
@@ -210,7 +211,7 @@ const RewardInfo = (props) => {
     const listData = data ?? DATA
 
     return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
-        <div style={{ height: '100%', overflowY: 'scroll', paddingBottom: 'calc( 30% + var(--baseVal4) )' }} className="f fc">
+        <div style={{ height: '100%', overflowY: 'scroll', paddingBottom: 'calc( 30% + 200px )' }} className="f fc">
             <div className="f ">
                 <img
                     alt="reward"
@@ -226,13 +227,13 @@ const RewardInfo = (props) => {
             <Bar
                 height={1}
                 otherStyles={{
-                    marginTop: '.8em', marginBottom: '.5em', opacity: .2
+                    marginTop: '.8em', marginBottom: '.5em', opacity: .2, flex: 'none'
                 }}
             />
 
             <div className="sb f">
                 <div className="f">
-                    Valid till: {'\u00A0'}<span>Never expires</span>
+                    Valid till: {'\u00A0'}<span>IPL 2022</span>
                 </div>
                 <div className="f">
                     Avail for: {'\u00A0'}<img src={Coin} style={{ width: 16 }} /> <span>{'\u00A0' + price}</span>
@@ -242,7 +243,7 @@ const RewardInfo = (props) => {
             <Bar
                 height={1}
                 otherStyles={{
-                    marginTop: '.8em', marginBottom: '.5em', opacity: .2
+                    marginTop: '.8em', marginBottom: '.5em', opacity: .2, flex: 'none'
                 }}
             />
 
@@ -258,7 +259,7 @@ const RewardInfo = (props) => {
                 <h4>Terms and conditions</h4>
                 <ul style={{ transform: 'translateX(2px)' }}>
                 {
-                    listData.tnC.map((item, index)=><li kye={index}>{item}</li>)
+                    listData.tnC.map((item, index)=><li key={index}>{item}</li>)
                 }
                 </ul>
             </div>

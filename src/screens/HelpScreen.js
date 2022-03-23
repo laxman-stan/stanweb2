@@ -15,7 +15,7 @@ const data={
         },
         {
             q: "How to play?", 
-            a: "● It’s very simple. After logging in, you will land on the homepage. There are three sections on the bottom of the page – Play, Trade, Leaderboard. The ‘Play’ section lets you pick a team of five players everyday and locks in your selection until the match ends. - In the ‘Play’ section, you will find two tabs on the top. ‘Player Portfolio’ shows you the list of all the players you’ve bought. To start, tap on ‘Create Player Portfolio’ and buy your favourite players. ‘Today’s Match’ shows you the match fixtures for today and the 5 players you’ve selected from your Player Portfolio to play Today’s Match You can tap on the ‘Trade’ section to buy new players or sell the ones that are already part of your portfolio.\n● And the ‘Leaderboard’ section shows you where you are in the UpRuns tally compared to other users on Upstox Cric Exchange. Motivation can be helpful, right!\n\nAt any instance of the game, you can click on the UpRuns icon on the top to view your current UpRuns and your transaction history of buying/selling players on the Upstox Cric Exchange.\n\nEasy enough, right?\nSo, go on and start playing!"
+            a: "● It’s very simple. After logging in, you will land on the homepage. There are three sections on the bottom of the page – Play, Trade, Leaderboard. The ‘Play’ section lets you pick a team of five players everyday and locks in your selection until the match ends. - In the ‘Play’ section, you will find two tabs on the top. ‘Player Portfolio’ shows you the list of all the players you’ve bought. To start, tap on ‘Create Player Portfolio’ and buy your favourite players. ‘Today’s Match’ shows you the match fixtures for today and the 5 players you’ve selected from your Player Portfolio to play Today’s Match You can tap on the ‘Trade’ section to buy new players or sell the ones that are already part of your portfolio.\n● And the ‘Leaderboard’ section shows you where you are in the UPruns tally compared to other users on Upstox Cric Exchange. Motivation can be helpful, right!\n\nAt any instance of the game, you can click on the UPruns icon on the top to view your current UPruns and your transaction history of buying/selling players on the Upstox Cric Exchange.\n\nEasy enough, right?\nSo, go on and start playing!"
         },
         {
             q: " What are UPruns?",
@@ -27,11 +27,11 @@ const data={
         },
         {
             q: "How to earn UPruns?",
-            a: "here are two modes to earn UPruns:\n● Performance of the players is key. You earn UPruns based on how the players you have selected and locked for a particular match performs on that particular day.\n● Like an actual stock exchange, the prices of the players constantly change in this game based on the player’s performance in real life. You can analyse the prices and performance to decide when to Buy/Sell players.\n● To top it all! You also earn Bonus UpRuns for taking key actions on the Upstox App - You will learn more as you go along."
+            a: "here are two modes to earn UPruns:\n● Performance of the players is key. You earn UPruns based on how the players you have selected and locked for a particular match performs on that particular day.\n● Like an actual stock exchange, the prices of the players constantly change in this game based on the player’s performance in real life. You can analyse the prices and performance to decide when to Buy/Sell players.\n● To top it all! You also earn Bonus UPruns for taking key actions on the Upstox App - You will learn more as you go along."
         },
         {
             q: " What is ‘Player portfolio’ and how to create ‘Player portfolio’?",
-            a: "When you buy any player, that player becomes a part of the list in your portfolio. ‘Player portfolio’ is a list of all the playable players you have bought till that point in the game at one location. This doesn’t include the ones you have sold. It’s like a portfolio in your trading platform that displays the stocks you own at that point of time. You will also be able to see the players’ current status and current UpRuns valuation."
+            a: "When you buy any player, that player becomes a part of the list in your portfolio. ‘Player portfolio’ is a list of all the playable players you have bought till that point in the game at one location. This doesn’t include the ones you have sold. It’s like a portfolio in your trading platform that displays the stocks you own at that point of time. You will also be able to see the players’ current status and current UPruns valuation."
         },
         {
             q: "What is ‘My team’ and how to create ‘My team’?",
@@ -54,15 +54,15 @@ const data={
         },
         {
             q: "How to buy and sell players? (How to place a trade)?",
-            a: "First, tap on the ‘Trade’ section. You will come across two tabs on the top – ‘Buy’ and ‘Sell’. When you click on the ‘Buy’ option, you will come across a list of all the players playing real time in the IPL with their current in-game stats and the UpRuns (players’ price) needed to buy/sell them. This fluctuates based on the players’ performance. Keep tabs on your favorite players to buy/sell them at the right time - Because, Timing is key!\nSame way, you can click on the ‘Sell’ option to sell a player who is already a part of your portfolio. Once you sell a player, they get removed from your portfolio and you might have to Buy them again if needed."
+            a: "First, tap on the ‘Trade’ section. You will come across two tabs on the top – ‘Buy’ and ‘Sell’. When you click on the ‘Buy’ option, you will come across a list of all the players playing real time in the IPL with their current in-game stats and the UPruns (players’ price) needed to buy/sell them. This fluctuates based on the players’ performance. Keep tabs on your favorite players to buy/sell them at the right time - Because, Timing is key!\nSame way, you can click on the ‘Sell’ option to sell a player who is already a part of your portfolio. Once you sell a player, they get removed from your portfolio and you might have to Buy them again if needed."
         },
         {
             q: "Where can I check my current UPruns rank?",
-            a: "You can check your UpRuns Tally in comparison to other users on Upstox Cric Exchange by going to the ‘Leaderboard’ section."
+            a: "You can check your UPruns Tally in comparison to other users on Upstox Cric Exchange by going to the ‘Leaderboard’ section."
         },
         {
             q: "Where can I check my UPruns balance and trade(buy/sell) history?",
-            a: 'At any instance of the game, you can click on the UpRuns icon on the top to view your current UpRuns and your transaction history of buying/selling players on the Upstox Cric Exchange.'
+            a: 'At any instance of the game, you can click on the UPruns icon on the top to view your current UPruns and your transaction history of buying/selling players on the Upstox Cric Exchange.'
         }
     ]
 }

@@ -164,7 +164,7 @@ const inputStyles = {
 
 export const TitleComp = ({
     titleText = "Enter OTP",
-    line1 = "OTP is sent to your",
+    line1 = "OTP is sent to your registered",
     line2 = "mobile number"
 }) => {
 
