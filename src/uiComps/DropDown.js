@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-const WID=180
+const WID=190
 export default function Dropdown({
     maxWid,
     items=['a'],
