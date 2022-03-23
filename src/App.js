@@ -15,12 +15,9 @@ import {
   Route,
   // Link
 } from "react-router-dom";
-
+import { myPlayersRequest } from './apis/calls';
 
 import LoginScreen from './screens/LoginScreen';
-import { QueryClient, QueryClientProvider} from 'react-query'
- 
-const queryClient = new QueryClient()
 
 export const NotificationContext = createContext();
 export const BottomSheetContext = createContext();
@@ -50,9 +47,26 @@ const [userData, setUserData] = useState({
   todaysMatch: [],
   teams: [],
 })
+
+const success = data =>{
+  console.log('reset')
+  let x = userData;
+  x.upruns = data.upruns;
+  x.gain = data.uprun_gains?? 0
+  setUserData({...x})
+}
+const refetchUpruns=(val, refresh=true)=>{
+  setUserData(val)
+  if(refresh)
+  myPlayersRequest(null,
+      success,
+      ()=>{}
+      )
+}
+
 const userDataContext={
   userData,
-  setData: val=>setUserData(val)
+  setData: refetchUpruns,
 }
 
 const setHeight=()=>{
@@ -69,7 +83,7 @@ const setHeight=()=>{
   }, [])
 
   return (
-    <QueryClientProvider client={queryClient}>
+
       <UserDataContext.Provider value={userDataContext}>
   <NotificationContext.Provider value={showNotification}>
     <BottomSheetContext.Provider value={showBottomSheet}>
@@ -107,7 +121,7 @@ const setHeight=()=>{
     </BottomSheetContext.Provider>
   </NotificationContext.Provider>
   </UserDataContext.Provider>
-  </QueryClientProvider>
+
   );
 }
 

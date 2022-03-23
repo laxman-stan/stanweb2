@@ -9,7 +9,6 @@ import { useEffect, useState } from "react"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import useCheckIsLoggedIn from "../hooks/useCheckIsLoggedIn"
 import { BouncyComp, EmptyTeam, Lineup, ActiveMatchComp, Loader, BottomSheet } from "../uiComps"
-import { useQuery } from 'react-query'
 import { allPlayersRequest, myPlayersRequest, getTodaysMatchesReq } from "../apis/calls"
 import useShowBottomSheet from "../hooks/useShowBottomSheet"
 import useUserData from "../hooks/useUserData"
@@ -92,13 +91,13 @@ const MainFunction = ({setHeight, isNewUser}) => {
         x.teamCreated = teamCreated==="false" ? false : teamCreated;
         x.upruns = upruns;
         x.name = myData.name;
-        x.gain = myData.uprun_gains
+        x.gain = myData.uprun_gains?? 0;
         x.myPlayers = myPlayers
         x.todaysMatch=todaysMatchData
         x.teams = Object.keys(data).map(i=>({name: i, isPlayingToday: todaysTeams.includes(i)}))
         userData.setData({
             ...x
-        })
+        }, false)
 
         if(isNewUser){
             bottomSheet(true, {

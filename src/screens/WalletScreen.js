@@ -1,6 +1,6 @@
-import { useEffect, useContext, useState } from "react"
+import { useEffect, useState } from "react"
 import { colors } from "../constants/colors"
-import { BouncyComp, Bar, CloseBtn, Lineup, Loader } from "../uiComps"
+import { BouncyComp, Bar, CloseBtn, Loader } from "../uiComps"
 import { ShowBottomBavContext } from "../App"
 import { Outlet, useNavigate } from "react-router-dom"
 import { redeemRewardReq, rewardReq } from "../apis/calls"
@@ -29,7 +29,7 @@ const DATA = {
 }
 
 export const Wallet = () => {
-    const upruns = useUserData().userData.upruns;
+    const {upruns, gain} = useUserData().userData;
     const navigate = useNavigate();
     const notification = useShowNotification();
 
@@ -37,13 +37,12 @@ export const Wallet = () => {
     const setRewardsFun = (all, claimed) => {
 
         let rewards = all
-        // if (claimed.length)
         rewards = rewards.map(i => {
             if (claimed.length) {
                 let x = !~claimed.findIndex(j => j.reward.id === i.id)
                 i.isClaimed = !x
             }
-            i.canBuy = upruns > i.price
+            i.canBuy = gain > i.price
             return i
         })
 
@@ -68,6 +67,11 @@ export const Wallet = () => {
             <h5 style={{ fontWeight: 'normal' }}>Total Balance
                 <br />
                 <p style={{ fontSize: '1.5em', fontWeight: 'bold' }}>{upruns?.toLocaleString('en-IN')}</p>
+            </h5>
+
+            <h5 style={{ fontWeight: 'normal' }}>Earned Upruns
+                <br />
+                <p style={{ fontSize: '1.5em', fontWeight: 'bold' }}>{gain?.toLocaleString('en-IN')}</p>
             </h5>
 
             <BouncyComp
@@ -98,24 +102,27 @@ const RewardComp = ({ data }) => {
     const apiCalled = (isRedeemed, res) => {
 
         bottomSheet(false);
+
         notification(isRedeemed ?
             res?.reward_claimed ? "Claimed successfully" : "Reward not claimed."
-            : res ?? 'Something went wrong')
+            : res?.toString() ?? 'Something went wrong')
+
         if (isRedeemed) {
-            setIsClaimed(true)
-            showMsg(res.message);
-            let x = userData.userData;
-            x.upruns -= price
-            userData.setData({ ...x })
+            showMsg(res.reward_claimed);
+            if (res?.reward_claimed) {
+                setIsClaimed(true)
+                let x = userData.userData;
+                x.upruns -= price
+                userData.setData({...x})
+            }
         }
     }
-
 
     const clickFun = () => {
         if (isClaimed)
             notification('Already claimed')
         if (!canBuy)
-            notification('Not enough UPruns')
+            notification('Not enough earned UPruns')
 
         else {
 
@@ -141,12 +148,13 @@ const RewardComp = ({ data }) => {
         bottomSheet(true, bottomsheetPropsForDetails);
     }
 
-    const showMsg = (message) => {
+    const showMsg = (isClaimed) => {
         const props = {
-            message: message + '\n' + "Please visit the https://upstox.com/ for more details.",
-            acceptAction: () => window.open('https://upstox.com/'),
+            message: isClaimed? "Congratulations! You have successfully claimed your reward. You will receive an email within 7 days with the next steps for processing your reward." : "Don’t have a Demat account yet? Create a free Demat account on Upstox to claim the reward.",
+            acceptAction: isClaimed? ()=>bottomSheet(false) : () => window.open('https://upstox.com/open-demat-account/'),
             declineText: "Later",
-            acceptText: "Visit Now",
+            acceptText: isClaimed? "Got It" : "Create Now",
+            onlyOneBtn: isClaimed,
         }
         setTimeout(() => {
             bottomSheet(true, props)
@@ -197,7 +205,7 @@ const RewardComp = ({ data }) => {
                 onClick={clickFun}
                 bounceLevel={.8}
                 styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed || !canBuy ? .6 : 1 }}
-                text={isClaimed? 'Claimed' : 'Claim'}
+                text={isClaimed ? 'Claimed' : 'Claim'}
                 customClasses="highlightedSmallBtn"
             />
         </div>
@@ -207,7 +215,6 @@ const RewardComp = ({ data }) => {
 
 const RewardInfo = (props) => {
     const { price, title, id, desc, data, image } = props.details;
-    console.log(props.details);
     const listData = data ?? DATA
 
     return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
@@ -258,9 +265,9 @@ const RewardInfo = (props) => {
             <div style={{ paddingLeft: 'var(--baseVal4)', paddingRight: 'var(--baseVal4)', marginTop: 'var(--baseVal4)' }}>
                 <h4>Terms and conditions</h4>
                 <ul style={{ transform: 'translateX(2px)' }}>
-                {
-                    listData.tnC.map((item, index)=><li key={index}>{item}</li>)
-                }
+                    {
+                        listData.tnC.map((item, index) => <li key={index}>{item}</li>)
+                    }
                 </ul>
             </div>
 
