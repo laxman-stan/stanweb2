@@ -44,7 +44,7 @@ export default function PhoneNoScreen() {
     }
     const browser = detectBrowser();
     const apiRes = (isSuccess, res, reqID) => {
-        console.log(res);
+
         setLoader(false);
         if (isSuccess && res.success) {
             console.log(res?.data)

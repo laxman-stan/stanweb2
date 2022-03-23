@@ -10,11 +10,12 @@ import { updateUserName } from '../apis/calls';
 
 export default function UserNameScreen() {
     const navigate = useNavigate();
-    const location = useLocation().state;
+    const location = useLocation();
+
     const [emptyName, set] = useState(true);
 
     useEffect(()=>{
-        if(!location?.isNameEmpty){
+        if(!location.state?.isNameEmpty){
             navigate('/')
         }
         else
@@ -26,10 +27,8 @@ export default function UserNameScreen() {
 }
 
 const MainFun=({location, navigate})=>{
-    
 
-    const {isNewUser} = location;
-
+    const {isNewUser} = location.state;
     const notification = useShowNotification();
     const [name, setName] = useState("");
     const [showLoader, setLoader] = useState(false);
@@ -46,7 +45,7 @@ const MainFun=({location, navigate})=>{
         if(isSuccess){
             notification('Name updated successfully.')
             if(isNewUser)
-                navigate('/app-guide', {replace: true,})
+                navigate('/app-guide', {replace: true, state: {isNewUser: true}})
             else
                 navigate('/main', {replace: true})
     

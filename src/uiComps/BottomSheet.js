@@ -101,7 +101,7 @@ const MainFunction = forwardRef(({
         <a.div onClick={declineFun} style={{ background: 'black', ...blackLayer }} className="fh fw" />
  {   !customChild?     <a.div style={{ ...sheet, ...cardCont}} className="ap whiteCard">
         <div style={{ ...cardStyle}} ref={contentContRef} className="f whiteCard fw fc">
-            <h4 style={{textAlign: 'center', fontWeight: 'normal'}}>{message}</h4>
+            <h4 style={{textAlign: 'center', fontWeight: 'normal', whiteSpace: "pre-line"}}>{message}</h4>
 
             <div style={{gap: 'var(--baseVal4)', marginTop: '1em'}} className="f">
               { onlyOneBtn ? null : <BouncyComp

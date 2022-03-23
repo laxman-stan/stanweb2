@@ -76,6 +76,9 @@ const MainFun = ({location, navigate}) => {
             x.userFromLogin = res.user
             // x.name = name
             userData.setData({ ...x })
+
+            console.log(typeof is_new_user, is_new_user)
+
             if(is_new_user || name===" ")
             navigate('/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
             else

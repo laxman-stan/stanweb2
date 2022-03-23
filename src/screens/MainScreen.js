@@ -24,6 +24,7 @@ export default function MainScreen({setHeight}) {
     const location = useLocation();
     const isNewUser = location?.state?.isNewUser;
 
+
     if (!isLoggedIn)
         return <div />
 
@@ -101,7 +102,7 @@ const MainFunction = ({setHeight, isNewUser}) => {
 
         if(isNewUser){
             bottomSheet(true, {
-                message: 'Congratulations🎉! 1000 UPruns credited to your account as joining bonus.',
+                message: "Beginner's Luck 👍 Congratulations 🎉 on earning your first 1000 UPruns. It’s only UPrunning from here!",
                 onlyOneBtn: true,
                 acceptText: 'Got it',
                 acceptAction: ()=>bottomSheet(false)
@@ -151,7 +152,7 @@ export const PlayScreen = () => {
         return <> 
         <TabNavigator
             numberOfTabs={2}
-            tabNames={["Today's Match", "My Portfolio"]}
+            tabNames={["Today's Match", "Player Portfolio"]}
             renderTab={(i) => <RenderTabs data={playerData.userData} index={i} />}
         />
         </>

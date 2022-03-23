@@ -16,8 +16,8 @@ export default function WalletScreen() {
 
 const DATA = {
     howToRedeem: [
-        "UPruns collected during the gameplay help unlock rewards on the platform. Based on your performance, you can level up in the game, and when a new level unlocks, a new reward can be claimed. You can claim these rewards in exchange for UPruns.",
-        "To claim a reward, first check if you have required UPruns in your wallet. Then, select the reward you want to claim and all you have to do is click on the ‘Claim’ button. Once the reward is claimed, the amount of UPruns will be deducted from your wallet.",
+        "UPruns collected during the gameplay help unlock rewards on the platform. Based on your performance, you can level up in the game, and when a new level unlocks, a new reward can be claimed. You can claim these rewards as you keep adding more Upruns.",
+        "When you cross a new milestone in total UPruns, new rewards keep getting unlocked for claiming. Select the reward you want to claim and all you have to do is click on the ‘Claim’ button.",
         "If you are an existing Upstox user, the claim request is processed once you press the button and a confirmation email is sent to your given email address within the next 7 working days. The rest of the process to claim the reward would be explained in the email.",
         "If you do not have an Upstox account, you will need to create an account to redeem the reward. And then the request would be processed as mentioned above."
     ],
@@ -102,7 +102,7 @@ const RewardComp = ({ data }) => {
     const apiCalled = (isRedeemed, res) => {
 
         bottomSheet(false);
-
+        console.log(res.reward_claimed, 'll')
         notification(isRedeemed ?
             res?.reward_claimed ? "Claimed successfully" : "Reward not claimed."
             : res?.toString() ?? 'Something went wrong')
@@ -111,10 +111,10 @@ const RewardComp = ({ data }) => {
             showMsg(res.reward_claimed);
             if (res?.reward_claimed) {
                 setIsClaimed(true)
-                let x = userData.userData;
-                x.upruns -= price
-                x.gain -= price
-                userData.setData({...x})
+                // let x = userData.userData;
+                // x.upruns -= price
+                // x.gain -= price
+                // userData.setData({...x})
             }
         }
     }
@@ -122,11 +122,10 @@ const RewardComp = ({ data }) => {
     const clickFun = () => {
         if (isClaimed)
             notification('Already claimed')
-        if (!canBuy)
-            notification('Not enough earned UPruns')
+        else if (!canBuy)
+            notification("You haven't earned enough UPruns yet!")
 
         else {
-
             const props = {
                 message: `Are you sure to claim ${title}?`,
                 acceptAction: () => redeemRewardReq(
@@ -151,11 +150,11 @@ const RewardComp = ({ data }) => {
 
     const showMsg = (isClaimed) => {
         const props = {
-            message: isClaimed? "Congratulations! You have successfully claimed your reward. You will receive an email within 7 days with the next steps for processing your reward." : "Don’t have a Demat account yet? Create a free Demat account on Upstox to claim the reward.",
-            acceptAction: isClaimed? ()=>bottomSheet(false) : () => window.open('https://upstox.com/open-demat-account/'),
+            message: "Congratulations 🎉! You have successfully claimed your reward. You will receive an email within 7 days with the next steps for processing your reward.\nNOTE – You need a Demat account for successful processing of your reward. Create free Demat account on Upstox.",
+            acceptAction: () => window.open('https://upstox.com/open-demat-account/'),
             declineText: "Later",
-            acceptText: isClaimed? "Got It" : "Create Now",
-            onlyOneBtn: isClaimed,
+            acceptText: "Create Now",
+            // onlyOneBtn: isClaimed,
         }
         setTimeout(() => {
             bottomSheet(true, props)
@@ -195,7 +194,7 @@ const RewardComp = ({ data }) => {
                 }}
             />
             <div style={{ marginLeft: 'auto', gap: 'var(--baseVal)' }} className="f ac">
-                <h5>Avail for:</h5>
+                <h5>Earn:</h5>
                 <img
                     style={{ width: 16, height: 16 }}
                     src={Coin} />
@@ -241,7 +240,7 @@ const RewardInfo = (props) => {
 
             <div className="sb f">
                 <div className="f">
-                    Valid till: {'\u00A0'}<span>IPL 2022</span>
+                    Valid till: {'\u00A0'}<span>Tata IPL 2022</span>
                 </div>
                 <div className="f">
                     Avail for: {'\u00A0'}<img src={Coin} style={{ width: 16 }} /> <span>{'\u00A0' + price}</span>
@@ -264,7 +263,7 @@ const RewardInfo = (props) => {
             </div>
 
             <div style={{ paddingLeft: 'var(--baseVal4)', paddingRight: 'var(--baseVal4)', marginTop: 'var(--baseVal4)' }}>
-                <h4>Terms and conditions</h4>
+                <h4>Terms and Conditions</h4>
                 <ul style={{ transform: 'translateX(2px)' }}>
                     {
                         listData.tnC.map((item, index) => <li key={index}>{item}</li>)
