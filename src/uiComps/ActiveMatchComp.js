@@ -28,7 +28,7 @@ const RenderTeamList = ({team}) => {
             <h4 style={{
                 width: '60%'
             }}>My Team</h4>
-            <h4>Uprun gain</h4>
+            <h4>UpRun gain</h4>
         </div>
 
         {

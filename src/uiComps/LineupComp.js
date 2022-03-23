@@ -4,7 +4,7 @@ export default function Lineup(props) {
     const {teamA, teamB} = props
 
     return <div onClick={e=>e.stopPropagation()} style={{ padding: 'var(--baseVal3) 0 0 0', marginTop: 'auto', marginBottom:'auto' }} className="whiteCard rp f fc">
-        <h3 style={styles.h3}>Team Linuup</h3>
+        <h3 style={styles.h3}>Team Lineup</h3>
         <Bar
             height={1}
             otherStyles={{

@@ -1,6 +1,6 @@
 
 export const header = {'Content-Type': 'application/json',}
-export const baseUrl = "https://upstox.getstan.app/"
+export const baseUrl = "https://cricinvest-api.upstox.com/"
 
 
 export const auth = "dummy-auth";

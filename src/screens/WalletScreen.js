@@ -14,25 +14,37 @@ export default function WalletScreen() {
     return <Outlet />
 }
 
+const DATA = {
+    howToRedeem: [
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!",
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?",
+        "Lorem ipsum dolor sit amet consectetur."
+    ],
+    tnC: [
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!",
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?",
+        "Lorem ipsum dolor sit amet consectetur."
+    ]
+}
 
 export const Wallet = () => {
     const upruns = useUserData().userData.upruns;
     const navigate = useNavigate();
     const notification = useShowNotification();
-    
+
     const [rewards, setRewards] = useState([]);
     const setRewardsFun = (all, claimed) => {
 
         let rewards = all
         // if (claimed.length)
-            rewards = rewards.map(i => {
-                if(claimed.length){
+        rewards = rewards.map(i => {
+            if (claimed.length) {
                 let x = !~claimed.findIndex(j => j.reward.id === i.id)
                 i.isClaimed = !x
             }
-            i.canBuy= upruns>i.price
-                return i
-            })
+            i.canBuy = upruns > i.price
+            return i
+        })
 
         setRewards(rewards)
     }
@@ -80,30 +92,30 @@ const RewardComp = ({ data }) => {
     const notification = useShowNotification();
     const { price, title, id, desc, isClaimed: isItemClaimed, canBuy } = data
     const count = data.availableCount + "/" + data.maxCount
-    // //console.log('count', data.canBuy);
     const [isClaimed, setIsClaimed] = useState(isItemClaimed)
     const userData = useUserData();
     const apiCalled = (isRedeemed, res) => {
 
         bottomSheet(false);
-        notification(isRedeemed ? 
-            res?.reward_claimed ? "Claimed successfully" : "Reward not claimed." 
+        notification(isRedeemed ?
+            res?.reward_claimed ? "Claimed successfully" : "Reward not claimed."
             : res ?? 'Something went wrong')
-        if (isRedeemed){
+        if (isRedeemed) {
             setIsClaimed(true)
             showMsg(res.message);
             let x = userData.userData;
             x.upruns -= price
-            userData.setData({...x})
-    }}
+            userData.setData({ ...x })
+        }
+    }
 
 
     const clickFun = () => {
         if (isClaimed)
             notification('Already claimed')
-        if(!canBuy)
+        if (!canBuy)
             notification('Not enough upruns')
-    
+
         else {
 
             const props = {
@@ -128,14 +140,13 @@ const RewardComp = ({ data }) => {
         bottomSheet(true, bottomsheetPropsForDetails);
     }
 
-    const showMsg=(message)=>{
-        //console.log('is called', message);
+    const showMsg = (message) => {
         const props = {
             message: message + '\n' + "Please visit the https://upstox.com/ for more details.",
-        acceptAction: ()=>window.open('https://upstox.com/'),
-        declineText: "Later",
-        acceptText: "Visit Now",
-    }
+            acceptAction: () => window.open('https://upstox.com/'),
+            declineText: "Later",
+            acceptText: "Visit Now",
+        }
         setTimeout(() => {
             bottomSheet(true, props)
         }, 500);
@@ -148,7 +159,7 @@ const RewardComp = ({ data }) => {
             <div style={{ marginRight: 'auto', marginLeft: 'var(--baseVal)' }}>
                 <h3 style={{ fontSize: '1em' }}>{title}</h3>
                 <p style={{ fontSize: '.8em' }}>{desc}
-                <span style={{marginLeft: 'var(--baseVal2)'}}>{"Available: " + count}</span>
+                    <span style={{ marginLeft: 'var(--baseVal2)' }}>{"Available: " + count}</span>
                 </p>
             </div>
         </div>
@@ -194,8 +205,9 @@ const RewardComp = ({ data }) => {
 }
 
 const RewardInfo = (props) => {
-    const { price, title, id, desc } = props.details;
-    //console.log(props.details);
+    const { price, title, id, desc, data } = props.details;
+
+    const listData = data ?? DATA
 
     return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
         <div style={{ height: '100%', overflowY: 'scroll', paddingBottom: 'calc( 30% + var(--baseVal4) )' }} className="f fc">
@@ -205,8 +217,8 @@ const RewardInfo = (props) => {
                     style={{ width: 40, height: 40, transform: 'translateY(5px)' }}
                     src={"https://source.unsplash.com/random/60×60"}
                 />
-                <div style={{marginLeft: 'var(--baseVal2)', textTransform: 'capitalize', }} className="f fc">
-                    <h3 style={{fontWeight:'bold', color: 'var(--mainHighlight)'}}>{title}</h3>
+                <div style={{ marginLeft: 'var(--baseVal2)', textTransform: 'capitalize', }} className="f fc">
+                    <h3 style={{ fontWeight: 'bold', color: 'var(--mainHighlight)' }}>{title}</h3>
                     <p style={subHeading}>{desc}</p>
                 </div>
             </div>
@@ -223,7 +235,7 @@ const RewardInfo = (props) => {
                     Valid till: {'\u00A0'}<span>Never expires</span>
                 </div>
                 <div className="f">
-                    Avail for: {'\u00A0'}<img src={Coin} style={{width: 16}} /> <span>{'\u00A0' + price}</span>
+                    Avail for: {'\u00A0'}<img src={Coin} style={{ width: 16 }} /> <span>{'\u00A0' + price}</span>
                 </div>
             </div>
 
@@ -236,19 +248,18 @@ const RewardInfo = (props) => {
 
             <div style={{ paddingLeft: 'var(--baseVal4)', paddingRight: 'var(--baseVal4)' }}>
                 <h4>How to Redeem</h4>
-                <ol>
-                    <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?</li>
-                    <li>Lorem ipsum dolor sit amet consectetur.</li>
+                <ol>{
+                    listData.howToRedeem.map((item, index) => <li key={index}>{item}</li>)
+                }
                 </ol>
             </div>
 
             <div style={{ paddingLeft: 'var(--baseVal4)', paddingRight: 'var(--baseVal4)', marginTop: 'var(--baseVal4)' }}>
                 <h4>Terms and conditions</h4>
                 <ul style={{ transform: 'translateX(2px)' }}>
-                    <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam, animi!</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fugiat asperiores numquam, ipsa deserunt rem porro a facilis magni eveniet quia sunt optio, temporibus quod?</li>
-                    <li>Lorem ipsum dolor sit amet consectetur.</li>
+                {
+                    listData.tnC.map((item, index)=><li kye={index}>{item}</li>)
+                }
                 </ul>
             </div>
 

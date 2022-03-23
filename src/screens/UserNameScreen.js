@@ -14,7 +14,6 @@ export default function UserNameScreen() {
     const [emptyName, set] = useState(true);
 
     useEffect(()=>{
-        //console.log(location);
         if(!location?.isNameEmpty){
             navigate('/')
         }
@@ -44,11 +43,10 @@ const MainFun=({location, navigate})=>{
 
     const apiCalled=(isSuccess, res)=>{
         setLoader(false)
-        //console.log(res);
         if(isSuccess){
             notification('Name updated successfully.')
             if(isNewUser)
-                navigate('/app-guide', {replace: true})
+                navigate('/app-guide', {replace: true,})
             else
                 navigate('/main', {replace: true})
     
@@ -74,8 +72,8 @@ const MainFun=({location, navigate})=>{
             style={{ backgroundColor: 'var(--mainHighlight)', paddingLeft: 'var(--baseVal3)', paddingRight: 'var(--baseVal3)' }}
             className="fh fw f fc">
             <TitleComp
-                titleText={"Hi, Welcome to the Upstox"}
-                line1={"What should we call you?"}
+                titleText={"Welcome to Upstox."}
+                line1={"How should we address you?"}
                 line2={null}
             />
 

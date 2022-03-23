@@ -42,7 +42,6 @@ const MainFun = ({location, navigate}) => {
     const token = useRef(location.state.token);
     const reqID = useRef(location.state.reqID);
 
-    // //console.log(location.state);
 
     const [otp, setOtp] = useState("");
 
@@ -66,7 +65,6 @@ const MainFun = ({location, navigate}) => {
 
     const apiCalled = (isSuccess, res) => {
         setIL(false)
-        //console.log(res);
         if (isSuccess) {
             setOtpStatus(true);
             const { upruns, access_token, name, uprun_gains, is_new_user } = res.user
@@ -84,7 +82,7 @@ const MainFun = ({location, navigate}) => {
                 navigate('/main', { replace: true })
         }
         else {
-            notification(res?.message ?? 'Something went wrong.')
+            notification(res?.toString() ?? 'Something went wrong.')
         }
 
     }
@@ -98,7 +96,6 @@ const MainFun = ({location, navigate}) => {
             "otp": otp.toString(),
             "requestId": reqID.current
         };
-        //console.log(props, 'ajfal')
         verifyOTP(
             props,
             res => apiCalled(true, res),
@@ -167,7 +164,7 @@ const inputStyles = {
 
 export const TitleComp = ({
     titleText = "Enter OTP",
-    line1 = "Enter the OTP sent to your",
+    line1 = "OTP is sent to your",
     line2 = "mobile number"
 }) => {
 

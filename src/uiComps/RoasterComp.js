@@ -106,7 +106,7 @@ export default function RoasterComp({
 
 {   isLocked || (!isPlayingToday && showSelectionBtn) ?  <div className="f ap fc ac jc" style={{top: 0, left: 0, bottom: 0, right: 0, backgroundColor: 'var(--mainHighlight75)', borderRadius: 'var(--baseVal2)', color: 'white', gap: 8, fontSize: '.83em'}}>
         <Lock/>
-       {showSelectionBtn?  "Player locked (Not playing today)" : "Player locked (Used in today's team)"}
+       {showSelectionBtn?  "Player locked (Not playing today)" : "Player locked (Already in today's team)"}
         </div> : null}
     </a.div>
 }

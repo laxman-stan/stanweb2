@@ -578,7 +578,7 @@ tbody:last-child td{
 }
 .qnaCont{
   padding-top: var(--baseVal2);
-  padding-bottom: var(--baseVal2);
+  padding-bottom: 1px;
   gap: var(--baseVal3)
 }
 .qnaCont::after{
@@ -662,4 +662,12 @@ input[type=number] {
   60%{
     opacity: 1;
   }
+}
+.upperNavLogo{
+  height: 55%;
+}
+@media only screen and (max-width: 410px){
+.upperNavLogo{
+  height: calc( 17vw - 36px );
+}
 }

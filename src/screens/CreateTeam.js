@@ -116,7 +116,7 @@ export default function CreateTeam() {
         <a.div style={{ ...sheet, ...cardCont }} className="ap f fc whiteCard">
 
             <h4 style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                <span style={{ color: 'var(--mainHighlight30)', }}>player selectd: </span>
+                <span style={{ color: 'var(--mainHighlight30)', }}>Players Selected: </span>
                 {selected.length} <span style={{ color: 'var(--mainHighlight30)' }}>/5</span> </h4>
             <BouncyComp
                 onClick={clickFun}
@@ -127,7 +127,7 @@ export default function CreateTeam() {
                     background: !isLoading ? 'var(--mainHighlight)' : 'var(--mainHighlight75)'
                 }}
                 outlined
-                text={"Make Team"}
+                text={"Create Team"}
             />
 
         </a.div>
