@@ -82,7 +82,7 @@ const MainFun = ({location, navigate}) => {
                 navigate('/main', { replace: true })
         }
         else {
-            notification(res?.message ?? 'Something went wrong.')
+            notification(res?.toString() ?? 'Something went wrong.')
         }
 
     }

@@ -41,7 +41,6 @@ const MainFunction = ({setHeight, isNewUser}) => {
     }
     
     const myPlayerRequestSuccess = (myData, allPlayersData, todaysMatch) => {
-
         let todaysMatchData = todaysMatch.map(i=>{
             return {
                 time: i.time,
