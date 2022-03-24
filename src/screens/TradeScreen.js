@@ -133,10 +133,16 @@ const Buy = ({data, set, preData}) => {
     const teams = data.teams;
 
     const [ih , setIh] = useState(null);
-
     const [isIncreasingSort, setIsIncreasingSort] = useState(false)
     const [activeCategory, setActive] = useState(preData?.activeCategory ?? 0);
-    const [currentTeamIndex, setCurrentTeamIndex] = useState(preData?.currentTeamIndex ?? 0);
+
+    const getInitialIndex = ()=>{
+        for(let i = 0; i<teams.length; i++)
+            if(teams[i].isPlayingToday)
+                return i
+                return 0
+    }
+    const [currentTeamIndex, setCurrentTeamIndex] = useState(preData?.currentTeamIndex ?? getInitialIndex());
     const categories = [
         {
             type: 'All',
@@ -155,14 +161,12 @@ const Buy = ({data, set, preData}) => {
         }
     ]
 
-
     const styles = useSprings(categories.length, categories.map((_, i) => ({
         background: activeCategory === i ? mainHighlight : '#00000000',
         borderColor: activeCategory !== i ? mainHighlig30 : '#00000000',
         color: activeCategory === i ? '#fff' : mainHighlight,
         config: config.slow
     })))
-
 
     const mutatePlayers=(playerToPush)=>{
         let preData={
