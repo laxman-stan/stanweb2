@@ -102,7 +102,7 @@ const MainFunction = ({setHeight, isNewUser}) => {
 
         if(isNewUser){
             bottomSheet(true, {
-                message: "Beginner's Luck 👍 Congratulations 🎉 on earning your first 1000 UPruns. It’s only UPrunning from here!",
+                message: `Beginner's Luck 👍 Congratulations 🎉 on earning your first ${upruns ?? 400} UPruns. It’s only UPrunning from here!`,
                 onlyOneBtn: true,
                 acceptText: 'Got it',
                 acceptAction: ()=>bottomSheet(false)
