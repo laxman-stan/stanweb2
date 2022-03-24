@@ -671,3 +671,14 @@ input[type=number] {
   height: calc( 17vw - 36px );
 }
 }
+
+.h4s{
+  margin-bottom: var(--baseVal);
+  margin-top: var(--baseVal);
+}
+.pb5{
+  padding-left: var(--baseVal5);
+}
+.di *{
+  color: var(--mainHighlight20)
+}
