@@ -13,7 +13,6 @@ export default function LoginScreen() {
     const [isLoggedIn, setIsLoggedIn] = useState(null)
     const navigate = useNavigate();
     const location = useLocation();
-    // //console.log(location.search.split("=")[1]);
 
     useEffect(() => {
         if (localStorage.getItem("authToken")){
@@ -50,7 +49,6 @@ const MainFunction = ({location}) => {
         notification('logged in successfully')
         x.upruns = upruns
         x.userFromLogin = res.user
-        // x.name = name
         userData.setData({...x})
         if(is_new_user || name===" ")
         navigate('/user-info', {replace: true, state: {isNameEmpty: name===" ", isNewUser: is_new_user}})
@@ -59,7 +57,6 @@ const MainFunction = ({location}) => {
     }
 
     const loginFail=err=>{
-        //console.log('fail', err)
         notification(err?.message ?? err?.toString() ?? "Something  went wrong.")
     }
 
