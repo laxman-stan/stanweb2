@@ -113,7 +113,7 @@ const MainFunction = ({setHeight, isNewUser}) => {
             }, 100);
         }
 
-        if(isNewUser){
+        if(!isNewUser){
             bottomSheet(
                 true,
                 {
@@ -241,9 +241,9 @@ const NewUserPopUp = (props) => {
 
     return <div 
     onClick={e=>e.stopPropagation()} 
-    style={{ padding: 'var(--baseVal3) var(--baseVal3) var(--baseVal3) var(--baseVal3)', marginTop: 'auto', marginBottom:'auto' }} className="whiteCard rp f fc">
+    style={{ padding: 'var(--baseVal3) var(--baseVal3) var(--baseVal3) var(--baseVal3)', marginTop: 'auto', marginBottom:'auto', maxHeight: '85%' }} className="whiteCard rp f fc">
         <h4 style={{fontWeight: 'bold', color: 'var(--mainHighlight)', marginBottom: 'var(--baseVal)'}}>How to play?</h4>
-            <ul style={{paddingLeft: 'var(--baseVal4)'}}>
+            <ul style={{paddingLeft: 'var(--baseVal4)', overflowY: 'scroll'}}>
                 <li>It’s very simple. After logging in, you will land on the homepage. There are three sections on the bottom of the page – Play, Trade, Leaderboard. The ‘Play’ section lets you pick a team of five players everyday and locks in your selection until the match ends. - In the ‘Play’ section, you will find two tabs on the top. ‘Player Portfolio’ shows you the list of all the players you’ve bought. To start, tap on ‘Create Player Portfolio’ and buy your favourite players. ‘Today’s Match’ shows you the match fixtures for today and the 5 players you’ve selected from your Player Portfolio to play Today’s Match You can tap on the ‘Trade’ section to buy new players or sell the ones that are already part of your portfolio.</li>
                 <li>And the ‘Leaderboard’ section shows you where you are in the UPruns tally compared to other users on Upstox Cric Exchange. Motivation can be helpful, right!\n\nAt any instance of the game, you can click on the UPruns icon on the top to view your current UPruns and your transaction history of buying/selling players on the Upstox Cric Exchange.\n\nEasy enough, right?\nSo, go on and start playing!</li>
             </ul>
