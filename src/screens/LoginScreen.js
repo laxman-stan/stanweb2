@@ -13,14 +13,23 @@ export default function LoginScreen() {
     const [isLoggedIn, setIsLoggedIn] = useState(null)
     const navigate = useNavigate();
     const location = useLocation();
-
+    
     useEffect(() => {
         if (localStorage.getItem("authToken")){
             if(Date.now() - localStorage.getItem("savingTime") > 86400000){
             localStorage.removeItem("authToken")
+            localStorage.removeItem("savingTime")
             setIsLoggedIn(false)
-            }else
-            navigate('/main')
+            }else{
+                if(!location.search.includes('code='))
+                navigate('/main')
+                else{
+                    localStorage.removeItem("authToken")
+                    localStorage.removeItem("savingTime")
+                    setIsLoggedIn(false)
+                }
+            }
+            
         }
         else
             setIsLoggedIn(false)
@@ -38,7 +47,7 @@ const MainFunction = ({location}) => {
     const z = location.search?.split("=")[1];
     const userData = useUserData();
     const x = userData.userData;
-    
+    const [isLoading, setIsLoading] = useState(z? true : false);
     
     const navigate = useNavigate();
     const notification = useShowNotification();
@@ -58,10 +67,12 @@ const MainFunction = ({location}) => {
 
     const loginFail=err=>{
         notification(err?.message ?? err?.toString() ?? "Something  went wrong.")
+        setIsLoading(false);
     }
 
     const loginFunction = () => {
         auth({}, loginSuccessful, loginFail)
+        
     }
 
     useEffect(() => {
@@ -92,8 +103,8 @@ const MainFunction = ({location}) => {
             customClasses={"cta whiteBtn"}
             styles={{ marginTop: 'auto', marginLeft: 0, marginRight: 0 }}
             useDefaultBtnStyles
-            showLoading={z?true:false}
-            text={z?`Logging in...`:`Login with Mobile No.`}
+            showLoading={isLoading}
+            text={z?isLoading? `Logging in...`: "Verification failed" :`Login with Mobile No.`}
             onClick={
                 z? ()=>{} : ()=> navigate('/phone-no')
             }

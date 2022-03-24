@@ -259,7 +259,7 @@ export function sendOTP(mobile, callbackSuccess, callbackFailure, reqID){
         'POST',
         url,
         {
-            "X-Device-Details": "platform=WEB|deviceId=someAlphanumericDeviceId|osName=iOS|osVersion=13.5.1|appVersion=2.3.14|imei=000000000000|network=net|memory=mem|modelName=iPhone101|manufacturer=Apple",
+            "X-Device-Details": "",
             "Content-Type": "application/json"
           },
         callbackSuccess,
