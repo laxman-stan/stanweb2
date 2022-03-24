@@ -113,7 +113,7 @@ const MainFunction = ({setHeight, isNewUser}) => {
             }, 100);
         }
 
-        if(!isNewUser){
+        if(isNewUser){
             bottomSheet(
                 true,
                 {
