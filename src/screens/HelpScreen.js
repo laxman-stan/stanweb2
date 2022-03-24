@@ -8,7 +8,7 @@ const data={
     qna: [
         {
             q: "What is Upstox Cric Exchange?",
-            a: "Upstox Cric Exchange is Upstox’s special offering for the IPL season. Through this game, Upstox aims to help you understand and learn the fundamentals of trading.. Just like fantasy sport games, users can buy or sell players based on their performance. This also helps a trading beginner understand how one can buy/sell stocks in the stock market."
+            a: "Upstox Cric Exchange is Upstox’s special offering for the IPL season. Through this game, Upstox aims to help you understand and learn the fundamentals of trading. This platform is a unique blend of cricket and trading, where you can select, buy, and sell cricket players according to your liking. Based on the players’ real-time performance and your activity, you can gain UPruns and level up to earn exciting rewards."
         },
         {
             q: "How to login?",
