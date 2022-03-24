@@ -8,7 +8,7 @@ import WalletScreen from "./WalletScreen"
 import { useEffect, useState } from "react"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import useCheckIsLoggedIn from "../hooks/useCheckIsLoggedIn"
-import { BouncyComp, EmptyTeam, Lineup, ActiveMatchComp, Loader, BottomSheet } from "../uiComps"
+import { BouncyComp, EmptyTeam, Lineup, ActiveMatchComp, Loader, BottomSheet, CloseBtn } from "../uiComps"
 import { allPlayersRequest, myPlayersRequest, getTodaysMatchesReq } from "../apis/calls"
 import useShowBottomSheet from "../hooks/useShowBottomSheet"
 import useUserData from "../hooks/useUserData"
@@ -100,13 +100,31 @@ const MainFunction = ({setHeight, isNewUser}) => {
             ...x
         }, false)
 
+        const firstPopUpClosed=()=>{
+
+
+            setTimeout(() => {
+                bottomSheet(true, {
+                    message: `Beginner's Luck 👍 Congratulations 🎉 on earning your first ${upruns ?? 400} UPruns. It’s only UPrunning from here!`,
+                    onlyOneBtn: true,
+                    acceptText: 'Got it',
+                    acceptAction: ()=>bottomSheet(false)
+                })
+            }, 100);
+        }
+
         if(isNewUser){
-            bottomSheet(true, {
-                message: `Beginner's Luck 👍 Congratulations 🎉 on earning your first ${upruns ?? 400} UPruns. It’s only UPrunning from here!`,
-                onlyOneBtn: true,
-                acceptText: 'Got it',
-                acceptAction: ()=>bottomSheet(false)
-            })
+            bottomSheet(
+                true,
+                {
+                    customChild: <NewUserPopUp onClose={
+                        ()=>bottomSheet(false)
+                    }/>,
+                    customConfig: 'gentle',
+                    callOnHide: true,
+                    onHide: firstPopUpClosed
+                }
+            )
         }
     }
 
@@ -216,5 +234,23 @@ const MyRoaster = ({ data }) => {
             /></div> : null}
 
         {len < 5 ? <EmptyTeam len={len} /> : null}
+    </div>
+}
+
+const NewUserPopUp = (props) => {
+
+    return <div 
+    onClick={e=>e.stopPropagation()} 
+    style={{ padding: 'var(--baseVal3) var(--baseVal3) var(--baseVal3) var(--baseVal3)', marginTop: 'auto', marginBottom:'auto' }} className="whiteCard rp f fc">
+        <h4 style={{fontWeight: 'bold', color: 'var(--mainHighlight)', marginBottom: 'var(--baseVal)'}}>How to play?</h4>
+            <ul style={{paddingLeft: 'var(--baseVal4)'}}>
+                <li>It’s very simple. After logging in, you will land on the homepage. There are three sections on the bottom of the page – Play, Trade, Leaderboard. The ‘Play’ section lets you pick a team of five players everyday and locks in your selection until the match ends. - In the ‘Play’ section, you will find two tabs on the top. ‘Player Portfolio’ shows you the list of all the players you’ve bought. To start, tap on ‘Create Player Portfolio’ and buy your favourite players. ‘Today’s Match’ shows you the match fixtures for today and the 5 players you’ve selected from your Player Portfolio to play Today’s Match You can tap on the ‘Trade’ section to buy new players or sell the ones that are already part of your portfolio.</li>
+                <li>And the ‘Leaderboard’ section shows you where you are in the UPruns tally compared to other users on Upstox Cric Exchange. Motivation can be helpful, right!\n\nAt any instance of the game, you can click on the UPruns icon on the top to view your current UPruns and your transaction history of buying/selling players on the Upstox Cric Exchange.\n\nEasy enough, right?\nSo, go on and start playing!</li>
+            </ul>
+
+            <CloseBtn
+        onClick={props.onClose}
+        styles={{right: 'var(--baseVal3)'}}
+        />
     </div>
 }

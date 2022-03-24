@@ -8,6 +8,7 @@ const BottomSheet = forwardRef((_, ref) => {
     const [showSeet, setShowSheet] = useState(false);
 
     let [props, setProps] = useState({})
+    const callbackOnHide = useRef(null);
     const sheetRef = useRef();
     const nullFun=()=>{}
     const setSheet = (val, values) => {
@@ -21,8 +22,12 @@ const BottomSheet = forwardRef((_, ref) => {
                 customChild: values?.customChild,
                 disableActions: values?.disableActions ?? false,
                 customConfig: values?.customConfig,
-                onlyOneBtn: values.onlyOneBtn ?? false
+                onlyOneBtn: values?.onlyOneBtn ?? false,
             })
+            if(values?.callOnHide)
+                callbackOnHide.current = (values.onHide)
+            else 
+                callbackOnHide.current = nullFun
             setShowSheet(true)
         }
         else{
@@ -39,11 +44,16 @@ const BottomSheet = forwardRef((_, ref) => {
         showSheet: setSheet
     }));
 
+    const hide = ()=>{
+        callbackOnHide.current?.()
+        setShowSheet(false)
+    }
+
 
     if (!showSeet)
         return <></>
     else
-        return <MainFunction hide={()=>setShowSheet(false)} ref={sheetRef} {...props} />
+        return <MainFunction hide={hide} ref={sheetRef} {...props} />
 
 })
 
@@ -59,7 +69,7 @@ const MainFunction = forwardRef(({
     customChild,
     disableActions,
     customConfig,
-    onlyOneBtn
+    onlyOneBtn,
 }, ref) => {
 
     const [isActive, setIsActive] = useState(true);
