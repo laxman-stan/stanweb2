@@ -30,7 +30,7 @@ export default function EmptyTeam({len, createTeam, hideBtn=false}){
             marginTop: 'auto',
         }}
      src={Player}/>
-    <p style={{color: 'var(--mainHighlight50)', marginBottom: hideBtn? 'auto' : 0}}>You haven't bought any players yet.</p></>
+    <p style={{color: 'var(--mainHighlight50)', marginBottom: hideBtn? 'auto' : 0}}>You haven't bought any players yet</p></>
     }
     
 { hideBtn ? null :  <BouncyComp

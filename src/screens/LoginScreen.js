@@ -104,7 +104,7 @@ const MainFunction = ({location}) => {
             styles={{ marginTop: 'auto', marginLeft: 0, marginRight: 0 }}
             useDefaultBtnStyles
             showLoading={isLoading}
-            text={z?isLoading? `Logging in...`: "Verification failed" :`Login with Mobile No.`}
+            text={z?isLoading? `Logging in...`: "Verification failed" :`Login with Mobile Number`}
             onClick={
                 z? ()=>{} : ()=> navigate('/phone-no')
             }

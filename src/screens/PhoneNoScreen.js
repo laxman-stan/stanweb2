@@ -87,7 +87,7 @@ export default function PhoneNoScreen() {
             {browser === "ok" ? <InputField
 
                 preComp={<img style={{ height: '70%', transform: 'translateY(0px)' }} src={Call} />}
-                placeholder="9999999999"
+                placeholder="10-digit mobile number"
                 value={phoneNo}
                 maxLen={10}
                 type="number"
@@ -96,7 +96,7 @@ export default function PhoneNoScreen() {
                 :
                 <NormalInput
                     preComp={<img style={{ height: '70%', transform: 'translateY(0px)' }} src={Call} />}
-                    placeholder="9999999999"
+                    placeholder="10-digit mobile number"
                     value={phoneNo}
                     // maxLen={10}
                     type="number"

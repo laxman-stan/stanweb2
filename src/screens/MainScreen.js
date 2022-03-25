@@ -193,7 +193,7 @@ const TodaysMatch = ({ data }) => {
         return val+i
     }, 0);
     const currentTime = d.getHours()*60 + d.getMinutes();
-    const canEditTeam =  matchTime ? matchTime - currentTime > -10 : false
+    const canEditTeam =  matchTime ? matchTime - currentTime > 0 : false
 
     const navigate = useNavigate();
     const myTeam = myPlayers?.filter(i => i.isPlayingToday)

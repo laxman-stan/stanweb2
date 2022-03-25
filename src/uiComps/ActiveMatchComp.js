@@ -55,7 +55,7 @@ const {teamA, teamB, time} = data
 
     return <>      <div style={{ marginBottom: 'var(--baseVal2)' }} className="f ac jc">
         <img alt={{}} style={{ height: 16 }} src={ClockIcon} />
-        <p style={{ marginLeft: 'var(--baseVal2)', fontSize: '.83em' }}>{'Starts at ' + time}</p>
+        <p style={{ marginLeft: 'var(--baseVal2)', fontSize: '.83em' }}>{'Starts at ' + time+ " IST"}</p>
     </div>
         <MatchLine
             teams={[teamA, teamB]}
@@ -76,9 +76,9 @@ const MatchLine = ({
     let name2 = teams[1].name
     return <div className="f sb ac">
         <img alt={name1} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name1 + ".webp" )} />
-        <h4 style={{ width: '4.5em', marginRight: 'auto', marginLeft: 'var(--baseVal3)' }}>{name1}</h4>
+        <h4 style={{ width: '4.5em', marginRight: 'auto', marginLeft: 'var(--baseVal)' }}>{name1}</h4>
         <VS />
-        <h4 style={{ width: '4.5em', marginLeft: 'auto', marginRight: 'var(--baseVal3)', textAlign: 'end' }}>{name2}</h4>
+        <h4 style={{ width: '4.5em', marginLeft: 'auto', marginRight: 'var(--baseVal)', textAlign: 'end' }}>{name2}</h4>
         <img alt={name2} style={{ width: 40, height: 40 }} src={require("../assets/teamLogos/" +name2 + ".webp" )} />
 
     </div>

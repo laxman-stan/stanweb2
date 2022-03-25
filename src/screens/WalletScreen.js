@@ -184,7 +184,7 @@ const RewardComp = ({ data }) => {
         <div className="f sb ac">
 
             <BouncyComp
-                text='See details'
+                text='More details'
                 // onClick={showMsg}
                 onClick={viewDetails}
                 styles={{

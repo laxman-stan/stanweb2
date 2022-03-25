@@ -78,7 +78,7 @@ const MainFun=({location, navigate})=>{
 
             {browser === 'ok' ? <InputField
 
-                preComp={<img style={{ height: '70%', transform: 'translateY(0px)' }} src={userIcon} />}
+                preComp={<img style={{ height: '60%', transform: 'translateY(0px)' }} src={userIcon} />}
                 placeholder="Your name"
                 value={name}
                 maxLength={25}
@@ -87,7 +87,7 @@ const MainFun=({location, navigate})=>{
             />
                 :
                 <NormalInput
-                    preComp={<img style={{ height: '70%', transform: 'translateY(0px)' }} src={userIcon} />}
+                    preComp={<img style={{ height: '60%', transform: 'translateY(0px)' }} src={userIcon} />}
                     placeholder="Your name"
                     value={name}
                     maxLength={21}

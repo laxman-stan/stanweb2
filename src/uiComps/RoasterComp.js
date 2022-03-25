@@ -95,12 +95,14 @@ export default function RoasterComp({
             </h5>)}
 
         <div className="upruns rp">
-            <h5><span style={{color: 'var(--mainHighlight)'}}>{upruns}</span><br/>
-            <RenderChange change={change}/>
-            </h5>
-            <img className="ap" style={{top: 2, right: 2}}
+            <h5 className="ac">
+            <img style={{marginRight: 3 }}
             src={Coin}
             />
+            <span style={{color: 'var(--mainHighlight)'}}>{upruns}</span><br/>
+            <RenderChange change={change}/>
+            </h5>
+
         </div>
         </div>
 
