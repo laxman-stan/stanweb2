@@ -44,8 +44,8 @@ export default function Lineup(props) {
         <div className="f sb">
 
 
-            <div style={styles.column} className="f fc">
-                {teamA.players.map((item, index) => <p style={{
+            {(teamA.players && teamB.players)?<> <div style={styles.column} className="f fc">
+                {teamA.players?.map((item, index) => <p style={{
                     width: '100%', textOverflow: 'ellipsis', overflow: "hidden"
                 }} key={index}>{item}</p>)}
             </div>
@@ -59,12 +59,12 @@ export default function Lineup(props) {
             />
 
             <div style={{ ...styles.column }} className="f fc">
-                {teamB.players.map((item, index) => <p
-               style={{
+                {teamB.players?.map((item, index) => <p
+            style={{
                     width: '100%', textOverflow: 'ellipsis', overflow: "hidden"
                 }}
                  key={index}>{item}</p>)}
-            </div>
+            </div></> : <div style={{padding: 'var(--baseVal2)', textAlign: 'center', width: '100%'}}>Lineup not updated.</div>}
 
         </div>
 
