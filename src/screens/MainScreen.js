@@ -36,6 +36,7 @@ const MainFunction = ({setHeight, isNewUser}) => {
     const notification = useShowNotification();
     const userData = useUserData();
     const bottomSheet = useShowBottomSheet(); 
+    const navigate = useNavigate();
 
     const apiFailed=(err)=>{
         notification(err?.message ?? 'Something went wrong.')
@@ -130,7 +131,12 @@ const MainFunction = ({setHeight, isNewUser}) => {
 
     const playerDataSus = (allPlayerApiRes, todaysMatch) => {
         if(userData.userData.userFromLogin===null)
-        myPlayersRequest(null, result => myPlayerRequestSuccess(result, allPlayerApiRes, todaysMatch), apiFailed)
+        myPlayersRequest(null, result => myPlayerRequestSuccess(result, allPlayerApiRes, todaysMatch), ()=>{
+            notification("Authentication failed. Please login again.")
+            localStorage.removeItem("authToken")
+            localStorage.removeItem("savingTime")
+            navigate('/')
+        })
         else
         myPlayerRequestSuccess(userData.userData.userFromLogin, allPlayerApiRes, todaysMatch)
     }
