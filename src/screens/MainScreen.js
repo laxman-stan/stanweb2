@@ -251,33 +251,17 @@ const NewUserPopUp = (props) => {
         <h4 style={{fontWeight: 'bold', color: 'var(--mainHighlight)', marginBottom: 'var(--baseVal)'}}>How to play?</h4>
         <div style={{overflowY: 'scroll'}} className="f fc">
 
-<p style={{marginBottom: 'var(--baseVal)'}}>Welcome to Upstox Cric Exchange! Once you login and reach the homescreen, you find three main sections on the bottom – Play, Trade, Leaderboard. Along with this, there are two supporting tabs on the top - UPruns Wallet and Help (?)</p>
-<h4 style={h4S}>Play</h4>
+{/* <p style={{marginBottom: 'var(--baseVal)'}}>Welcome to Upstox Cric Exchange! Once you login and reach the homescreen, you find three main sections on the bottom – Play, Trade, Leaderboard. Along with this, there are two supporting tabs on the top - UPruns Wallet and Help (?)</p> */}
+
         <ul style={{paddingLeft: 'var(--baseVal5)'}}>
-                <li>The Play Section allows you to track IPL matches, create your daily teams and review their performance everyday.</li>
-                <li>‘Today’s Match’ shows you the matches being played today and your selected team for today’s match. Before you can ‘Create Your Team’, you first need to ‘Create your Portfolio’.</li>
-                <li>To start, tap on ‘Create Player Portfolio’ and buy your favourite players. ‘Player Portfolio’ shows you a list of all the players you’ve bought and retained till date.</li>
-                <li>Once you buy and add a minimum of 5 players to your portfolio, you can start Creating Your Team.</li>
-                <li>You can add a maximum of 5 players everyday from your Portfolio to your Team. Once the matches commence, the selected 5 get locked as your team for the day and start earning you UPruns.</li>
+                <li style={{marginBottom: 'var(--baseVal)'}}>Visit the <b>Play</b> tab to add players to your 'Player Portfolio' and create your 'Team'. Buy/sell players from the <b>Trade</b> tab.</li>
+                <li style={{marginBottom: 'var(--baseVal)'}}>Track your performance from the <b>Leaderboard</b> tab.</li>
+                <li style={{marginBottom: 'var(--baseVal)'}}>View and redeem UPruns from your <b>'UPruns Wallet'</b>.</li>
+                <li>Got queries? Tap the '?' icon on the top right of the screen to visit the <b>Help Section</b>.</li>
             </ul>
 
-            <h4 style={h4S}>Trade</h4>
-        <ul style={{paddingLeft: 'var(--baseVal5)'}}>
-                <li>‘Trade’ section allows you to buy new players and add them to your portfolio or sell the ones that are already a part of your Portfolio – These trades help you earn more UPruns.</li>
-                <li>You can only Trade (Buy/Sell) players who are not locked in the day’s playing team. Once the day’s matches end, these players get unlocked again for trading.</li>
-        </ul>  
 
-        <h4 style={h4S}>LEADERBOARD</h4>
-        <ul style={{paddingLeft: 'var(--baseVal5)'}}>
-                <li>This section shows you where you are in the UPruns tally compared to other users. Motivation can be helpful, right?</li>
-        </ul>
-
-        <h4 style={h4S}>UPruns WALLET</h4>
-        <ul style={{paddingLeft: 'var(--baseVal5)'}}>
-                <li>Click on the UPruns icon on the top to view your Starting UPruns, Earned UPruns and transaction history of buying/selling players on the Upstox Cric Exchange.</li>
-        </ul> 
-
-        <p style={{marginTop: 'var(--baseVal)'}}>For Any other Queries/FAQs, check out the <b>Help Section (?) on Top Left of the Home Screen.</b><br/>Easy enough, right? So, go on and start playing!</p>         
+        <p style={{marginTop: 'var(--baseVal)'}}>Easy enough, right? So, go on and start playing!</p>         
         </div>
 
             <CloseBtn
