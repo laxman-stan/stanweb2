@@ -51,7 +51,7 @@ const RenderTeamList = ({team}) => {
 
 const RenderP=({item})=>{
 
-    let ci = Number(item.start_index_rating) ?? 0, si = Number(item.start_index_rating) ?? 0;
+    let ci = isNaN(!Number(item.start_index_rating)) || 0, si = isNaN(!Number(item.start_index_rating)) || 0;
     const price = ci - si > 0 ? 50*(ci - si) : 0;
     return <p>{price}</p>
 }
