@@ -34,7 +34,7 @@ const WID = '100%'
     return (
         <div style={{...ourterContStyle, borderColor: isFocused? 'white' : 'transparent'}} className="f ac inputOuterCont bn">
         {preComp && preComp}
-        <div className="f rp">
+        <div style={{width: WID}} className="f rp">
 
             <div className="f ap animInputCont" style={{ top: 0, width: WID }}>
                 <div ref={animInputRef} style={{ overflowX: 'scroll' }} className="f noScrollBar">
