@@ -218,8 +218,8 @@ const Buy = ({data, set, preData}) => {
         key={currentTeamIndex}
         operation={categories[activeCategory]}
         isIncreasingSort={isIncreasingSort} 
-        teamName={teams[currentTeamIndex].name} 
-        teamData={players[teams[currentTeamIndex].name]} />  
+        teamName={teams[currentTeamIndex]?.name} 
+        teamData={players[teams[currentTeamIndex]?.name]} />  
 
     </div>
 
