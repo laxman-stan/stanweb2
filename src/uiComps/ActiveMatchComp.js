@@ -39,7 +39,7 @@ const RenderTeamList = ({team}) => {
                 }}>{item.name}</p>
                 <div alt="upruns" style={{marginLeft: 'var(--baseVal2)', gap: 'var(--baseVal)'}} className="f">
                     <img src={Coin}/>
-                    <p>{item.price - item.buyPrice}</p>
+                    <RenderP item={item}/>
                     </div>
 
                 </div>)
@@ -47,6 +47,13 @@ const RenderTeamList = ({team}) => {
     </div>
 
 
+}
+
+const RenderP=({item})=>{
+
+    let ci = Number(item.start_index_rating) ?? 0, si = Number(item.start_index_rating) ?? 0;
+    const price = ci - si > 0 ? 50*(ci - si) : 0;
+    return <p>{price}</p>
 }
 
 
