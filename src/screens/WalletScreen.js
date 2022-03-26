@@ -150,11 +150,11 @@ const RewardComp = ({ data }) => {
 
     const showMsg = (isClaimed) => {
         const props = {
-            message: "Congratulations 🎉! You have successfully claimed your reward. You will receive an email within 7 days with the next steps for processing your reward.\nNOTE – You need a Demat account for successful processing of your reward. Create free Demat account on Upstox.",
-            acceptAction: () => window.open('https://upstox.com/open-demat-account/'),
-            declineText: "Later",
-            acceptText: "Create Now",
-            // onlyOneBtn: isClaimed,
+            message: "Congratulations 🎉! You have successfully claimed your reward. You will receive our communication within 7 days with the next steps for processing your reward.",
+            acceptAction: () => bottomSheet(false),
+            // declineText: "Later",
+            acceptText: "Got it",
+            onlyOneBtn: isClaimed,
         }
         setTimeout(() => {
             bottomSheet(true, props)

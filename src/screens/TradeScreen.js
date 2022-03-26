@@ -179,7 +179,7 @@ const Buy = ({data, set, preData}) => {
     }    
 
     return <div className="f fc fh cardCont">
-        {!true? <>
+        { teams.length ?  <>
             <div
             className="f fw sortCont">
             <div style={{ overflow: 'scroll', gap: '4px' }} className="f">
