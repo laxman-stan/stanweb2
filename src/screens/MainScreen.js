@@ -219,16 +219,22 @@ const TodaysMatch = ({ data }) => {
 
     const navigate = useNavigate();
     const myTeam = myPlayers?.filter(i => i.isPlayingToday)
-
+    // console.log('ehe', canEditTeam)
     return <div style={{ paddingTop: 0 }} className="f fc fh cardCont">
         <div className="f fc" style={{ gap: 'var(--baseVal3)', paddingTop: 'var(--baseVal2)'}}>
         {
             teamCreated ? null : <>
-                {todaysMatch?.map((i, j) => <MatchComp index={j} key={j} data={i}/>)}
+                {todaysMatch?.map((i, j) => <MatchComp isMatchStarted={todaysMatch.length===1 ? !canEditTeam :
+                 todaysMatch[j]?.time?.split(":").reduce((val, i, j)=>{
+        i = parseInt(i)
+        if(j===0) i *=60
+        return val+i
+    }, 0) < currentTime}
+                 index={j} key={j} data={i}/>)}
             </>
         }
 </div>
-     {teamCreated? <ActiveMatchComp team={myTeam}/> : <EmptyTeam len={myPlayers.length || 1} createTeam/>}
+     {teamCreated? <ActiveMatchComp team={myTeam}/> : myPlayers.length<5 ? <EmptyTeam len={myPlayers.length || 1} createTeam/> : !canEditTeam ? <p style={{paddingLeft: 'var(--baseVal3)', paddingRight: 'var(--baseVal3)', color: 'var(--mainHighlight50)', marginTop: 'auto', marginBottom: 'var(--baseVal3)', textAlign: 'center', width: '100%'}}>You can't create today's team because the match has already started</p>  : <EmptyTeam len={myPlayers.length || 1} createTeam/>}
      {teamCreated?  canEditTeam? <BouncyComp
      onClick={()=>navigate('/main/create-team', {state: {edit: true}})}
     // onClick={()=>navigate(len>4 && createTeam ? '/main/create-team' : '/main/trade', {state: 'toBuy'})}

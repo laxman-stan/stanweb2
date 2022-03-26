@@ -16,9 +16,9 @@ export default function WalletScreen() {
 
 const DATA = {
     howToRedeem: [
-        "UPruns collected during the gameplay help unlock rewards on the platform. Based on your performance, you can level up in the game, and when a new level unlocks, a new reward can be claimed. You can claim these rewards as you keep adding more Upruns.",
-        "When you cross a new milestone in total UPruns, new rewards keep getting unlocked for claiming. Select the reward you want to claim and all you have to do is click on the ‘Claim’ button.",
-        "If you are an existing Upstox user, the claim request is processed once you press the button and a confirmation email is sent to your given email address within the next 7 working days. The rest of the process to claim the reward would be explained in the email.",
+        "UPruns collected during the gameplay help unlock rewards on the platform. Based on your performance, you can level up in the game, and when a new level unlocks, a new reward can be claimed.",
+        "Once a reward gets unlocked, all you have to do is click on the ‘Claim’ button.",
+        "Once you press the button, you will receive further communication from us  within the next 7 working days. The rest of the process to claim the reward would be explained in this communication.",
     ],
     tnC: [
         "Every person who signs up and accesses this gaming app agrees to abide by the terms, rules, and regulations set by Upstox, RKSV Securities India Pvt. Ltd. If you have any questions, please contact us.",

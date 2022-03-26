@@ -5,7 +5,7 @@ import useShowBottomSheet from "../hooks/useShowBottomSheet";
 import { useEffect } from "react";
 
 
-export default function MatchComp({data, index}) {
+export default function MatchComp({data, index, isMatchStarted}) {
     const {teamA, teamB, time} = data;
     const bottomSheet = useShowBottomSheet();
     const hideSheet=()=>{
@@ -52,7 +52,7 @@ const showLineUp=()=>{
 
         <div className="f ac sb">
             <img style={{height: 16}} src={ClockIcon}/>
-            <p style={{marginLeft: 'var(--baseVal2)', marginRight: 'auto', fontSize: '.83em'}}>{"Starts at "+time }</p>
+            <p style={{marginLeft: 'var(--baseVal2)', marginRight: 'auto', fontSize: '.83em'}}>{(isMatchStarted ? "Started at " : "Starts at ")+time }</p>
             <BouncyComp
             onClick={showLineUp}
             text='View lineup'
