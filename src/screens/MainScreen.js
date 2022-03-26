@@ -44,16 +44,31 @@ const MainFunction = ({setHeight, isNewUser}) => {
     
     const myPlayerRequestSuccess = (myData, allPlayersData, todaysMatch) => {
         let todaysMatchData = todaysMatch.map(i=>{
+            let teamAplayer = []
+            i.teama_players.map(p=>{
+                if(Array.isArray(p))
+                teamAplayer.push(...p)
+                else
+                teamAplayer.push(p)
+            })
+
+            let teamBplayer = []
+            i.teamb_players.map(p=>{
+                if(Array.isArray(p))
+                teamBplayer.push(...p)
+                else
+                teamBplayer.push(p)
+            })
             return {
                 time: i.time,
                 data: i.date,
                 teamA: {
                     name: teamNameCorrection(i.teama),
-                    players: i.teama_players
+                    players: teamAplayer
                 },
                 teamB: {
                     name: teamNameCorrection(i.teamb),
-                    players: i.teamb_players
+                    players: teamBplayer
                 }
             }
         })
@@ -128,6 +143,7 @@ const MainFunction = ({setHeight, isNewUser}) => {
             )
         }
     }
+    
 
     const playerDataSus = (allPlayerApiRes, todaysMatch) => {
         if(userData.userData.userFromLogin===null)
