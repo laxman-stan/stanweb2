@@ -46,7 +46,7 @@ export default function Lineup(props) {
 
             {(teamA.players && teamB.players)?<> <div style={styles.column} className="f fc">
                 {teamA.players?.map((item, index) => <p style={{
-                    width: '100%', textOverflow: 'ellipsis', overflow: "hidden"
+                    width: '100%', textOverflow: 'ellipsis', overflow: "hidden", flex: 'none'
                 }} key={index}>{item}</p>)}
             </div>
 
@@ -61,7 +61,7 @@ export default function Lineup(props) {
             <div style={{ ...styles.column }} className="f fc">
                 {teamB.players?.map((item, index) => <p
             style={{
-                    width: '100%', textOverflow: 'ellipsis', overflow: "hidden"
+                    width: '100%', textOverflow: 'ellipsis', overflow: "hidden", flex: 'none'
                 }}
                  key={index}>{item}</p>)}
             </div></> : <div style={{padding: 'var(--baseVal2)', textAlign: 'center', width: '100%'}}>Lineup not updated.</div>}
@@ -89,6 +89,7 @@ const styles = {
         width: 'calc( 50% - .5px )',
         paddingLeft: 'var(--baseVal4)',
         gap: 'var(--baseVal)',
-        padding: 'var(--baseVal4) var(--baseVal6)'
+        padding: 'var(--baseVal4) var(--baseVal6)',
+        maxHeight: '75vh', overflowY: 'scroll'
     }
 }

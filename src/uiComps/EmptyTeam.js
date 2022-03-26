@@ -3,7 +3,7 @@ import { Player } from "../assets"
 import BouncyComp from "./BouncyComp"
 import { useNavigate } from "react-router-dom";
 
-export default function EmptyTeam({len, createTeam, hideBtn=false}){
+export default function EmptyTeam({len, message, createTeam, hideBtn=false}){
     
     const navigate = useNavigate();
     return <div style={{
@@ -30,7 +30,7 @@ export default function EmptyTeam({len, createTeam, hideBtn=false}){
             marginTop: 'auto',
         }}
      src={Player}/>
-    <p style={{color: 'var(--mainHighlight50)', marginBottom: hideBtn? 'auto' : 0}}>You haven't bought any players yet</p></>
+    <p style={{color: 'var(--mainHighlight50)', marginBottom: hideBtn? 'auto' : 0}}>{message ?? "You haven't bought any players yet"}</p></>
     }
     
 { hideBtn ? null :  <BouncyComp

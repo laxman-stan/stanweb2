@@ -179,7 +179,8 @@ const Buy = ({data, set, preData}) => {
     }    
 
     return <div className="f fc fh cardCont">
-        <div
+        {!true? <>
+            <div
             className="f fw sortCont">
             <div style={{ overflow: 'scroll', gap: '4px' }} className="f">
                 {categories.map((item, index) =>
@@ -219,7 +220,8 @@ const Buy = ({data, set, preData}) => {
         operation={categories[activeCategory]}
         isIncreasingSort={isIncreasingSort} 
         teamName={teams[currentTeamIndex]?.name} 
-        teamData={players[teams[currentTeamIndex]?.name]} />  
+        teamData={players[teams[currentTeamIndex]?.name]} /> 
+        </>: <EmptyTeam message="Players not found, Please try again after some time" hideBtn/>} 
 
     </div>
 
