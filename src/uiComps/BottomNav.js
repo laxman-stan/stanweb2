@@ -20,7 +20,7 @@ export default function BottomNav() {
             source: TradeIcon, name: 'Trade', path: '/main/trade'
         },
         {
-            source: RankIcon, name: 'Leaderboad', path: '/main/rank'
+            source: RankIcon, name: 'Leaderboard', path: '/main/rank'
         },
     ]
     const ref=useRef();
