@@ -19,7 +19,6 @@ const DATA = {
         "UPruns collected during the gameplay help unlock rewards on the platform. Based on your performance, you can level up in the game, and when a new level unlocks, a new reward can be claimed. You can claim these rewards as you keep adding more Upruns.",
         "When you cross a new milestone in total UPruns, new rewards keep getting unlocked for claiming. Select the reward you want to claim and all you have to do is click on the ‘Claim’ button.",
         "If you are an existing Upstox user, the claim request is processed once you press the button and a confirmation email is sent to your given email address within the next 7 working days. The rest of the process to claim the reward would be explained in the email.",
-        "If you do not have an Upstox account, you will need to create an account to redeem the reward. And then the request would be processed as mentioned above."
     ],
     tnC: [
         "Every person who signs up and accesses this gaming app agrees to abide by the terms, rules, and regulations set by Upstox, RKSV Securities India Pvt. Ltd. If you have any questions, please contact us.",
@@ -63,7 +62,7 @@ export const Wallet = () => {
 
     return <div style={{ overflowY: 'scroll' }} className="f fh fc">
 
-        <div className="f walletCard whiteCard sb">
+        <div style={{paddingLeft: 'var(--baseVal)'}} className="f walletCard whiteCard sb">
             <h5 style={{ fontWeight: 'normal' }}>Total Balance
                 <br />
                 <p style={{ fontSize: '1.5em', fontWeight: 'bold' }}>{upruns?.toLocaleString('en-IN')}</p>
