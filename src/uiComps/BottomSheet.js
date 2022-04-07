@@ -23,6 +23,7 @@ const BottomSheet = forwardRef((_, ref) => {
                 disableActions: values?.disableActions ?? false,
                 customConfig: values?.customConfig,
                 onlyOneBtn: values?.onlyOneBtn ?? false,
+                preventHiding: values?.preventHiding ?? false,
             })
             if(values?.callOnHide)
                 callbackOnHide.current = (values.onHide)
@@ -70,6 +71,7 @@ const MainFunction = forwardRef(({
     disableActions,
     customConfig,
     onlyOneBtn,
+    preventHiding
 }, ref) => {
 
     const [isActive, setIsActive] = useState(true);
@@ -145,7 +147,10 @@ const MainFunction = forwardRef(({
         </div>
         </a.div>
 :
-        <a.div onClick={declineFun} style={{...sheet, top: window.innerHeight}} ref={contentContRef} className="ap f fw fh fc">
+        <a.div onClick={()=>{
+            if(!preventHiding)
+                declineFun()
+        }} style={{...sheet, top: window.innerHeight}} ref={contentContRef} className="ap f fw fh fc">
             {customChild}
             </a.div>}
     </div>

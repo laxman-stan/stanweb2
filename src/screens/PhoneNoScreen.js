@@ -117,10 +117,10 @@ export default function PhoneNoScreen() {
 }
 
 export const NormalInput = ({
-    preComp, placeholder, value, type, onChange,
+    preComp, placeholder, value, type, onChange, ourterContStyle, customStyles
 }) => {
 
-    return <div style={{ marginTop: 20 }} className='rp'>
+    return <div style={{ marginTop: 20, ...ourterContStyle }} className='rp'>
         {
             preComp ? <div style={{
                 top: 11, left: 11,
@@ -129,8 +129,8 @@ export const NormalInput = ({
             </div> : null
         }
         <input
-            className=' normalText animInputCont sinput'
-            style={style}
+            className={`normalText animInputCont sinput`}
+            style={{...style , ...customStyles}}
             type={type}
             placeholder={placeholder}
             value={value}

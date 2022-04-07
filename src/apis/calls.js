@@ -114,15 +114,16 @@ function getHeader() {
 
 
 export function auth(params, callbackSuccess, callbackFailure) {
-    let x = parseInt(Math.random()*1000 + 1000).toString();
-    ////console.log('uid', x);
+
     apiRequest(
         'POST',
-        endPoints.baseUrl + endPoints.auth,
+        endPoints.baseUrl + endPoints.auth + "?code=%28fdJIMPFD%2A%25MM%28DM%28%29e09-5m-N%21%40_%29mFDMSFD%3C%3FAS%3EWCA%295",
         endPoints.header,
         callbackSuccess,
         {
-            "code": x
+            // "code": "(fdJIMPFD*%MM(DM()e09-5m-N!@_)mFDMSFD<?AS>WCA)5",
+            "name": "string",
+            "uprun_gains": 5000
           },
         callbackFailure,
         false

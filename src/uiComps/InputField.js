@@ -10,7 +10,9 @@ export default function InputField({
     onChange,
     type,
     preComp,
-    maxLength
+    maxLength,
+    inputClassName,
+    textClassName
 }) {
 const PLACE_HOLDER_TEXT = placeholder
 const WID = '100%'
@@ -38,7 +40,7 @@ const WID = '100%'
 
             <div className="f ap animInputCont" style={{ top: 0, width: WID }}>
                 <div ref={animInputRef} style={{ overflowX: 'scroll' }} className="f noScrollBar">
-                    {value?.split('').map((value, index) => <AnimText key={index} item={value} />)}
+                    {value?.split('').map((value, index) => <AnimText textClassName={textClassName} key={index} item={value} />)}
                 </div>
             </div>
 
@@ -47,7 +49,7 @@ const WID = '100%'
                 ref={inputRef}
                 onFocus={()=>setIsFocused(true)}
                 onBlur={()=>setIsFocused(false)}
-                className="normalText customInput"
+                className={`normalText customInput + ${inputClassName}`}
                 value={value}
                 maxLength={maxLength}
                 style={{ zIndex: 3 , width: WID}}
@@ -59,7 +61,7 @@ const WID = '100%'
     )
 }
 
-const AnimText = ({ item }) => {
+const AnimText = ({ item, textClassName }) => {
 
     const animStyle =  useSpring({
         config: { mass: 1, tension: 180, friction: 12 },
@@ -67,6 +69,6 @@ const AnimText = ({ item }) => {
     }) 
 
     return (
-        <a.pre className="normalText" style={{...animStyle}}>{item}</a.pre>
+        <a.pre className={`normalText ${textClassName}`} style={{...animStyle}}>{item}</a.pre>
     )
 }

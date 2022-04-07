@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { colors } from "../constants/colors"
-import { BouncyComp, Bar, CloseBtn, Loader } from "../uiComps"
+import { BouncyComp, Bar, CloseBtn, Loader, InputField } from "../uiComps"
 import { ShowBottomBavContext } from "../App"
 import { Outlet, useNavigate } from "react-router-dom"
 import { redeemRewardReq, rewardReq } from "../apis/calls"
@@ -8,6 +8,7 @@ import { Coin } from "../assets"
 import useShowBottomSheet from "../hooks/useShowBottomSheet"
 import useShowNotification from "../hooks/useShowNotification"
 import useUserData from "../hooks/useUserData"
+import { detectBrowser, NormalInput } from './PhoneNoScreen'
 
 export default function WalletScreen() {
 
@@ -24,11 +25,12 @@ const DATA = {
         "Every person who signs up and accesses this gaming app agrees to abide by the terms, rules, and regulations set by Upstox, RKSV Securities India Pvt. Ltd. If you have any questions, please contact us.",
         "UCE reserves the right to review, update, change or replace any part of these Terms of Use or other terms of the agreement as it may consider appropriate at its sole and absolute discretion.",
         "Every user’s continued usage of the platform before or/and after the update, change, modification, or replacement in the agreement accounts for their valid consent to the terms.",
+        "UCE offers only a free match ticket as a reward. The reward does not include travel or any other offering. Every person who claims a match ticket will be asked to collect their ticket in advance from a communicated location in the city where the match is scheduled."
     ]
 }
 
 export const Wallet = () => {
-    const {upruns, gain} = useUserData().userData;
+    const { upruns, gain } = useUserData().userData;
     const navigate = useNavigate();
     const notification = useShowNotification();
 
@@ -42,6 +44,9 @@ export const Wallet = () => {
                 i.isClaimed = !x
             }
             i.canBuy = gain > i.price
+            let expiryTime = new Date(i.expiredDate).getTime();
+            i.isExpired = i.expiredDate && (new Date().getTime() > expiryTime)
+            console.log(i.isExpired, i.expiredDate)
             return i
         })
 
@@ -62,7 +67,7 @@ export const Wallet = () => {
 
     return <div style={{ overflowY: 'scroll' }} className="f fh fc">
 
-        <div style={{paddingLeft: 'var(--baseVal)'}} className="f walletCard whiteCard sb">
+        <div style={{ paddingLeft: 'var(--baseVal)' }} className="f walletCard whiteCard sb">
             <h5 style={{ fontWeight: 'normal' }}>Total Balance
                 <br />
                 <p style={{ fontSize: '1.5em', fontWeight: 'bold' }}>{upruns?.toLocaleString('en-IN')}</p>
@@ -94,47 +99,65 @@ export const Wallet = () => {
 const RewardComp = ({ data }) => {
     const bottomSheet = useShowBottomSheet();
     const notification = useShowNotification();
-    const { price, title, id, desc, isClaimed: isItemClaimed, canBuy, image } = data
+    const { price, title, id, desc, isClaimed: isItemClaimed, canBuy, image, isExpired } = data
     const count = data.availableCount + "/" + data.maxCount
     const [isClaimed, setIsClaimed] = useState(isItemClaimed)
-    const userData = useUserData();
-    const apiCalled = (isRedeemed, res) => {
 
-        bottomSheet(false);
-        //console.log(res.reward_claimed, 'll')
-        notification(isRedeemed ?
-            res?.reward_claimed ? "Claimed successfully" : "Reward not claimed."
-            : res?.toString() ?? 'Something went wrong')
+    // const apiCalled = (isRedeemed, res) => {
 
-        if (isRedeemed) {
-            showMsg(res.reward_claimed);
+    //     bottomSheet(false);
+    //     //console.log(res.reward_claimed, 'll')
+    //     notification(isRedeemed ?
+    //         res?.reward_claimed ? "Claimed successfully" : "Reward not claimed."
+    //         : res?.toString() ?? 'Something went wrong')
+
+    //     if (isRedeemed) {
+    //         showMsg(res.reward_claimed);
+    //         if (res?.reward_claimed) {
+    //             setIsClaimed(true)
+    //             // let x = userData.userData;
+    //             // x.upruns -= price
+    //             // x.gain -= price
+    //             // userData.setData({...x})
+    //         }
+    //     }
+    // }
+
+    const redeemed=res=>{
+        showMsg(res.reward_claimed);
             if (res?.reward_claimed) {
                 setIsClaimed(true)
-                // let x = userData.userData;
-                // x.upruns -= price
-                // x.gain -= price
-                // userData.setData({...x})
             }
-        }
+        bottomSheet(false)
+    }
+
+    const formSheet = {
+        customChild: <BottomSheetForm close={()=>bottomSheet(false)} redeemed={redeemed} id={id} />,
+        customConfig: "gentle",
+        // disableActions: true,
+        preventHiding: true,
     }
 
     const clickFun = () => {
-        if (isClaimed)
+
+        
+        if(isExpired)
+            notification('Reward expired')
+        else if (isClaimed)
             notification('Already claimed')
+        else if(!data.availableCount)
+            notification('Not available')
         else if (!canBuy)
             notification("You haven't earned enough UPruns yet!")
 
         else {
-            const props = {
-                message: `Are you sure to claim ${title}?`,
-                acceptAction: () => redeemRewardReq(
-                    { "rewardId": id },
-                    (res) => apiCalled(true, res),
-                    (res) => apiCalled(false, res)
-                ),
-                disableActions: true
-            }
-            bottomSheet(true, props);
+            bottomSheet(true, formSheet)
+            // const props = {
+            //     message: `Are you sure to claim ${title}?`,
+            //     acceptAction: () => ,
+            //     disableActions: true
+            // }
+            // bottomSheet(true, props);
         }
 
     }
@@ -203,7 +226,7 @@ const RewardComp = ({ data }) => {
             <BouncyComp
                 onClick={clickFun}
                 bounceLevel={.8}
-                styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed || !canBuy ? .6 : 1 }}
+                styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed || !canBuy ||isExpired ? .6 : 1 }}
                 text={isClaimed ? 'Claimed' : 'Claim'}
                 customClasses="highlightedSmallBtn"
             />
@@ -213,7 +236,8 @@ const RewardComp = ({ data }) => {
 }
 
 const RewardInfo = (props) => {
-    const { price, title, id, desc, data, image } = props.details;
+    
+    const { price, title, id, desc, data, image, expiredDate } = props.details;
     const listData = data ?? DATA
 
     return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
@@ -239,7 +263,7 @@ const RewardInfo = (props) => {
 
             <div className="sb f">
                 <div className="f">
-                    Valid till: {'\u00A0'}<span>Tata IPL 2022</span>
+                    Valid till: {'\u00A0'}<span>{expiredDate ?? "Tata IPL 2022"}</span>
                 </div>
                 <div className="f">
                     Avail for: {'\u00A0'}<img src={Coin} style={{ width: 16 }} /> <span>{'\u00A0' + price}</span>
@@ -288,6 +312,132 @@ const rewardInfoCard = {
     transform: 'translateY(30%)',
     paddingLeft: 'var(--baseVal4)',
     paddingRight: 'var(--baseVal4)',
+}
+
+const BottomSheetForm = ({ id, redeemed, close }) => {
+
+    const browser = detectBrowser();
+
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const notification = useShowNotification();
+
+    const setEmailFun = e => {
+        let t = e.target.value.replace(/ /g, '').toLowerCase();
+        setEmail(t)
+    }
+    const setPhoneFun = e => {
+        let x = e.target.value.replace(/[^0-9]/g, '')
+        if (!isNaN(x) && x.length < 11)
+            setPhone(x);
+    }
+
+    const apiCalled = (isRedeemed, res, close) => {
+        setIsLoading(false);
+
+        notification(isRedeemed ?
+            res?.reward_claimed ? "Claimed successfully" : "Reward not claimed."
+            : res?.toString() ?? 'Something went wrong')
+
+        if (isRedeemed) {
+            redeemed(res)
+        }
+    }
+
+    const submitAction=()=>{
+        redeemRewardReq(
+            { "rewardId": id,
+                "email": email,
+                "phone": "+91"+phone },
+            (res) => apiCalled(true, res),
+            (res) => apiCalled(false, res)
+        )
+    }
+
+    const verifyEmail = () => {
+        let t = /\S+@\S+\.\S+/
+        return t.test(email)
+    }
+
+    const submitForm = () => {
+        if (!verifyEmail())
+            return notification('Please enter a valid email')
+
+        if (phone.length < 10)
+            return notification('Please enter a valid phone number')
+
+        setIsLoading(true);
+        submitAction(email, phone)
+    }
+
+    const formSet = [
+        {
+            type: 'email',
+            placeholder: 'Your email id',
+            value: email,
+            onChange: setEmailFun,
+            title: 'Email ID',
+            preComp: null
+        },
+        {
+            type: 'number',
+            placeholder: '10-digit mobile number',
+            value: phone,
+            onChange: setPhoneFun,
+            title: 'Mobile number on WhatsApp',
+            preComp: <p style={{ color: 'var(--mainHighlight)', fontSize: 18 }}>+91</p>
+        },
+    ]
+
+    return <div onClick={e => e.stopPropagation()} style={{ marginTop: 'auto', marginLeft: 0, marginRight: 0, paddingBottom: '100px', transform: 'translateY(calc(100px - var(--baseVal3)))' }} className="f fc whiteCard">
+        <h4 style={{
+            marginLeft: 'var(--baseVal4)',
+            paddingBottom: 'var(--baseVal)',
+            marginRight: 'var(--baseVal6)', 
+            paddingRight: 'var(--baseVal3)'
+        }}>We will communicate with you on your claimed reward within the next 7 working days.</h4>
+        {
+            formSet.map(i => (<div key={i.title}>
+                <p className="lable" >{i.title}</p>
+                {
+                    browser !== 'ok' ? <InputField
+                        ourterContStyle={{ backgroundColor: "#41246E4d", marginBottom: 'var(--baseVal2)' }}
+                        type={i.type}
+                        placeholder={i.placeholder}
+                        value={i.value}
+                        onChange={i.onChange}
+                        inputClassName="blackPlacehoder"
+                        textClassName="primeText"
+                        preComp={i.preComp}
+                    /> : <NormalInput
+                        ourterContStyle={{ marginBottom: 'var(--baseVal2)', marginTop: 0 }}
+                        type={i.type}
+                        placeholder={i.placeholder}
+                        value={i.value}
+                        onChange={i.onChange}
+                        preComp={i.preComp}
+                        customStyles={{ color: 'var(--mainHighlight)', backgroundColor: '#41246E4d', paddingLeft: browser !== 'ok' ? 'var(--baseVal4)' : i.preComp ? 46 : 'var(--baseVal4)', borderRadius: 4 }}
+                    />
+                }
+            </div>
+            ))
+        }
+
+        <BouncyComp
+            onClick={submitForm}
+            text={'Submit'}
+            styles={{ marginBottom: '.5em', marginTop: 'var(--baseVal)', marginLeft: 0, marginRight: 0, width: 'calc( (100 * var(--vw) ) - var(--baseVal6))', flex: 'none' }}
+            customClasses='cta'
+            showLoading={isLoading}
+        />
+
+        <CloseBtn
+        onClick={close}
+        styles={{right: 'var(--baseVal3)'}}
+        />
+    </div>
 }
 
 const subHeading = {

@@ -2,8 +2,7 @@
 export const header = {'Content-Type': 'application/json',}
 export const baseUrl = "https://upstox.getstan.app/"
 
-
-export const auth = "dummy-auth";
+export const auth = "create-dummy-user";
 export const allPlayersEndpoint = 'all-players';
 export const myPlayers = 'my-roster';
 export const buyPlayer = 'buy-player';

@@ -150,6 +150,11 @@ h6{
   transition: all .4s;
 }
 
+.lable{
+  margin-left: var(--baseVal4);
+  margin-bottom: var(--baseVal);
+}
+
 .rosterCard * {
   transition: all .4s;
 }
@@ -276,7 +281,7 @@ a{
 }
 
 .nText{
-  color: var(--superWhite);
+  color: var(--mainHighlight);
   margin: 0;
   padding: 0;
   /* width: 85%; */
@@ -526,6 +531,16 @@ tbody:last-child td{
   color: var(--superWhite)
 }
 
+.blackPlacehoder{
+  caret-color: black;
+}
+.blackPlacehoder::placeholder{
+  color: var(--mainHighlight50) !important
+}
+.primeText{
+  color: var(--mainHighlight) !important
+}
+
 .loader-line {
   width: 100%;
   height: 3px;
@@ -667,6 +682,8 @@ input[type=number] {
 .upperNavLogo{
   height: 55%;
 }
+
+
 @media only screen and (max-width: 410px){
 .upperNavLogo{
   height: calc( 17vw - 36px );
