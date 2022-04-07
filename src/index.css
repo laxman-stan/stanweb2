@@ -611,7 +611,7 @@ tbody:last-child td{
   /* background-color: tan */
 }
 .a{
-  color: var(--mainHighlight30);
+  color: var(--mainHighlight75);
   width: calc(100% - 30px);
 }
 .qnaBar{
@@ -681,6 +681,12 @@ input[type=number] {
 }
 .upperNavLogo{
   height: 55%;
+}
+
+.vLink{
+  color: var(--mainHighlight) !important;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 
