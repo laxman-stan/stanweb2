@@ -281,7 +281,7 @@ a{
 }
 
 .nText{
-  color: var(--mainHighlight);
+  color: #fff;
   margin: 0;
   padding: 0;
   /* width: 85%; */
@@ -323,8 +323,8 @@ a{
 }
 
 .content{
-  background-color: var(--mainHighlight30);
-  color: var(--mainHighlight);
+  background-color: var(--mainHighlight);
+  opacity: .9;
   padding-top: var(--baseVal2);
   padding-bottom: var(--baseVal2);
   padding-left: var(--baseVal3);

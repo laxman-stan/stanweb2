@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { colors } from "../constants/colors"
 import { BouncyComp, Bar, CloseBtn, Loader, InputField } from "../uiComps"
 import { ShowBottomBavContext } from "../App"
@@ -33,6 +33,7 @@ export const Wallet = () => {
     const { upruns, gain } = useUserData().userData;
     const navigate = useNavigate();
     const notification = useShowNotification();
+    const rewardApiRes = useRef();
 
     const [rewards, setRewards] = useState([]);
     const setRewardsFun = (all, claimed) => {
@@ -46,7 +47,7 @@ export const Wallet = () => {
             i.canBuy = gain > i.price
             let expiryTime = new Date(i.expiredDate).getTime();
             i.isExpired = i.expiredDate && (new Date().getTime() > expiryTime)
-            console.log(i.isExpired, i.expiredDate)
+            // console.log(i.isExpired, i.expiredDate)
             return i
         })
 
@@ -59,16 +60,25 @@ export const Wallet = () => {
 
     useEffect(() => {
         rewardReq(
-            (res) => setRewardsFun(res.rewards, res.claimedRewards),
+            (res) => {
+                rewardApiRes.current = res;
+                setRewardsFun(res.rewards, res.claimedRewards)
+            },
             apiFailed
         )
     }, [])
+
+    useEffect(()=>{
+        if(rewardApiRes.current){
+            setRewardsFun(rewardApiRes.current.rewards, rewardApiRes.current.claimedRewards)
+        }
+    }, [gain])
 
 
     return <div style={{ overflowY: 'scroll' }} className="f fh fc">
 
         <div style={{ paddingLeft: 'var(--baseVal)' }} className="f walletCard whiteCard sb">
-            <h5 style={{ fontWeight: 'normal' }}>Total Balance
+            <h5 style={{ fontWeight: 'normal', marginLeft: 'var(--baseVal2)' }}>Total Balance
                 <br />
                 <p style={{ fontSize: '1.5em', fontWeight: 'bold' }}>{upruns?.toLocaleString('en-IN')}</p>
             </h5>
