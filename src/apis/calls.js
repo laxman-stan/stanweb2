@@ -122,7 +122,7 @@ export function auth(params, callbackSuccess, callbackFailure) {
         callbackSuccess,
         {
             // "code": "(fdJIMPFD*%MM(DM()e09-5m-N!@_)mFDMSFD<?AS>WCA)5",
-            "name": "string",
+            "name": "str",
             "uprun_gains": 5000
           },
         callbackFailure,

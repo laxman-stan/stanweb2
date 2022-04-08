@@ -34,23 +34,27 @@ export const Wallet = () => {
     const navigate = useNavigate();
     const notification = useShowNotification();
     const rewardApiRes = useRef();
+    
+    const [isDailyCalimed, setIsDailyClaimed] = useState(false);
 
     const [rewards, setRewards] = useState([]);
     const setRewardsFun = (all, claimed) => {
-
+        let isDailyRewardClaimed = false;
         let rewards = all
         rewards = rewards.map(i => {
             if (claimed.length) {
                 let x = !~claimed.findIndex(j => j.reward.id === i.id)
                 i.isClaimed = !x
+                if(!x && i.daily)
+                    isDailyRewardClaimed = true
             }
             i.canBuy = gain > i.price
             let expiryTime = new Date(i.expiredDate).getTime();
             i.isExpired = i.expiredDate && (new Date().getTime() > expiryTime)
-            // console.log(i.isExpired, i.expiredDate)
             return i
         })
-
+        if(isDailyRewardClaimed)
+            setIsDailyClaimed(true)
         setRewards(rewards)
     }
 
@@ -100,16 +104,16 @@ export const Wallet = () => {
 
         {
             rewards.length ? rewards.map((i, index) => <RewardComp
-                data={i} key={index}
+                data={i} key={index} setDaily={setIsDailyClaimed} isDailyRewardClaimed={isDailyCalimed}
             />) : <Loader />
         }
     </div>
 }
 
-const RewardComp = ({ data }) => {
+const RewardComp = ({ data, isDailyRewardClaimed, setDaily }) => {
     const bottomSheet = useShowBottomSheet();
     const notification = useShowNotification();
-    const { price, title, id, desc, isClaimed: isItemClaimed, canBuy, image, isExpired } = data
+    const { price, title, id, desc, isClaimed: isItemClaimed, canBuy, image, isExpired, daily } = data
     const count = data.availableCount + "/" + data.maxCount
     const [isClaimed, setIsClaimed] = useState(isItemClaimed)
 
@@ -137,6 +141,8 @@ const RewardComp = ({ data }) => {
         showMsg(res.reward_claimed);
             if (res?.reward_claimed) {
                 setIsClaimed(true)
+                if(daily)
+                    setDaily(true)
             }
         bottomSheet(false)
     }
@@ -155,6 +161,8 @@ const RewardComp = ({ data }) => {
             notification('Reward expired')
         else if (isClaimed)
             notification('Already claimed')
+        else if(isDailyRewardClaimed && daily)
+            notification('Only one daily reward can be claimed.')
         else if(!data.availableCount)
             notification('Not available')
         else if (!canBuy)
@@ -200,8 +208,9 @@ const RewardComp = ({ data }) => {
             <div style={{ marginRight: 'auto', marginLeft: 'var(--baseVal)' }}>
                 <h3 style={{ fontSize: '1em' }}>{title}</h3>
                 <p style={{ fontSize: '.8em' }}>{desc}
-                    <span style={{ marginLeft: 'var(--baseVal2)' }}>{"Available: " + count}</span>
+                    <span style={{ marginLeft: 'var(--baseVal2)' }}>{"Available: " + count }<span style={{color: 'var(--secondaryHighlight)'}}>{daily? "\u00A0\u00A0Daily reward" : ""}</span></span>
                 </p>
+                {/* {daily? <p style={{ fontSize: '.8em', marginTop: 'var(--baseVal)', marginBottom: 'var(--baseVal)'}}><span>Daily reward</span></p> : null} */}
             </div>
         </div>
 
@@ -236,7 +245,7 @@ const RewardComp = ({ data }) => {
             <BouncyComp
                 onClick={clickFun}
                 bounceLevel={.8}
-                styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed || !canBuy ||isExpired ? .6 : 1 }}
+                styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed || !canBuy ||isExpired ||(isDailyRewardClaimed && daily) ? .6 : 1 }}
                 text={isClaimed ? 'Claimed' : 'Claim'}
                 customClasses="highlightedSmallBtn"
             />
@@ -453,3 +462,5 @@ const BottomSheetForm = ({ id, redeemed, close }) => {
 const subHeading = {
     color: 'var(--mainHighlight30)'
 }
+
+// sin(con(tan(30))) = 

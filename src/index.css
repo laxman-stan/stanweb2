@@ -322,6 +322,11 @@ a{
   text-align: start;
 }
 
+.dailyT{
+  top: 0;
+  right: 0;
+}
+
 .content{
   background-color: var(--mainHighlight);
   opacity: .9;

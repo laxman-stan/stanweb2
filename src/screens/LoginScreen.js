@@ -110,7 +110,7 @@ const MainFunction = ({location}) => {
             }
         />
 
-        <BouncyComp
+        {/* <BouncyComp
             customClasses={"cta whiteBtn"}
             outlined
             // showLoading={z?true:false}
@@ -118,7 +118,7 @@ const MainFunction = ({location}) => {
             useDefaultBtnStyles
             text={"Login with Upstox"}
             onClick={loginFunction}
-        />
+        /> */}
 
     </div>
 }
