@@ -190,7 +190,7 @@ const RewardComp = ({ data, isDailyRewardClaimed, setDaily }) => {
 
     const showMsg = (isClaimed) => {
         const props = {
-            message: "Congratulations 🎉! You have successfully claimed your reward. You will receive our communication within 7 days with the next steps for processing your reward.",
+            message: "Congratulations 🎉 You have successfully claimed your reward. We will communicate about processing your claimed reward within the next 7 working days or at least 2 days before the match, whichever is earlier.",
             acceptAction: () => bottomSheet(false),
             // declineText: "Later",
             acceptText: "Got it",
@@ -424,12 +424,12 @@ const BottomSheetForm = ({ id, redeemed, close }) => {
             paddingBottom: 'var(--baseVal)',
             marginRight: 'var(--baseVal6)',
             paddingRight: 'var(--baseVal3)'
-        }}>We will communicate with you on your claimed reward within the next 7 working days.</h4>
+        }}>We will communicate about your claimed reward within the next 7 working days or at least 2 days before the match, whichever is earlier.</h4>
         {
             formSet.map(i => (<div key={i.title}>
                 <p className="lable" >{i.title}</p>
                 {
-                    browser !== 'ok' ? <InputField
+                    browser === 'ok' ? <InputField
                         ourterContStyle={{ backgroundColor: "#41246E4d", marginBottom: 'var(--baseVal2)' }}
                         type={i.type}
                         placeholder={i.placeholder}
