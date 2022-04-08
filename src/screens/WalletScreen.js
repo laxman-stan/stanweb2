@@ -34,7 +34,7 @@ export const Wallet = () => {
     const navigate = useNavigate();
     const notification = useShowNotification();
     const rewardApiRes = useRef();
-    
+
     const [isDailyCalimed, setIsDailyClaimed] = useState(false);
 
     const [rewards, setRewards] = useState([]);
@@ -45,7 +45,7 @@ export const Wallet = () => {
             if (claimed.length) {
                 let x = !~claimed.findIndex(j => j.reward.id === i.id)
                 i.isClaimed = !x
-                if(!x && i.daily)
+                if (!x && i.daily)
                     isDailyRewardClaimed = true
             }
             i.canBuy = gain > i.price
@@ -53,7 +53,7 @@ export const Wallet = () => {
             i.isExpired = i.expiredDate && (new Date().getTime() > expiryTime)
             return i
         })
-        if(isDailyRewardClaimed)
+        if (isDailyRewardClaimed)
             setIsDailyClaimed(true)
         setRewards(rewards)
     }
@@ -72,8 +72,8 @@ export const Wallet = () => {
         )
     }, [])
 
-    useEffect(()=>{
-        if(rewardApiRes.current){
+    useEffect(() => {
+        if (rewardApiRes.current) {
             setRewardsFun(rewardApiRes.current.rewards, rewardApiRes.current.claimedRewards)
         }
     }, [gain])
@@ -137,18 +137,18 @@ const RewardComp = ({ data, isDailyRewardClaimed, setDaily }) => {
     //     }
     // }
 
-    const redeemed=res=>{
+    const redeemed = res => {
         showMsg(res.reward_claimed);
-            if (res?.reward_claimed) {
-                setIsClaimed(true)
-                if(daily)
-                    setDaily(true)
-            }
+        if (res?.reward_claimed) {
+            setIsClaimed(true)
+            if (daily)
+                setDaily(true)
+        }
         bottomSheet(false)
     }
 
     const formSheet = {
-        customChild: <BottomSheetForm close={()=>bottomSheet(false)} redeemed={redeemed} id={id} />,
+        customChild: <BottomSheetForm close={() => bottomSheet(false)} redeemed={redeemed} id={id} />,
         customConfig: "gentle",
         // disableActions: true,
         preventHiding: true,
@@ -156,14 +156,14 @@ const RewardComp = ({ data, isDailyRewardClaimed, setDaily }) => {
 
     const clickFun = () => {
 
-        
-        if(isExpired)
+
+        if (isExpired)
             notification('Reward expired')
         else if (isClaimed)
             notification('Already claimed')
-        else if(isDailyRewardClaimed && daily)
+        else if (isDailyRewardClaimed && daily)
             notification('Only one daily reward can be claimed.')
-        else if(!data.availableCount)
+        else if (!data.availableCount)
             notification('Not available')
         else if (!canBuy)
             notification("You haven't earned enough UPruns yet!")
@@ -208,7 +208,7 @@ const RewardComp = ({ data, isDailyRewardClaimed, setDaily }) => {
             <div style={{ marginRight: 'auto', marginLeft: 'var(--baseVal)' }}>
                 <h3 style={{ fontSize: '1em' }}>{title}</h3>
                 <p style={{ fontSize: '.8em' }}>{desc}
-                    <span style={{ marginLeft: 'var(--baseVal2)' }}>{"Available: " + count }<span style={{color: 'var(--secondaryHighlight)'}}>{daily? "\u00A0\u00A0Daily reward" : ""}</span></span>
+                    <span style={{ marginLeft: 'var(--baseVal2)' }}>{"Available: " + count}<span style={{ color: 'var(--secondaryHighlight)' }}>{daily ? "\u00A0\u00A0Daily reward" : ""}</span></span>
                 </p>
                 {/* {daily? <p style={{ fontSize: '.8em', marginTop: 'var(--baseVal)', marginBottom: 'var(--baseVal)'}}><span>Daily reward</span></p> : null} */}
             </div>
@@ -245,7 +245,7 @@ const RewardComp = ({ data, isDailyRewardClaimed, setDaily }) => {
             <BouncyComp
                 onClick={clickFun}
                 bounceLevel={.8}
-                styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed || !canBuy ||isExpired ||(isDailyRewardClaimed && daily) ? .6 : 1 }}
+                styles={{ marginLeft: 'var(--baseVal3)', width: '4.6em', backgroundColor: 'var(--mainHighlight)', opacity: isClaimed || !canBuy || isExpired || (isDailyRewardClaimed && daily) ? .6 : 1 }}
                 text={isClaimed ? 'Claimed' : 'Claim'}
                 customClasses="highlightedSmallBtn"
             />
@@ -255,9 +255,15 @@ const RewardComp = ({ data, isDailyRewardClaimed, setDaily }) => {
 }
 
 const RewardInfo = (props) => {
-    
-    const { price, title, id, desc, data, image, expiredDate } = props.details;
+
+    const { price, title, id, desc, data, image, expiredDate: ed } = props.details;
     const listData = data ?? DATA
+    const modifyEd = ed => {
+        let cd = new Date(ed)
+        cd.setDate(cd.getDate() - 1)
+        return cd.toLocaleDateString()
+    }
+    const expiredDate = ed ? modifyEd(ed) : "Tata IPL 2022"
 
     return <div onClick={e => e.stopPropagation()} style={rewardInfoCard} className="f whiteCard">
         <div style={{ height: '100%', overflowY: 'scroll', paddingBottom: 'calc( 30% + 200px )' }} className="f fc">
@@ -282,7 +288,7 @@ const RewardInfo = (props) => {
 
             <div className="sb f">
                 <div className="f">
-                    Valid till: {'\u00A0'}<span>{expiredDate ?? "Tata IPL 2022"}</span>
+                    Valid till: {'\u00A0'}<span>{expiredDate}</span>
                 </div>
                 <div className="f">
                     Avail for: {'\u00A0'}<img src={Coin} style={{ width: 16 }} /> <span>{'\u00A0' + price}</span>
@@ -365,11 +371,13 @@ const BottomSheetForm = ({ id, redeemed, close }) => {
         }
     }
 
-    const submitAction=()=>{
+    const submitAction = () => {
         redeemRewardReq(
-            { "rewardId": id,
+            {
+                "rewardId": id,
                 "email": email,
-                "phone": "+91"+phone },
+                "phone": "+91" + phone
+            },
             (res) => apiCalled(true, res),
             (res) => apiCalled(false, res)
         )
@@ -414,7 +422,7 @@ const BottomSheetForm = ({ id, redeemed, close }) => {
         <h4 style={{
             marginLeft: 'var(--baseVal4)',
             paddingBottom: 'var(--baseVal)',
-            marginRight: 'var(--baseVal6)', 
+            marginRight: 'var(--baseVal6)',
             paddingRight: 'var(--baseVal3)'
         }}>We will communicate with you on your claimed reward within the next 7 working days.</h4>
         {
@@ -453,8 +461,8 @@ const BottomSheetForm = ({ id, redeemed, close }) => {
         />
 
         <CloseBtn
-        onClick={close}
-        styles={{right: 'var(--baseVal3)'}}
+            onClick={close}
+            styles={{ right: 'var(--baseVal3)' }}
         />
     </div>
 }
