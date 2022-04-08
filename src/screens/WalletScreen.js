@@ -208,9 +208,9 @@ const RewardComp = ({ data, isDailyRewardClaimed, setDaily }) => {
             <div style={{ marginRight: 'auto', marginLeft: 'var(--baseVal)' }}>
                 <h3 style={{ fontSize: '1em' }}>{title}</h3>
                 <p style={{ fontSize: '.8em' }}>{desc}
-                    <span style={{ marginLeft: 'var(--baseVal2)' }}>{"Available: " + count}<span style={{ color: 'var(--secondaryHighlight)' }}>{daily ? "\u00A0\u00A0Daily reward" : ""}</span></span>
+                    <span style={{ marginLeft: 'var(--baseVal2)' }}>{"Available: " + count}</span>
                 </p>
-                {/* {daily? <p style={{ fontSize: '.8em', marginTop: 'var(--baseVal)', marginBottom: 'var(--baseVal)'}}><span>Daily reward</span></p> : null} */}
+
             </div>
         </div>
 
