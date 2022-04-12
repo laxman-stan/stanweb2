@@ -53,6 +53,8 @@ export const Wallet = () => {
             i.isExpired = i.expiredDate && (new Date().getTime() > expiryTime)
             return i
         })
+        .filter(i=>!i.isExpired)
+
         if (isDailyRewardClaimed)
             setIsDailyClaimed(true)
         setRewards(rewards)
@@ -274,7 +276,7 @@ const RewardInfo = (props) => {
                     src={image}
                 />
                 <div style={{ marginLeft: 'var(--baseVal2)', textTransform: 'capitalize', }} className="f fc">
-                    <h3 style={{ fontWeight: 'bold', color: 'var(--mainHighlight)' }}>{title}</h3>
+                    <h3 style={{ fontWeight: 'bold', color: 'var(--mainHighlight)', marginRight: 'var(--baseVal6)' }}>{title}</h3>
                     <p style={subHeading}>{desc}</p>
                 </div>
             </div>
