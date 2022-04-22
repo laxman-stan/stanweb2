@@ -1,6 +1,7 @@
 
 export const header = {'Content-Type': 'application/json',}
-export const baseUrl = "https://upstox.getstan.app/"
+// export const baseUrl = "https://upstox.getstan.app/"
+export const baseUrl = "https://cricexchange-api.upstox.com/"
 
 export const auth = "create-dummy-user";
 export const allPlayersEndpoint = 'all-players';

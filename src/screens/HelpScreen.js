@@ -1,5 +1,6 @@
-import {a, config, Controller, useSpring} from '@react-spring/web';
+import {a, config, useSpring} from '@react-spring/web';
 import { useEffect, useRef, useState } from 'react';
+import { Bar } from '../uiComps';
 // import QR from '../assets/linkQR'
 
 const howToPlayDi = "<p>Once you login and reach the homescreen, you find three main sections on the bottom – Play, Trade, Leaderboard. Along with this, there are two supporting tabs on the top - UPruns Wallet and Help (?)</p><h4 class='h4s'>Play</h4><ul class='pb5'><li>The Play Section allows you to track IPL matches, create your daily teams and review their performance everyday.</li><li>‘Today’s Match’ shows you the matches being played today and your selected team for today’s match. Before you can ‘Create Your Team’, you first need to ‘Create your Portfolio’.</li><li>To start, tap on ‘Create Player Portfolio’ and buy your favourite players. ‘Player Portfolio’ shows you a list of all the players you’ve bought and retained till date.</li><li>Once you buy and add a minimum of 5 players to your portfolio, you can start Creating Your Team.</li><li>You can add a maximum of 5 players everyday from your Portfolio to your Team. Once the matches commence, the selected 5 get locked as your team for the day and start earning you UPruns.</li></ul><h4 class='h4s'>Trade</h4><ul class='pb5'><li>‘Trade’ section allows you to buy new players and add them to your portfolio or sell the ones that are already a part of your Portfolio – These trades help you earn more UPruns.</li><li>You can only Trade (Buy/Sell) players who are not locked in the day’s playing team. Once the day’s matches end, these players get unlocked again for trading.</li></ul>  <h4 class='h4s'>LEADERBOARD</h4><ul class='pb5'><li>This section shows you where you are in the UPruns tally compared to other users. Motivation can be helpful, right?</li></ul><h4 class='h4s'>UPruns WALLET</h4><ul class='pb5'><li>Click on the UPruns icon on the top to view your Starting UPruns, Earned UPruns and transaction history of buying/selling players on the Upstox Cric Exchange.</li></ul><p style='margin-top: var(--baseVal)'>Easy enough, right? So, go on and start playing!</p>"
@@ -110,22 +111,22 @@ const data={
     ]
 }
 
-export default function Help(){
+export default function Help({fromDL}){
 
     // const [dimension, set] = useState(null);
     // useEffect(()=>{
     //     set(document.querySelector('.app').offsetWidth - 24);
     // }, [])
 
-    return <div style={{overflowY: 'scroll'}} className="f fh fc qnaCont fw">
+    return <div style={{overflowY: 'scroll'}} className={`f fh fc qnaCont ${!fromDL && "fw"}`}>
     {/* {dimension? <iframe width={dimension} style={{marginLeft: 12, borderRadius: 8, boxShadow: '0px 0px 10px var(--grey2)'}} src="https://www.youtube.com/embed/tmhmdai14oE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> : null} */}
            {
-               data.qna.map((i, j)=><Accordion di={i.di} key={j} q={i.q} a={i.a} b={i.b}/>)
+               data.qna.map((i, j)=><Accordion isLastIndex={j===data.qna.length-1} fromDL di={i.di} key={j} q={i.q} a={i.a} b={i.b}/>)
            }
     </div>
 }
 
-const Accordion=({q, a, b, di})=>{
+const Accordion=({q, a, b, di, fromDL, isLastIndex})=>{
 
     const [isOpen , set] = useState(false);
     const ans = useRef();
@@ -145,13 +146,20 @@ const Accordion=({q, a, b, di})=>{
         ans.current.style.opacity = isOpen ? 0 : 1;
     }
 
-    return <div onClick={clickFun} className="whiteCard rosterCard fc f rp">
+    return <div onClick={clickFun} className={`whiteCard rosterCard fc f rp ${fromDL && "dlFAq"}`}>
         <AnimIcon isOpen={isOpen} />
         <h4 className='q'>{q}</h4>
         <div ref={cont} className='rosterCard' style={{overflow: 'visible', height: 0}}>
         {di? <p ref={ans} style={{opacity: 0, paddingTop: 'var(--baseVal)', whiteSpace: 'pre-line'}} className='a rosterCard di' dangerouslySetInnerHTML={di}/>
         : <p ref={ans} style={{opacity: 0, paddingTop: 'var(--baseVal)', whiteSpace: 'pre-line'}} className='a rosterCard'>{a}<span style={{fontWeight: "bold"}}>{b}</span></p>}
         </div>
+        {
+            fromDL && !isLastIndex ? <Bar height={1} otherStyles={{
+                marginTop: '1em',
+                marginBottom: '-.5em',
+                opacity: .3
+            }}/> : null
+        }
     </div>
 }
 

@@ -675,6 +675,49 @@ input[type=number] {
   animation: opacitychange 1s ease-in-out 0.66s infinite;
 }
 
+.dl{
+  width: 100vw;
+  min-width: 100vw;
+  background-color: white;
+  left: 0;
+  top: 0;
+  overflow-y: scroll;
+}
+
+.allPopUpBg{
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000a;
+  backdrop-filter: blur(20px);
+}
+.popUpCont{
+  background-color: #fff;
+  gap: 2em;
+  padding: 2em;
+  margin-top: 4em;
+  border-radius: 3.5em;
+}
+
+.qrBtn{
+  background-color: white;
+  gap: var(--baseVal3);
+  padding: var(--baseVal2) var(--baseVal3);
+  border-radius: var(--baseVal2);
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.qrBtn:hover{
+  background-color: #41246E20;
+}
+
+.dlFAq{
+  margin-left: 0;
+  margin-right: 0;
+  box-shadow: none;
+}
+
 @keyframes opacitychange{
   0%, 100%{
     opacity: 0;

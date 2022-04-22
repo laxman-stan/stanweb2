@@ -8,7 +8,7 @@ import WalletScreen from './screens/WalletScreen';
 import { PlayScreen } from './screens/MainScreen';
 import TradeScreen from './screens/TradeScreen';
 import { BottomSheet } from './uiComps';
-import { HistoryScreen, Wallet, CreateTeam, AppGuide, OtpScreen, PhoneNoScreen, HelpScreen, GetUserName, NoMatch } from './screens';
+import { HistoryScreen, Wallet, CreateTeam, AppGuide, OtpScreen, PhoneNoScreen, HelpScreen, GetUserName, NoMatch, DesktopScreen } from './screens';
 import {
   // BrowserRouter as Router,
   Routes,
@@ -93,6 +93,7 @@ const setHeight=()=>{
       <UpperNotification ref={notificationRef} />
       <Routes>
         <Route path="*" element={<NoMatch/>}/>
+        <Route path="/info" element={<DesktopScreen/>}/>
         <Route path="/" element={<LoginScreen/>}/>
         <Route path="/auth" element={<LoginScreen/>}/>
         <Route path="/phone-no" element={<PhoneNoScreen/>}/>
