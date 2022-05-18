@@ -4,7 +4,7 @@ export default function TableComp({data, myRank}) {
 
     const tablelDetails = {
         heads: ["Leaderboard", 'Name', 'UPruns Earned'],
-        widths: ['18%', '45%', '37%'],
+        widths: ['18%', '30%', '50%'],
     }
     return  <table style={{ borderCollapse: 'collapse', }} className="">
             <thead>

@@ -121,7 +121,7 @@ export default function Help({fromDL}){
     return <div style={{overflowY: 'scroll'}} className={`f fh fc qnaCont ${!fromDL && "fw"}`}>
     {/* {dimension? <iframe width={dimension} style={{marginLeft: 12, borderRadius: 8, boxShadow: '0px 0px 10px var(--grey2)'}} src="https://www.youtube.com/embed/tmhmdai14oE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> : null} */}
            {
-               data.qna.map((i, j)=><Accordion isLastIndex={j===data.qna.length-1} fromDL di={i.di} key={j} q={i.q} a={i.a} b={i.b}/>)
+               data.qna.map((i, j)=><Accordion isLastIndex={j===data.qna.length-1} fromDL={fromDL} di={i.di} key={j} q={i.q} a={i.a} b={i.b}/>)
            }
     </div>
 }
@@ -132,7 +132,6 @@ const Accordion=({q, a, b, di, fromDL, isLastIndex})=>{
     const ans = useRef();
     const cont = useRef();
     const height = useRef(0);
-
     useEffect(()=>{
         height.current = ans.current.offsetHeight;
         cont.current.style.overflow= 'hidden'

@@ -22,10 +22,10 @@ const DATA = {
         "Once you press the button, you will receive further communication from us  within the next 7 working days. The rest of the process to claim the reward would be explained in this communication.",
     ],
     tnC: [
-        "Every person who signs up and accesses this gaming app agrees to abide by the terms, rules, and regulations set by Upstox, RKSV Securities India Pvt. Ltd. If you have any questions, please contact us.",
-        "UCE reserves the right to review, update, change or replace any part of these Terms of Use or other terms of the agreement as it may consider appropriate at its sole and absolute discretion.",
+        "Every person who signs up and accesses this gaming app agrees to abide by the terms, rules and regulations set by Upstox, RKSV Securities India Pvt Ltd. If you have any questions, please contact us.",
+        "Cric Exchange reserves the right to review, update, change or replace any part of these Terms of Use or other terms of the agreement as it may consider appropriate at its sole and absolute discretion.",
         "Every user’s continued usage of the platform before or/and after the update, change, modification, or replacement in the agreement accounts for their valid consent to the terms.",
-        "UCE offers only a free match ticket as a reward. The reward does not include travel or any other offering. Every person who claims a match ticket will be asked to collect their ticket in advance from a communicated location in the city where the match is scheduled."
+        "Cric Exchange is purely offering these subscription as value pack rewards. Cric Exchange or/and Upstox, RKSV Securities India Pvt Ltd. would not be responsible for users’ actions, trades, interactions with or/and on these platforms."
     ]
 }
 
@@ -470,7 +470,8 @@ const BottomSheetForm = ({ id, redeemed, close }) => {
 }
 
 const subHeading = {
-    color: 'var(--mainHighlight30)'
+    color: 'var(--mainHighlight)',
+    whiteSpace: 'pre-line'
 }
 
 // sin(con(tan(30))) = 
