@@ -24,7 +24,7 @@ export default function UpperNav(){
         style={showBackButton ? {paddingLeft: 'var(--baseVal4)'} : {}}
      className="f ac fw nav bgg1 upperNav">
 
-        {showBackButton? 
+        {pathName.includes('history')? 
  <BouncyComp
  onClick={()=>history(-1)}
  styles={{height: '40%'}}
@@ -40,12 +40,14 @@ export default function UpperNav(){
         className="upperNavLogo"
         src={logo}
         alt="Upstox"
-        /> : <h3 style={{color: 'white'}}>{pathName.includes('history')? 'History' : 
+        /> 
+        : <h3 style={{color: 'white'}}>{pathName.includes('history')? 'History' : 
         pathName.includes('team') ? userData.teamCreated? 'Edit team' : 'Create Team' : 
-        pathName.includes('help')? "Help" : 'Wallet'}</h3>}
+        pathName.includes('help')? "Help" : 'Wallet'}</h3>
+        }
 
         <div style={{marginLeft: 'auto'}}/>
         <WalletWidget/>
-        <HelpWidget/>
+        {/* <HelpWidget/> */}
     </div>
 }

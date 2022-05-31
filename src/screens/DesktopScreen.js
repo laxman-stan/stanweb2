@@ -13,7 +13,7 @@ export default function DesktopScreen(){
     const [showQR, setShowQR] = useState(false);
     const navigate = useNavigate()
     useEffect(()=>{
-        if( (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) )
+        // if( (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) )
             navigate('/', {replace: true})
     }, [])
 

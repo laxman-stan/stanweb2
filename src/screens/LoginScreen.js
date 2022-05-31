@@ -15,9 +15,9 @@ export default function LoginScreen() {
     const location = useLocation();
     
     useEffect(() => {
-        if( !(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) )
-            navigate('/info', {replace: true})
-        else if (localStorage.getItem("authToken")){
+        // if( !(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) )
+        //     navigate('/info', {replace: true})
+        if (localStorage.getItem("authToken")){
             if(Date.now() - localStorage.getItem("savingTime") > 86400000){
             localStorage.removeItem("authToken")
             localStorage.removeItem("savingTime")
